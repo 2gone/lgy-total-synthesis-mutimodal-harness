@@ -9,3 +9,6 @@
 *.pdf binary
 *.png binary
 *.traineddata binary
+experiments/ocr_ablation/prompts/controller_prompt.md binary
+experiments/route_image_understanding/prompts/controller_prompt.md binary
+experiments/ocr_ablation/templates/human_scoring_template.csv binary

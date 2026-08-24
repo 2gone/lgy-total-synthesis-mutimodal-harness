@@ -1,12 +1,16 @@
 from __future__ import annotations
 
 import importlib
+import hashlib
 import json
+from pathlib import Path
+import subprocess
 
 import pytest
 
 
 ALPHA_SHA256 = "8ed3f6ad685b959ead7022518e1af76cd816f8e8ec7ccdda1ed4018e8f2223f8"
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 def _validation_module():
@@ -60,3 +64,24 @@ def test_manifest_builder_is_deterministic_and_excludes_git_metadata(tmp_path) -
         "algorithm": "sha256",
         "files": [{"path": "z.txt", "size_bytes": 5, "sha256": ALPHA_SHA256}],
     }
+
+
+def test_git_index_bytes_match_the_distributed_manifest() -> None:
+    """Catches checkout-time line-ending conversion that invalidates distributed hashes."""
+    if not (REPO_ROOT / ".git").exists():
+        pytest.skip("Git index is unavailable in a source archive")
+    manifest = json.loads((REPO_ROOT / "MANIFEST.sha256.json").read_text(encoding="utf-8"))
+    mismatches = []
+    for item in manifest["files"]:
+        completed = subprocess.run(
+            ["git", "show", f":{item['path']}"],
+            cwd=REPO_ROOT,
+            check=True,
+            stdout=subprocess.PIPE,
+        )
+        if len(completed.stdout) != item["size_bytes"] or hashlib.sha256(
+            completed.stdout
+        ).hexdigest() != item["sha256"]:
+            mismatches.append(item["path"])
+
+    assert mismatches == []

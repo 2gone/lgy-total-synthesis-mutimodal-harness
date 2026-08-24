@@ -8,8 +8,8 @@
     },
     {
       "path": ".gitattributes",
-      "size_bytes": 192,
-      "sha256": "77fc5ed60cc4b0718ebe58b56f9a01d2ec855f151d7b3b74e0784a5d109f8f59"
+      "size_bytes": 396,
+      "sha256": "b15e9540e82faebaeb3b38addb1ab5f716dcdddf57385d471e876100b43c1037"
     },
     {
       "path": ".github/CODEOWNERS",
@@ -563,8 +563,8 @@
     },
     {
       "path": "tests/test_validation.py",
-      "size_bytes": 2319,
-      "sha256": "2f257273b16684814ecf0beff6eacc244f16b13942ef94212d83d5c1600d1799"
+      "size_bytes": 3242,
+      "sha256": "1b7680d2c845eda0d750db91bf123967b4c0c3fec33d2a720a7755d85fe47937"
     },
     {
       "path": "tools/ocr/eng.traineddata",
