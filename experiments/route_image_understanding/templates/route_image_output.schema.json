@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Route image understanding output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "visual_units",
+    "molecular_entities",
+    "literal_visible_text",
+    "reaction_relations",
+    "assembled_routes",
+    "side_products_and_characterization",
+    "uncertainties"
+  ],
+  "properties": {
+    "visual_units": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source", "visual_id", "classification", "reason"],
+        "properties": {
+          "source": {"type": "string"},
+          "visual_id": {"type": "string"},
+          "classification": {
+            "enum": [
+              "MAIN_SYNTHESIS_ROUTE",
+              "RETROSYNTHESIS",
+              "MECHANISM",
+              "OPTIMIZATION",
+              "FAILED_OR_ALTERNATIVE_ROUTE",
+              "CHARACTERIZATION",
+              "OTHER"
+            ]
+          },
+          "reason": {"type": "string"}
+        }
+      }
+    },
+    "molecular_entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["entity_id", "paper_label", "source", "depiction_type", "duplicate_of", "confidence"],
+        "properties": {
+          "entity_id": {"type": "string"},
+          "paper_label": {"type": ["string", "null"]},
+          "source": {"type": "string"},
+          "depiction_type": {"enum": ["explicit_drawn", "label_only", "duplicate", "characterization"]},
+          "duplicate_of": {"type": ["string", "null"]},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+        }
+      }
+    },
+    "literal_visible_text": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source", "raw_text", "text_type", "reaction_relation", "confidence", "uncertainty"],
+        "properties": {
+          "source": {"type": "string"},
+          "raw_text": {"type": "string"},
+          "text_type": {
+            "enum": ["compound_label", "operation_label", "arrow_text", "condition", "yield_or_selectivity", "caption", "panel_label", "other"]
+          },
+          "reaction_relation": {"type": ["string", "null"]},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+          "uncertainty": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "reaction_relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["reaction_id", "source", "inputs", "outputs", "operation_labels", "arrow_text", "sequence_type", "confidence"],
+        "properties": {
+          "reaction_id": {"type": "string"},
+          "source": {"type": "string"},
+          "inputs": {"type": "array", "items": {"type": "string"}},
+          "outputs": {"type": "array", "items": {"type": "string"}},
+          "operation_labels": {"type": "array", "items": {"type": "string"}},
+          "arrow_text": {"type": "array", "items": {"type": "string"}},
+          "sequence_type": {"enum": ["single_step", "multi_operation_sequence"]},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+        }
+      }
+    },
+    "assembled_routes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "route_id",
+          "entry_entities",
+          "convergent_branches",
+          "branch_merging_reactions",
+          "ordered_reaction_ids",
+          "final_target",
+          "duplicated_entities",
+          "side_product_entities"
+        ],
+        "properties": {
+          "route_id": {"type": "string"},
+          "entry_entities": {"type": "array", "items": {"type": "string"}},
+          "convergent_branches": {
+            "type": "array",
+            "items": {"type": "array", "items": {"type": "string"}}
+          },
+          "branch_merging_reactions": {"type": "array", "items": {"type": "string"}},
+          "ordered_reaction_ids": {"type": "array", "items": {"type": "string"}},
+          "final_target": {"type": ["string", "null"]},
+          "duplicated_entities": {"type": "array", "items": {"type": "string"}},
+          "side_product_entities": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "side_products_and_characterization": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source", "entity_id", "category", "description"],
+        "properties": {
+          "source": {"type": "string"},
+          "entity_id": {"type": ["string", "null"]},
+          "category": {"enum": ["side_product", "characterization", "non_route_material"]},
+          "description": {"type": "string"}
+        }
+      }
+    },
+    "uncertainties": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "description", "source"],
+        "properties": {
+          "kind": {"type": "string"},
+          "description": {"type": "string"},
+          "source": {"type": ["string", "null"]}
+        }
+      }
+    }
+  }
+}

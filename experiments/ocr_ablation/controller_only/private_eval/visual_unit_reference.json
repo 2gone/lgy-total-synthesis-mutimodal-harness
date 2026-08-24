@@ -1,0 +1,150 @@
+{
+  "warning": "PRIVATE CONTROLLER REFERENCE. DO NOT PASS TO GEMINI BEFORE PREDICTIONS ARE SEALED.",
+  "papers": {
+    "ineleganolide": [
+      {
+        "page": 1,
+        "visual": "Figure 1A",
+        "class": "BACKGROUND"
+      },
+      {
+        "page": 1,
+        "visual": "Figure 1B",
+        "class": "RETROSYNTHESIS"
+      },
+      {
+        "page": 2,
+        "visual": "Scheme 1",
+        "class": "MAIN_SYNTHESIS_ROUTE"
+      },
+      {
+        "page": 3,
+        "visual": "Scheme 2",
+        "class": "MECHANISM"
+      }
+    ],
+    "hyperfirin": [
+      {
+        "page": 1,
+        "visual": "Figure 1",
+        "class": "BACKGROUND"
+      },
+      {
+        "page": 2,
+        "visual": "Scheme 1",
+        "class": "RETROSYNTHESIS"
+      },
+      {
+        "page": 2,
+        "visual": "Scheme 2",
+        "class": "MAIN_SYNTHESIS_ROUTE"
+      },
+      {
+        "page": 3,
+        "visual": "Table 1",
+        "class": "OPTIMIZATION"
+      },
+      {
+        "page": 3,
+        "visual": "Scheme 3",
+        "class": "MAIN_SYNTHESIS_ROUTE"
+      }
+    ],
+    "kalmanol": [
+      {
+        "page": 1,
+        "visual": "Figure 1",
+        "class": "BACKGROUND"
+      },
+      {
+        "page": 2,
+        "visual": "Scheme 1",
+        "class": "RETROSYNTHESIS"
+      },
+      {
+        "page": 2,
+        "visual": "Scheme 2",
+        "class": "MAIN_SYNTHESIS_ROUTE"
+      },
+      {
+        "page": 3,
+        "visual": "Scheme 3",
+        "class": "MAIN_SYNTHESIS_ROUTE"
+      }
+    ],
+    "principinol_B": [
+      {
+        "page": 1,
+        "visual": "Scheme 1",
+        "class": "RETROSYNTHESIS"
+      },
+      {
+        "page": 2,
+        "visual": "Scheme 2",
+        "class": "MAIN_SYNTHESIS_ROUTE"
+      },
+      {
+        "page": 3,
+        "visual": "Scheme 3",
+        "class": "MECHANISM"
+      },
+      {
+        "page": 4,
+        "visual": "Scheme 4",
+        "class": "FAILED_OR_ALTERNATIVE_ROUTE"
+      }
+    ],
+    "alchivemycin_A": [
+      {
+        "page": 2,
+        "visual": "Figure 1a-b",
+        "class": "BACKGROUND"
+      },
+      {
+        "page": 2,
+        "visual": "Figure 1c",
+        "class": "FAILED_OR_ALTERNATIVE_ROUTE"
+      },
+      {
+        "page": 2,
+        "visual": "Figure 1d",
+        "class": "BIOSYNTHESIS"
+      },
+      {
+        "page": 4,
+        "visual": "Figure 2",
+        "class": "RETROSYNTHESIS"
+      },
+      {
+        "page": 5,
+        "visual": "Figure 3a",
+        "class": "MAIN_SYNTHESIS_ROUTE"
+      },
+      {
+        "page": 5,
+        "visual": "Figure 3b",
+        "class": "CHARACTERIZATION"
+      },
+      {
+        "page": 6,
+        "visual": "Figure 4",
+        "class": "MAIN_SYNTHESIS_ROUTE"
+      },
+      {
+        "page": 7,
+        "visual": "Figure 5a",
+        "class": "OPTIMIZATION"
+      },
+      {
+        "page": 7,
+        "visual": "Figure 5b",
+        "class": "OPTIMIZATION"
+      },
+      {
+        "page": 7,
+        "visual": "Figure 5c",
+        "class": "MAIN_SYNTHESIS_ROUTE"
+      }
+    ]
+  }
+}

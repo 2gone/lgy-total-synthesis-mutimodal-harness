@@ -1,0 +1,86 @@
+{
+  "package_id": "gemini_ocr_three_experiment_pack_v1",
+  "purpose": "Three-condition evaluation of full-document Gemini multimodal/OCR capability for total-synthesis evidence extraction. OCSR is explicitly out of scope.",
+  "papers": [
+    {
+      "paper_id": "ineleganolide",
+      "title": "A Convergent Total Synthesis of (+)-Ineleganolide",
+      "pdf_path": "papers/ineleganolide.pdf",
+      "pdf_sha256": "3ddb93a0267dbce84dd083eb6a1c3ff063ef85f61d01681ff50d5b3de766d7b1",
+      "page_count": 5,
+      "hires_page_paths": [
+        "hires_pages/ineleganolide/page-1.png",
+        "hires_pages/ineleganolide/page-2.png",
+        "hires_pages/ineleganolide/page-3.png",
+        "hires_pages/ineleganolide/page-4.png",
+        "hires_pages/ineleganolide/page-5.png"
+      ],
+      "hires_render_dpi": 220
+    },
+    {
+      "paper_id": "alchivemycin_A",
+      "title": "Chemoenzymatic total synthesis of alchivemycin A",
+      "pdf_path": "papers/alchivemycin_A.pdf",
+      "pdf_sha256": "5ad8252e2ef59f608c7e4c47720b9ef4899e672b73d374d2e73fcb11d46a236f",
+      "page_count": 10,
+      "hires_page_paths": [
+        "hires_pages/alchivemycin_A/page-01.png",
+        "hires_pages/alchivemycin_A/page-02.png",
+        "hires_pages/alchivemycin_A/page-03.png",
+        "hires_pages/alchivemycin_A/page-04.png",
+        "hires_pages/alchivemycin_A/page-05.png",
+        "hires_pages/alchivemycin_A/page-06.png",
+        "hires_pages/alchivemycin_A/page-07.png",
+        "hires_pages/alchivemycin_A/page-08.png",
+        "hires_pages/alchivemycin_A/page-09.png",
+        "hires_pages/alchivemycin_A/page-10.png"
+      ],
+      "hires_render_dpi": 220
+    },
+    {
+      "paper_id": "hyperfirin",
+      "title": "The Total Synthesis of Hyperfirin via a Cyclooctadiene Strategy",
+      "pdf_path": "papers/hyperfirin.pdf",
+      "pdf_sha256": "98173d29f2fa21e540559562285ba382d25eb63f374985db47c88b0ebf433759",
+      "page_count": 5,
+      "hires_page_paths": [
+        "hires_pages/hyperfirin/page-1.png",
+        "hires_pages/hyperfirin/page-2.png",
+        "hires_pages/hyperfirin/page-3.png",
+        "hires_pages/hyperfirin/page-4.png",
+        "hires_pages/hyperfirin/page-5.png"
+      ],
+      "hires_render_dpi": 220
+    },
+    {
+      "paper_id": "kalmanol",
+      "title": "Total Synthesis of (+)-Kalmanol",
+      "pdf_path": "papers/kalmanol.pdf",
+      "pdf_sha256": "7297073433fd7008dd1a9611d566705ee322cf794cbf54d774077959263c8680",
+      "page_count": 5,
+      "hires_page_paths": [
+        "hires_pages/kalmanol/page-1.png",
+        "hires_pages/kalmanol/page-2.png",
+        "hires_pages/kalmanol/page-3.png",
+        "hires_pages/kalmanol/page-4.png",
+        "hires_pages/kalmanol/page-5.png"
+      ],
+      "hires_render_dpi": 220
+    },
+    {
+      "paper_id": "principinol_B",
+      "title": "Total Synthesis of Principinol B",
+      "pdf_path": "papers/principinol_B.pdf",
+      "pdf_sha256": "38b78065c24f052132ef2f0039f16e3a27633506e669f32640d668fc4f779fc1",
+      "page_count": 5,
+      "hires_page_paths": [
+        "hires_pages/principinol_B/page-1.png",
+        "hires_pages/principinol_B/page-2.png",
+        "hires_pages/principinol_B/page-3.png",
+        "hires_pages/principinol_B/page-4.png",
+        "hires_pages/principinol_B/page-5.png"
+      ],
+      "hires_render_dpi": 220
+    }
+  ]
+}

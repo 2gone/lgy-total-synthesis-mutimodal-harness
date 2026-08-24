@@ -1,0 +1,16 @@
+{
+  "paper_id": "kalmanol",
+  "page": 4,
+  "reason": "The supplied 220 dpi PNG was truncated. PIL verify() raised OSError: Truncated File Read and Tesseract/libpng raised Read Error.",
+  "source_pdf_path": "papers/kalmanol.pdf",
+  "source_pdf_sha256": "7297073433fd7008dd1a9611d566705ee322cf794cbf54d774077959263c8680",
+  "render_command": "pdftoppm -f 4 -l 4 -singlefile -r 220 -png papers/kalmanol.pdf page-4.rerendered",
+  "original_page_path": "results/input_repairs/kalmanol/page-4.original-truncated.png",
+  "original_page_sha256": "3c2d386c889c31cf30d41efcc3f44168c813299de232649a2adcd4a54a73ae70",
+  "replacement_page_path": "hires_pages/kalmanol/page-4.png",
+  "replacement_page_sha256": "a892469066c68d0b63df2bc8a95bd58c78bb169052c9c6371d22df89c9a67f0b",
+  "replacement_dimensions_px": [1819, 2573],
+  "replacement_dpi": 220,
+  "replacement_mode": "RGB",
+  "recoverable": true
+}

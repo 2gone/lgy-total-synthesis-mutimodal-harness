@@ -1,0 +1,1358 @@
+{
+  "pack_version": "1.0",
+  "purpose": "Image-focused total-synthesis route understanding experiments",
+  "conditions": {
+    "A_full_pdf_baseline": "Complete PDF only; baseline for full-document understanding.",
+    "B_raw_route_images": "Only the selected, tightly cropped performed total-synthesis route images for the paper.",
+    "C_tokenized_route_images": "The same route images, but every drawn molecular structure is removed and replaced by a stable visual molecule ID plus the visible paper label."
+  },
+  "token_semantics": "Mxx is a stable visual molecule entity. The value in parentheses is the visible paper compound label or name. Chemical structure information is intentionally unavailable in the tokenized condition.",
+  "papers": {
+    "ineleganolide": {
+      "pdf": "papers/ineleganolide.pdf",
+      "route_image_ids": [
+        "ineleganolide_scheme1"
+      ]
+    },
+    "alchivemycin_A": {
+      "pdf": "papers/alchivemycin_A.pdf",
+      "route_image_ids": [
+        "alchivemycin_fig3a",
+        "alchivemycin_fig4",
+        "alchivemycin_fig5c"
+      ]
+    },
+    "hyperfirin": {
+      "pdf": "papers/hyperfirin.pdf",
+      "route_image_ids": [
+        "hyperfirin_scheme2",
+        "hyperfirin_scheme3"
+      ]
+    },
+    "kalmanol": {
+      "pdf": "papers/kalmanol.pdf",
+      "route_image_ids": [
+        "kalmanol_scheme2",
+        "kalmanol_scheme3"
+      ]
+    },
+    "principinol_B": {
+      "pdf": "papers/principinol_B.pdf",
+      "route_image_ids": [
+        "principinol_scheme2"
+      ]
+    }
+  },
+  "routes": [
+    {
+      "paper_id": "ineleganolide",
+      "source_page": "page-2.png",
+      "page_number": 2,
+      "visual_unit": "Scheme 1",
+      "title": "(A) Synthesis of bicyclic enone 5 and (B) completed synthesis of (+)-ineleganolide 1",
+      "crop": [
+        85,
+        100,
+        1775,
+        1510
+      ],
+      "notes": [
+        "Both panels A and B are actual synthesis-route content. X-ray depictions are masked because they reveal molecular structure but are not separate route entities."
+      ],
+      "route_image_id": "ineleganolide_scheme1",
+      "raw_image": "route_images/raw/ineleganolide/ineleganolide_scheme1.png",
+      "tokenized_image": "route_images/tokenized/ineleganolide/ineleganolide_scheme1.png",
+      "entities": [
+        {
+          "visual_id": "M01",
+          "paper_label": "(R)-linalool",
+          "bbox_crop_px": [
+            55,
+            120,
+            285,
+            305
+          ]
+        },
+        {
+          "visual_id": "M02",
+          "paper_label": "7",
+          "bbox_crop_px": [
+            435,
+            95,
+            610,
+            325
+          ]
+        },
+        {
+          "visual_id": "M03",
+          "paper_label": "8",
+          "bbox_crop_px": [
+            770,
+            90,
+            965,
+            325
+          ]
+        },
+        {
+          "visual_id": "M04",
+          "paper_label": "9",
+          "bbox_crop_px": [
+            1260,
+            90,
+            1450,
+            325
+          ]
+        },
+        {
+          "visual_id": "M05",
+          "paper_label": "10",
+          "bbox_crop_px": [
+            1420,
+            280,
+            1620,
+            565
+          ]
+        },
+        {
+          "visual_id": "M06",
+          "paper_label": "11",
+          "bbox_crop_px": [
+            1010,
+            330,
+            1165,
+            555
+          ]
+        },
+        {
+          "visual_id": "M07",
+          "paper_label": "12",
+          "bbox_crop_px": [
+            725,
+            330,
+            855,
+            555
+          ]
+        },
+        {
+          "visual_id": "M08",
+          "paper_label": "5",
+          "bbox_crop_px": [
+            300,
+            330,
+            445,
+            555
+          ]
+        },
+        {
+          "visual_id": "M09",
+          "paper_label": "(S)-norcarvone",
+          "bbox_crop_px": [
+            55,
+            635,
+            225,
+            840
+          ]
+        },
+        {
+          "visual_id": "M10",
+          "paper_label": "6",
+          "bbox_crop_px": [
+            310,
+            635,
+            550,
+            850
+          ]
+        },
+        {
+          "visual_id": "M11",
+          "paper_label": "4",
+          "bbox_crop_px": [
+            725,
+            625,
+            1020,
+            860
+          ]
+        },
+        {
+          "visual_id": "M12",
+          "paper_label": "13",
+          "bbox_crop_px": [
+            1070,
+            615,
+            1340,
+            870
+          ]
+        },
+        {
+          "visual_id": "M13",
+          "paper_label": "14",
+          "bbox_crop_px": [
+            1340,
+            615,
+            1620,
+            870
+          ]
+        },
+        {
+          "visual_id": "M14",
+          "paper_label": "15",
+          "bbox_crop_px": [
+            1340,
+            900,
+            1620,
+            1130
+          ]
+        },
+        {
+          "visual_id": "M15",
+          "paper_label": "16",
+          "bbox_crop_px": [
+            560,
+            900,
+            820,
+            1130
+          ]
+        },
+        {
+          "visual_id": "M16",
+          "paper_label": "17",
+          "bbox_crop_px": [
+            95,
+            875,
+            365,
+            1135
+          ]
+        },
+        {
+          "visual_id": "M17",
+          "paper_label": "18",
+          "bbox_crop_px": [
+            560,
+            1140,
+            820,
+            1410
+          ]
+        },
+        {
+          "visual_id": "M18",
+          "paper_label": "19",
+          "bbox_crop_px": [
+            990,
+            1135,
+            1280,
+            1410
+          ]
+        },
+        {
+          "visual_id": "M19",
+          "paper_label": "1",
+          "bbox_crop_px": [
+            1330,
+            1135,
+            1620,
+            1410
+          ]
+        }
+      ],
+      "duplicate_depictions": [
+        {
+          "visual_id": "M14",
+          "paper_label": "15 / X-ray",
+          "bbox_crop_px": [
+            1000,
+            880,
+            1320,
+            1135
+          ]
+        },
+        {
+          "visual_id": "M16",
+          "paper_label": "17 / X-ray",
+          "bbox_crop_px": [
+            55,
+            1120,
+            390,
+            1395
+          ]
+        }
+      ],
+      "characterization_boxes": []
+    },
+    {
+      "paper_id": "alchivemycin_A",
+      "source_page": "page-05.png",
+      "page_number": 5,
+      "visual_unit": "Figure 3a",
+      "title": "Synthesis of the side-chain fragment 12",
+      "crop": [
+        70,
+        105,
+        1750,
+        955
+      ],
+      "notes": [
+        "Panel b is stereochemical characterization and is excluded from the route-image input."
+      ],
+      "route_image_id": "alchivemycin_fig3a",
+      "raw_image": "route_images/raw/alchivemycin_A/alchivemycin_fig3a.png",
+      "tokenized_image": "route_images/tokenized/alchivemycin_A/alchivemycin_fig3a.png",
+      "entities": [
+        {
+          "visual_id": "M01",
+          "paper_label": "13",
+          "bbox_crop_px": [
+            60,
+            35,
+            400,
+            250
+          ]
+        },
+        {
+          "visual_id": "M02",
+          "paper_label": "14",
+          "bbox_crop_px": [
+            550,
+            35,
+            930,
+            250
+          ]
+        },
+        {
+          "visual_id": "M03",
+          "paper_label": "15",
+          "bbox_crop_px": [
+            1210,
+            35,
+            1580,
+            250
+          ]
+        },
+        {
+          "visual_id": "M04",
+          "paper_label": "16",
+          "bbox_crop_px": [
+            1210,
+            345,
+            1580,
+            565
+          ]
+        },
+        {
+          "visual_id": "M05",
+          "paper_label": "17",
+          "bbox_crop_px": [
+            550,
+            345,
+            940,
+            565
+          ]
+        },
+        {
+          "visual_id": "M06",
+          "paper_label": "18",
+          "bbox_crop_px": [
+            55,
+            345,
+            415,
+            565
+          ]
+        },
+        {
+          "visual_id": "M07",
+          "paper_label": "19",
+          "bbox_crop_px": [
+            90,
+            575,
+            300,
+            805
+          ]
+        },
+        {
+          "visual_id": "M08",
+          "paper_label": "20 / epi-20",
+          "bbox_crop_px": [
+            550,
+            575,
+            960,
+            850
+          ]
+        },
+        {
+          "visual_id": "M09",
+          "paper_label": "12",
+          "bbox_crop_px": [
+            1190,
+            575,
+            1630,
+            850
+          ]
+        }
+      ],
+      "duplicate_depictions": [],
+      "characterization_boxes": []
+    },
+    {
+      "paper_id": "alchivemycin_A",
+      "source_page": "page-06.png",
+      "page_number": 6,
+      "visual_unit": "Figure 4",
+      "title": "Convergent synthesis of the tetramic acid-bearing unnatural enzymatic substrate 8",
+      "crop": [
+        70,
+        105,
+        1750,
+        1640
+      ],
+      "notes": [
+        "The displayed R=H (25) and R=CH2CO2Me (9) forms share one drawn scaffold and are represented by one visual entity."
+      ],
+      "route_image_id": "alchivemycin_fig4",
+      "raw_image": "route_images/raw/alchivemycin_A/alchivemycin_fig4.png",
+      "tokenized_image": "route_images/tokenized/alchivemycin_A/alchivemycin_fig4.png",
+      "entities": [
+        {
+          "visual_id": "M01",
+          "paper_label": "11",
+          "bbox_crop_px": [
+            45,
+            40,
+            390,
+            360
+          ]
+        },
+        {
+          "visual_id": "M02",
+          "paper_label": "12",
+          "bbox_crop_px": [
+            375,
+            55,
+            825,
+            365
+          ]
+        },
+        {
+          "visual_id": "M03",
+          "paper_label": "10",
+          "bbox_crop_px": [
+            1160,
+            0,
+            1675,
+            445
+          ]
+        },
+        {
+          "visual_id": "M04",
+          "paper_label": "22",
+          "bbox_crop_px": [
+            1160,
+            490,
+            1675,
+            980
+          ]
+        },
+        {
+          "visual_id": "M05",
+          "paper_label": "23",
+          "bbox_crop_px": [
+            530,
+            490,
+            1050,
+            980
+          ]
+        },
+        {
+          "visual_id": "M06",
+          "paper_label": "24",
+          "bbox_crop_px": [
+            20,
+            490,
+            470,
+            980
+          ]
+        },
+        {
+          "visual_id": "M07",
+          "paper_label": "25 / 9",
+          "bbox_crop_px": [
+            20,
+            1040,
+            470,
+            1535
+          ]
+        },
+        {
+          "visual_id": "M08",
+          "paper_label": "26",
+          "bbox_crop_px": [
+            530,
+            1040,
+            1050,
+            1535
+          ]
+        },
+        {
+          "visual_id": "M09",
+          "paper_label": "8",
+          "bbox_crop_px": [
+            1160,
+            1040,
+            1675,
+            1535
+          ]
+        }
+      ],
+      "duplicate_depictions": [],
+      "characterization_boxes": []
+    },
+    {
+      "paper_id": "alchivemycin_A",
+      "source_page": "page-07.png",
+      "page_number": 7,
+      "visual_unit": "Figure 5c",
+      "title": "Late-stage enzymatic synthesis of alchivemycin A under optimized conditions",
+      "crop": [
+        75,
+        1590,
+        1750,
+        2005
+      ],
+      "label_only_entities": [
+        {
+          "visual_id": "M01",
+          "paper_label": "8",
+          "reason": "The panel begins from compound 8 by label only; its structure is shown in Figure 4."
+        }
+      ],
+      "notes": [
+        "Only panel c is included. Panels a and b are screening/optimization rather than the final performed route."
+      ],
+      "route_image_id": "alchivemycin_fig5c",
+      "raw_image": "route_images/raw/alchivemycin_A/alchivemycin_fig5c.png",
+      "tokenized_image": "route_images/tokenized/alchivemycin_A/alchivemycin_fig5c.png",
+      "entities": [
+        {
+          "visual_id": "M02",
+          "paper_label": "28",
+          "bbox_crop_px": [
+            220,
+            0,
+            610,
+            415
+          ]
+        },
+        {
+          "visual_id": "M03",
+          "paper_label": "30",
+          "bbox_crop_px": [
+            680,
+            0,
+            1080,
+            415
+          ]
+        },
+        {
+          "visual_id": "M04",
+          "paper_label": "1",
+          "bbox_crop_px": [
+            1190,
+            0,
+            1650,
+            415
+          ]
+        }
+      ],
+      "duplicate_depictions": [],
+      "characterization_boxes": []
+    },
+    {
+      "paper_id": "hyperfirin",
+      "source_page": "page-2.png",
+      "page_number": 2,
+      "visual_unit": "Scheme 2",
+      "title": "Construction of the bicyclo[3.3.1]nonane core",
+      "crop": [
+        930,
+        150,
+        1780,
+        1510
+      ],
+      "notes": [
+        "The mechanistic inset below the dashed boundary is excluded by the crop. Side products and diastereomers explicitly shown in the performed chemistry are retained."
+      ],
+      "route_image_id": "hyperfirin_scheme2",
+      "raw_image": "route_images/raw/hyperfirin/hyperfirin_scheme2.png",
+      "tokenized_image": "route_images/tokenized/hyperfirin/hyperfirin_scheme2.png",
+      "entities": [
+        {
+          "visual_id": "M01",
+          "paper_label": "9a",
+          "bbox_crop_px": [
+            5,
+            50,
+            125,
+            235
+          ]
+        },
+        {
+          "visual_id": "M02",
+          "paper_label": "9b",
+          "bbox_crop_px": [
+            115,
+            50,
+            240,
+            235
+          ]
+        },
+        {
+          "visual_id": "M03",
+          "paper_label": "10a",
+          "bbox_crop_px": [
+            330,
+            50,
+            485,
+            240
+          ]
+        },
+        {
+          "visual_id": "M04",
+          "paper_label": "10b",
+          "bbox_crop_px": [
+            460,
+            50,
+            615,
+            240
+          ]
+        },
+        {
+          "visual_id": "M05",
+          "paper_label": "11a",
+          "bbox_crop_px": [
+            5,
+            215,
+            185,
+            405
+          ]
+        },
+        {
+          "visual_id": "M06",
+          "paper_label": "11b",
+          "bbox_crop_px": [
+            175,
+            215,
+            345,
+            405
+          ]
+        },
+        {
+          "visual_id": "M07",
+          "paper_label": "12a",
+          "bbox_crop_px": [
+            330,
+            195,
+            525,
+            420
+          ]
+        },
+        {
+          "visual_id": "M08",
+          "paper_label": "12b",
+          "bbox_crop_px": [
+            540,
+            195,
+            735,
+            420
+          ]
+        },
+        {
+          "visual_id": "M09",
+          "paper_label": "13",
+          "bbox_crop_px": [
+            235,
+            385,
+            440,
+            560
+          ]
+        },
+        {
+          "visual_id": "M10",
+          "paper_label": "14a",
+          "bbox_crop_px": [
+            0,
+            520,
+            205,
+            720
+          ]
+        },
+        {
+          "visual_id": "M11",
+          "paper_label": "14b",
+          "bbox_crop_px": [
+            225,
+            520,
+            455,
+            720
+          ]
+        },
+        {
+          "visual_id": "M12",
+          "paper_label": "15",
+          "bbox_crop_px": [
+            225,
+            685,
+            455,
+            930
+          ]
+        },
+        {
+          "visual_id": "M13",
+          "paper_label": "16",
+          "bbox_crop_px": [
+            140,
+            895,
+            390,
+            1130
+          ]
+        },
+        {
+          "visual_id": "M14",
+          "paper_label": "19",
+          "bbox_crop_px": [
+            540,
+            895,
+            790,
+            1130
+          ]
+        },
+        {
+          "visual_id": "M15",
+          "paper_label": "21",
+          "bbox_crop_px": [
+            140,
+            1065,
+            390,
+            1360
+          ]
+        },
+        {
+          "visual_id": "M16",
+          "paper_label": "22",
+          "bbox_crop_px": [
+            440,
+            1065,
+            690,
+            1360
+          ]
+        }
+      ],
+      "duplicate_depictions": [
+        {
+          "visual_id": "M12",
+          "paper_label": "15 / X-ray",
+          "bbox_crop_px": [
+            450,
+            660,
+            690,
+            945
+          ]
+        }
+      ],
+      "characterization_boxes": []
+    },
+    {
+      "paper_id": "hyperfirin",
+      "source_page": "page-3.png",
+      "page_number": 3,
+      "visual_unit": "Scheme 3",
+      "title": "Completion of Hyperfirin (1) total synthesis",
+      "crop": [
+        930,
+        285,
+        1780,
+        1390
+      ],
+      "label_only_entities": [
+        {
+          "visual_id": "EXT23",
+          "paper_label": "23",
+          "reason": "Input compound 23 is referenced by number from the preceding Scheme."
+        },
+        {
+          "visual_id": "EXT24",
+          "paper_label": "24",
+          "reason": "Compound 24 is reused by number in a later row."
+        }
+      ],
+      "notes": [
+        "Repeated depictions of compound 25 reuse the same visual entity ID M02."
+      ],
+      "route_image_id": "hyperfirin_scheme3",
+      "raw_image": "route_images/raw/hyperfirin/hyperfirin_scheme3.png",
+      "tokenized_image": "route_images/tokenized/hyperfirin/hyperfirin_scheme3.png",
+      "entities": [
+        {
+          "visual_id": "M01",
+          "paper_label": "24",
+          "bbox_crop_px": [
+            240,
+            50,
+            520,
+            280
+          ]
+        },
+        {
+          "visual_id": "M02",
+          "paper_label": "25",
+          "bbox_crop_px": [
+            270,
+            300,
+            540,
+            545
+          ]
+        },
+        {
+          "visual_id": "M03",
+          "paper_label": "26",
+          "bbox_crop_px": [
+            520,
+            300,
+            800,
+            550
+          ]
+        },
+        {
+          "visual_id": "M02",
+          "paper_label": "25",
+          "bbox_crop_px": [
+            270,
+            590,
+            540,
+            850
+          ]
+        },
+        {
+          "visual_id": "M04",
+          "paper_label": "27",
+          "bbox_crop_px": [
+            0,
+            790,
+            240,
+            1105
+          ]
+        },
+        {
+          "visual_id": "M05",
+          "paper_label": "1",
+          "bbox_crop_px": [
+            470,
+            790,
+            760,
+            1105
+          ]
+        }
+      ],
+      "duplicate_depictions": [],
+      "characterization_boxes": []
+    },
+    {
+      "paper_id": "kalmanol",
+      "source_page": "page-2.png",
+      "page_number": 2,
+      "visual_unit": "Scheme 2a",
+      "title": "Construction of the tetracyclic skeleton of kalmanol",
+      "crop": [
+        75,
+        1060,
+        1740,
+        1860
+      ],
+      "notes": [
+        "Optimization subpanels 2b and 2c are excluded from the route-image crop."
+      ],
+      "route_image_id": "kalmanol_scheme2",
+      "raw_image": "route_images/raw/kalmanol/kalmanol_scheme2.png",
+      "tokenized_image": "route_images/tokenized/kalmanol/kalmanol_scheme2.png",
+      "entities": [
+        {
+          "visual_id": "M01",
+          "paper_label": "6",
+          "bbox_crop_px": [
+            30,
+            110,
+            275,
+            380
+          ]
+        },
+        {
+          "visual_id": "M02",
+          "paper_label": "7",
+          "bbox_crop_px": [
+            620,
+            100,
+            920,
+            380
+          ]
+        },
+        {
+          "visual_id": "M03",
+          "paper_label": "5",
+          "bbox_crop_px": [
+            1050,
+            95,
+            1350,
+            380
+          ]
+        },
+        {
+          "visual_id": "M04",
+          "paper_label": "4",
+          "bbox_crop_px": [
+            25,
+            315,
+            325,
+            590
+          ]
+        },
+        {
+          "visual_id": "M05",
+          "paper_label": "8",
+          "bbox_crop_px": [
+            870,
+            315,
+            1195,
+            590
+          ]
+        },
+        {
+          "visual_id": "M06",
+          "paper_label": "9",
+          "bbox_crop_px": [
+            1260,
+            315,
+            1630,
+            590
+          ]
+        },
+        {
+          "visual_id": "M07",
+          "paper_label": "C5-epi-9",
+          "bbox_crop_px": [
+            150,
+            520,
+            550,
+            800
+          ]
+        },
+        {
+          "visual_id": "M08",
+          "paper_label": "10",
+          "bbox_crop_px": [
+            820,
+            520,
+            1200,
+            800
+          ]
+        },
+        {
+          "visual_id": "M09",
+          "paper_label": "3",
+          "bbox_crop_px": [
+            1240,
+            520,
+            1640,
+            800
+          ]
+        }
+      ],
+      "duplicate_depictions": [
+        {
+          "visual_id": "M04",
+          "paper_label": "4 / X-ray",
+          "bbox_crop_px": [
+            320,
+            305,
+            620,
+            600
+          ]
+        },
+        {
+          "visual_id": "M07",
+          "paper_label": "C5-epi-9 / X-ray",
+          "bbox_crop_px": [
+            500,
+            510,
+            840,
+            800
+          ]
+        }
+      ],
+      "characterization_boxes": []
+    },
+    {
+      "paper_id": "kalmanol",
+      "source_page": "page-3.png",
+      "page_number": 3,
+      "visual_unit": "Scheme 3a",
+      "title": "Total synthesis of kalmanol",
+      "crop": [
+        75,
+        770,
+        1740,
+        1810
+      ],
+      "notes": [
+        "Optimization subpanels 3b and 3c are excluded from the route-image crop."
+      ],
+      "route_image_id": "kalmanol_scheme3",
+      "raw_image": "route_images/raw/kalmanol/kalmanol_scheme3.png",
+      "tokenized_image": "route_images/tokenized/kalmanol/kalmanol_scheme3.png",
+      "entities": [
+        {
+          "visual_id": "M01",
+          "paper_label": "3",
+          "bbox_crop_px": [
+            25,
+            15,
+            350,
+            285
+          ]
+        },
+        {
+          "visual_id": "M02",
+          "paper_label": "11",
+          "bbox_crop_px": [
+            490,
+            15,
+            820,
+            285
+          ]
+        },
+        {
+          "visual_id": "M03",
+          "paper_label": "12",
+          "bbox_crop_px": [
+            1200,
+            15,
+            1570,
+            300
+          ]
+        },
+        {
+          "visual_id": "M04",
+          "paper_label": "13",
+          "bbox_crop_px": [
+            220,
+            240,
+            550,
+            520
+          ]
+        },
+        {
+          "visual_id": "M05",
+          "paper_label": "14",
+          "bbox_crop_px": [
+            1010,
+            240,
+            1320,
+            520
+          ]
+        },
+        {
+          "visual_id": "M06",
+          "paper_label": "15",
+          "bbox_crop_px": [
+            25,
+            450,
+            360,
+            780
+          ]
+        },
+        {
+          "visual_id": "M07",
+          "paper_label": "16",
+          "bbox_crop_px": [
+            490,
+            450,
+            820,
+            780
+          ]
+        },
+        {
+          "visual_id": "M08",
+          "paper_label": "17",
+          "bbox_crop_px": [
+            1000,
+            450,
+            1330,
+            780
+          ]
+        },
+        {
+          "visual_id": "M09",
+          "paper_label": "18",
+          "bbox_crop_px": [
+            20,
+            710,
+            360,
+            1040
+          ]
+        },
+        {
+          "visual_id": "M10",
+          "paper_label": "19",
+          "bbox_crop_px": [
+            420,
+            700,
+            760,
+            1040
+          ]
+        },
+        {
+          "visual_id": "M11",
+          "paper_label": "20",
+          "bbox_crop_px": [
+            790,
+            700,
+            1170,
+            1040
+          ]
+        },
+        {
+          "visual_id": "M12",
+          "paper_label": "1",
+          "bbox_crop_px": [
+            1190,
+            700,
+            1580,
+            1040
+          ]
+        }
+      ],
+      "duplicate_depictions": [
+        {
+          "visual_id": "M02",
+          "paper_label": "11 / X-ray",
+          "bbox_crop_px": [
+            800,
+            0,
+            1100,
+            300
+          ]
+        },
+        {
+          "visual_id": "M04",
+          "paper_label": "13 / X-ray",
+          "bbox_crop_px": [
+            520,
+            230,
+            850,
+            530
+          ]
+        }
+      ],
+      "characterization_boxes": []
+    },
+    {
+      "paper_id": "principinol_B",
+      "source_page": "page-2.png",
+      "page_number": 2,
+      "visual_unit": "Scheme 2",
+      "title": "Total synthesis of principinol B (1)",
+      "crop": [
+        75,
+        780,
+        1740,
+        2250
+      ],
+      "notes": [
+        "The ORTEP depiction of deTMS-4 is masked as characterization rather than assigned a route molecule ID."
+      ],
+      "route_image_id": "principinol_scheme2",
+      "raw_image": "route_images/raw/principinol_B/principinol_scheme2.png",
+      "tokenized_image": "route_images/tokenized/principinol_B/principinol_scheme2.png",
+      "entities": [
+        {
+          "visual_id": "M01",
+          "paper_label": "9",
+          "bbox_crop_px": [
+            30,
+            30,
+            270,
+            260
+          ]
+        },
+        {
+          "visual_id": "M02",
+          "paper_label": "10",
+          "bbox_crop_px": [
+            190,
+            180,
+            420,
+            370
+          ]
+        },
+        {
+          "visual_id": "M03",
+          "paper_label": "8",
+          "bbox_crop_px": [
+            470,
+            25,
+            740,
+            260
+          ]
+        },
+        {
+          "visual_id": "M04",
+          "paper_label": "11",
+          "bbox_crop_px": [
+            990,
+            25,
+            1250,
+            260
+          ]
+        },
+        {
+          "visual_id": "M05",
+          "paper_label": "7",
+          "bbox_crop_px": [
+            1410,
+            25,
+            1660,
+            270
+          ]
+        },
+        {
+          "visual_id": "M06",
+          "paper_label": "12",
+          "bbox_crop_px": [
+            1410,
+            330,
+            1650,
+            640
+          ]
+        },
+        {
+          "visual_id": "M07",
+          "paper_label": "13",
+          "bbox_crop_px": [
+            1150,
+            330,
+            1410,
+            640
+          ]
+        },
+        {
+          "visual_id": "M08",
+          "paper_label": "14",
+          "bbox_crop_px": [
+            830,
+            330,
+            1090,
+            640
+          ]
+        },
+        {
+          "visual_id": "M09",
+          "paper_label": "15",
+          "bbox_crop_px": [
+            390,
+            330,
+            650,
+            640
+          ]
+        },
+        {
+          "visual_id": "M10",
+          "paper_label": "6",
+          "bbox_crop_px": [
+            10,
+            320,
+            270,
+            640
+          ]
+        },
+        {
+          "visual_id": "M11",
+          "paper_label": "4",
+          "bbox_crop_px": [
+            10,
+            680,
+            340,
+            1040
+          ]
+        },
+        {
+          "visual_id": "M12",
+          "paper_label": "3",
+          "bbox_crop_px": [
+            430,
+            680,
+            770,
+            1040
+          ]
+        },
+        {
+          "visual_id": "M13",
+          "paper_label": "16",
+          "bbox_crop_px": [
+            840,
+            680,
+            1170,
+            1040
+          ]
+        },
+        {
+          "visual_id": "M14",
+          "paper_label": "17",
+          "bbox_crop_px": [
+            1330,
+            680,
+            1650,
+            1040
+          ]
+        },
+        {
+          "visual_id": "M15",
+          "paper_label": "1",
+          "bbox_crop_px": [
+            410,
+            1040,
+            760,
+            1460
+          ]
+        },
+        {
+          "visual_id": "M16",
+          "paper_label": "19",
+          "bbox_crop_px": [
+            830,
+            1040,
+            1170,
+            1460
+          ]
+        },
+        {
+          "visual_id": "M17",
+          "paper_label": "18",
+          "bbox_crop_px": [
+            1330,
+            1040,
+            1650,
+            1460
+          ]
+        }
+      ],
+      "duplicate_depictions": [],
+      "characterization_boxes": [
+        {
+          "label": "CHARACTERIZATION\n(deTMS-4 X-ray)",
+          "bbox": [
+            40,
+            1010,
+            390,
+            1460
+          ]
+        }
+      ]
+    }
+  ]
+}

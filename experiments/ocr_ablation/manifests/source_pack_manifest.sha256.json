@@ -1,0 +1,214 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "size_bytes": 826,
+      "sha256": "e220f7d8c4738389e99594a51ae5280592377a940e1571533b5c1f549eca3657"
+    },
+    {
+      "path": "docs/EXPERIMENT_PROTOCOL.md",
+      "size_bytes": 3107,
+      "sha256": "ae5b182d26f10dffd6079fb31183915c2d1a8b51b08abdc7cb0c8ee3f3b8962f"
+    },
+    {
+      "path": "experiment_manifest.json",
+      "size_bytes": 3322,
+      "sha256": "843cdba99badf7aa9b8b81d5772414caebeeb3d995943239c0036f6d9cbd448c"
+    },
+    {
+      "path": "hires_pages/alchivemycin_A/page-01.png",
+      "size_bytes": 665371,
+      "sha256": "a6c2edd7776ac2b61af2a2b615226cac3caf4dbd3609ff652527aa4d35d99c6c"
+    },
+    {
+      "path": "hires_pages/alchivemycin_A/page-02.png",
+      "size_bytes": 470516,
+      "sha256": "72a18b6fd952cda447396dfd330f82aa1b42aa437af3f8c6a4f519fa5f7af8df"
+    },
+    {
+      "path": "hires_pages/alchivemycin_A/page-03.png",
+      "size_bytes": 1336687,
+      "sha256": "5e31ca5b85a6b88e8b442e59306489c2527afca4148debcfd53d6b72df2f6c8a"
+    },
+    {
+      "path": "hires_pages/alchivemycin_A/page-04.png",
+      "size_bytes": 960454,
+      "sha256": "e2e62166af55c7409a753d016abe4f5c17795fb50a5299ef7840a836e1523ee9"
+    },
+    {
+      "path": "hires_pages/alchivemycin_A/page-05.png",
+      "size_bytes": 808209,
+      "sha256": "750e97ac901b0839cf7fe4821ee28b3ef7721706f952636887944fd34f0ab828"
+    },
+    {
+      "path": "hires_pages/alchivemycin_A/page-06.png",
+      "size_bytes": 598791,
+      "sha256": "776dadd1f2a23079aca1b3fd34e86b52eb2f87b991c4b383332b5fc340670310"
+    },
+    {
+      "path": "hires_pages/alchivemycin_A/page-07.png",
+      "size_bytes": 523056,
+      "sha256": "3eb390372b882b1aa7590a54fb381bf121e37ae1baa0efeadde8b6744ef88c19"
+    },
+    {
+      "path": "hires_pages/alchivemycin_A/page-08.png",
+      "size_bytes": 1186793,
+      "sha256": "f523fef9fef118af1bbdd459be097c78383023ff9e9d0deeb638c141a1fe6890"
+    },
+    {
+      "path": "hires_pages/alchivemycin_A/page-09.png",
+      "size_bytes": 1026433,
+      "sha256": "afe82adb247197680424d84039db11a92b110978a496b0ffcc95edd568e1f838"
+    },
+    {
+      "path": "hires_pages/alchivemycin_A/page-10.png",
+      "size_bytes": 559542,
+      "sha256": "92d8ad2589d1e2e4fdcd536dd01647870251d201db8f125edcd5e62fe0135e39"
+    },
+    {
+      "path": "hires_pages/hyperfirin/page-1.png",
+      "size_bytes": 868603,
+      "sha256": "2ebadf979dfa7d6dc72bdceded9aac1b22feffea97219f9bb5c8737f23cf3570"
+    },
+    {
+      "path": "hires_pages/hyperfirin/page-2.png",
+      "size_bytes": 832072,
+      "sha256": "de531d430e6e273afb587e4a1f3854e19256d932d33bcef37cf144b70b65843d"
+    },
+    {
+      "path": "hires_pages/hyperfirin/page-3.png",
+      "size_bytes": 870940,
+      "sha256": "0a8b6ac411d0dfcbec154be9a02aee928d5ecc3db96b680fe9d815c7ab557a64"
+    },
+    {
+      "path": "hires_pages/hyperfirin/page-4.png",
+      "size_bytes": 1299827,
+      "sha256": "b7baddb9df9311ea75961217dd6fbabac57d20793e0f99e882d09be37ac9a47b"
+    },
+    {
+      "path": "hires_pages/hyperfirin/page-5.png",
+      "size_bytes": 870728,
+      "sha256": "55e025826b55ff8c7a9e8093b6f5736a0a0282c7ad584885ee1145d423014372"
+    },
+    {
+      "path": "hires_pages/ineleganolide/page-1.png",
+      "size_bytes": 880902,
+      "sha256": "e2a11b0103d5971d2553cd048e83c496db04ad3c57b3152a64c059d038d641a0"
+    },
+    {
+      "path": "hires_pages/ineleganolide/page-2.png",
+      "size_bytes": 748625,
+      "sha256": "90959936406ad22eb3ca71b04c4530209ebdaa6036ff0e89c6b1dea7b170ceac"
+    },
+    {
+      "path": "hires_pages/ineleganolide/page-3.png",
+      "size_bytes": 1220153,
+      "sha256": "bb75bb45dc224c3e31910e2086c3ba533fcc2d038448eed816b9d726849214a4"
+    },
+    {
+      "path": "hires_pages/ineleganolide/page-4.png",
+      "size_bytes": 1195998,
+      "sha256": "f8931d772bb230349fa5fbb5f5143956c544008a0eac84c2eeb63011988ea133"
+    },
+    {
+      "path": "hires_pages/ineleganolide/page-5.png",
+      "size_bytes": 1111833,
+      "sha256": "a7f152a8aebfca54e31ffb8a486b9622f0c861b315abfa40042b780809686d80"
+    },
+    {
+      "path": "hires_pages/kalmanol/page-1.png",
+      "size_bytes": 891349,
+      "sha256": "d81945fee38b2f0230bc77cdfaf6e86e8d0629e9c6d56bbfe74f1ddff62bb32f"
+    },
+    {
+      "path": "hires_pages/kalmanol/page-2.png",
+      "size_bytes": 1109666,
+      "sha256": "9621889175c1bfcc5a0c6c90fa842e2fb2f74fa77052d44d626b7898262609be"
+    },
+    {
+      "path": "hires_pages/kalmanol/page-3.png",
+      "size_bytes": 1089233,
+      "sha256": "6855308d826a5d579c84dd6e1bf11ab9bdc0f74bcfbe263d7569d5c892cddc91"
+    },
+    {
+      "path": "hires_pages/kalmanol/page-4.png",
+      "size_bytes": 212992,
+      "sha256": "3c2d386c889c31cf30d41efcc3f44168c813299de232649a2adcd4a54a73ae70"
+    },
+    {
+      "path": "hires_pages/kalmanol/page-5.png",
+      "size_bytes": 767244,
+      "sha256": "106b137623f8e56659ebb341bd6c7047bcd4cdec9e4ecb6be27cb3264582fbde"
+    },
+    {
+      "path": "hires_pages/principinol_B/page-1.png",
+      "size_bytes": 915433,
+      "sha256": "1b9689ed1abaf2e1de38a19abaa53e6f27e1704fed407ca858a5a6aba05ae6a0"
+    },
+    {
+      "path": "hires_pages/principinol_B/page-2.png",
+      "size_bytes": 855987,
+      "sha256": "43641104b6d93e267c921276b90601a692ceb939540b244ec18c67d123f078e1"
+    },
+    {
+      "path": "hires_pages/principinol_B/page-3.png",
+      "size_bytes": 1043676,
+      "sha256": "9f73af078e4fc58eb3524053bd54acd8df61f19044f77c93440cecb10d514e46"
+    },
+    {
+      "path": "hires_pages/principinol_B/page-4.png",
+      "size_bytes": 980995,
+      "sha256": "ea889e8f27fa613082a627a0f64b5ec18ee73d7951663968fe9bad943526aaed"
+    },
+    {
+      "path": "hires_pages/principinol_B/page-5.png",
+      "size_bytes": 776566,
+      "sha256": "2ca9c8a22325227c187bac8521cb99c33c456dd16986ef098dcfed0682e49154"
+    },
+    {
+      "path": "papers/alchivemycin_A.pdf",
+      "size_bytes": 1275980,
+      "sha256": "5ad8252e2ef59f608c7e4c47720b9ef4899e672b73d374d2e73fcb11d46a236f"
+    },
+    {
+      "path": "papers/hyperfirin.pdf",
+      "size_bytes": 1622880,
+      "sha256": "98173d29f2fa21e540559562285ba382d25eb63f374985db47c88b0ebf433759"
+    },
+    {
+      "path": "papers/ineleganolide.pdf",
+      "size_bytes": 1733430,
+      "sha256": "3ddb93a0267dbce84dd083eb6a1c3ff063ef85f61d01681ff50d5b3de766d7b1"
+    },
+    {
+      "path": "papers/kalmanol.pdf",
+      "size_bytes": 5865711,
+      "sha256": "7297073433fd7008dd1a9611d566705ee322cf794cbf54d774077959263c8680"
+    },
+    {
+      "path": "papers/principinol_B.pdf",
+      "size_bytes": 3629408,
+      "sha256": "38b78065c24f052132ef2f0039f16e3a27633506e669f32640d668fc4f779fc1"
+    },
+    {
+      "path": "private_eval/visual_unit_reference.json",
+      "size_bytes": 3016,
+      "sha256": "18f66d31b55e5f7151b9c8814ddf26c6ccb25f84aec16f291ddca1a548f77aec"
+    },
+    {
+      "path": "templates/gemini_evidence_output.schema.json",
+      "size_bytes": 6231,
+      "sha256": "b6a1d526b30e9bf25dfe07a4fef4dab4a13942539745a83a23b8410b9bfdd673"
+    },
+    {
+      "path": "templates/human_scoring_template.csv",
+      "size_bytes": 91,
+      "sha256": "cc809ecb7b9a4850a1920b0e8f56fb574fe4f6ff1b9dc362b801284fbcd57493"
+    },
+    {
+      "path": "templates/ocr_output.schema.json",
+      "size_bytes": 1711,
+      "sha256": "7c53b329fdbdc54a7e33767921f4290615f3de1ac502a27b3110d8bd8b9f4ad4"
+    }
+  ]
+}

@@ -1,0 +1,590 @@
+{
+  "algorithm": "sha256",
+  "files": [
+    {
+      "path": ".env.example",
+      "size_bytes": 165,
+      "sha256": "82960d48f06a8abcf08011b4fbc434016ccc89c074011b49e285e164a0810776"
+    },
+    {
+      "path": ".gitattributes",
+      "size_bytes": 192,
+      "sha256": "77fc5ed60cc4b0718ebe58b56f9a01d2ec855f151d7b3b74e0784a5d109f8f59"
+    },
+    {
+      "path": ".github/CODEOWNERS",
+      "size_bytes": 100,
+      "sha256": "dd86ce24b1c3cbeca42c2a06724d2e258fd8642c8798ebfbfbed8b67eb57bc5a"
+    },
+    {
+      "path": ".github/workflows/validate.yml",
+      "size_bytes": 531,
+      "sha256": "8b748b35fe3a0c87cd5908a9ccf81dac07cfcee05c0952b973ac980dc97f3068"
+    },
+    {
+      "path": ".gitignore",
+      "size_bytes": 381,
+      "sha256": "0667020345730ff18c5067283e61a650d93345fdb0596f66581bf4bfdd33a278"
+    },
+    {
+      "path": "NOTICE.md",
+      "size_bytes": 750,
+      "sha256": "93af319bd68158c17512c2a6425b0bbec11bb40bc0008f43ad72e46943f640a9"
+    },
+    {
+      "path": "README.md",
+      "size_bytes": 1103,
+      "sha256": "5a08bcb4cda44fa234f927261954e411612ad6416c5cf7c027a8071f3412c374"
+    },
+    {
+      "path": "corpus/papers/alchivemycin_A.pdf",
+      "size_bytes": 1275980,
+      "sha256": "5ad8252e2ef59f608c7e4c47720b9ef4899e672b73d374d2e73fcb11d46a236f"
+    },
+    {
+      "path": "corpus/papers/hyperfirin.pdf",
+      "size_bytes": 1622880,
+      "sha256": "98173d29f2fa21e540559562285ba382d25eb63f374985db47c88b0ebf433759"
+    },
+    {
+      "path": "corpus/papers/ineleganolide.pdf",
+      "size_bytes": 1733430,
+      "sha256": "3ddb93a0267dbce84dd083eb6a1c3ff063ef85f61d01681ff50d5b3de766d7b1"
+    },
+    {
+      "path": "corpus/papers/kalmanol.pdf",
+      "size_bytes": 5865711,
+      "sha256": "7297073433fd7008dd1a9611d566705ee322cf794cbf54d774077959263c8680"
+    },
+    {
+      "path": "corpus/papers/principinol_B.pdf",
+      "size_bytes": 3629408,
+      "sha256": "38b78065c24f052132ef2f0039f16e3a27633506e669f32640d668fc4f779fc1"
+    },
+    {
+      "path": "docs/COLLABORATION.md",
+      "size_bytes": 1579,
+      "sha256": "c05ca2913d8cc42cfa22ccbc7d8988748b30d97b9f8fe495cf0522011109c0c9"
+    },
+    {
+      "path": "docs/DATA_PROVENANCE.md",
+      "size_bytes": 1896,
+      "sha256": "8be77da3ece34a8dc8befcec5a1fc3ba8e5dff95e661dfcded33edfc95120630"
+    },
+    {
+      "path": "docs/RUNBOOK.md",
+      "size_bytes": 2945,
+      "sha256": "54c8257f2bd159fd2db1d868f5656bef5b20c5ac8fa00e0ab44ab09d5d6a067f"
+    },
+    {
+      "path": "docs/SECURITY.md",
+      "size_bytes": 804,
+      "sha256": "ef61c6812b9ca580c086d626e2cc85e7b4114eef6d0f13492db64e4998005f17"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-08-24-multimodal-harness-monorepo.md",
+      "size_bytes": 4747,
+      "sha256": "350dc971e85e2d85c06c2a9eb4c8f1c7ec3f57af32f761b54bd6bd8190e08c62"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-08-24-multimodal-harness-monorepo-design.md",
+      "size_bytes": 3456,
+      "sha256": "3885f643c80dffc4362d53e463b6d9bc3ba6b9d4a013727b730910b1c4328b4b"
+    },
+    {
+      "path": "experiments/ocr_ablation/README.md",
+      "size_bytes": 429,
+      "sha256": "3a4a6ce6dfeab006b3ce8000b78ef885ad8553644728c62a01706f6c7c0cea9c"
+    },
+    {
+      "path": "experiments/ocr_ablation/controller_only/private_eval/visual_unit_reference.json",
+      "size_bytes": 3016,
+      "sha256": "18f66d31b55e5f7151b9c8814ddf26c6ccb25f84aec16f291ddca1a548f77aec"
+    },
+    {
+      "path": "experiments/ocr_ablation/docs/EXPERIMENT_PROTOCOL.md",
+      "size_bytes": 3107,
+      "sha256": "ae5b182d26f10dffd6079fb31183915c2d1a8b51b08abdc7cb0c8ee3f3b8962f"
+    },
+    {
+      "path": "experiments/ocr_ablation/docs/SOURCE_PACK_README.md",
+      "size_bytes": 826,
+      "sha256": "e220f7d8c4738389e99594a51ae5280592377a940e1571533b5c1f549eca3657"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/alchivemycin_A/page-01.png",
+      "size_bytes": 665371,
+      "sha256": "a6c2edd7776ac2b61af2a2b615226cac3caf4dbd3609ff652527aa4d35d99c6c"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/alchivemycin_A/page-02.png",
+      "size_bytes": 470516,
+      "sha256": "72a18b6fd952cda447396dfd330f82aa1b42aa437af3f8c6a4f519fa5f7af8df"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/alchivemycin_A/page-03.png",
+      "size_bytes": 1336687,
+      "sha256": "5e31ca5b85a6b88e8b442e59306489c2527afca4148debcfd53d6b72df2f6c8a"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/alchivemycin_A/page-04.png",
+      "size_bytes": 960454,
+      "sha256": "e2e62166af55c7409a753d016abe4f5c17795fb50a5299ef7840a836e1523ee9"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/alchivemycin_A/page-05.png",
+      "size_bytes": 808209,
+      "sha256": "750e97ac901b0839cf7fe4821ee28b3ef7721706f952636887944fd34f0ab828"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/alchivemycin_A/page-06.png",
+      "size_bytes": 598791,
+      "sha256": "776dadd1f2a23079aca1b3fd34e86b52eb2f87b991c4b383332b5fc340670310"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/alchivemycin_A/page-07.png",
+      "size_bytes": 523056,
+      "sha256": "3eb390372b882b1aa7590a54fb381bf121e37ae1baa0efeadde8b6744ef88c19"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/alchivemycin_A/page-08.png",
+      "size_bytes": 1186793,
+      "sha256": "f523fef9fef118af1bbdd459be097c78383023ff9e9d0deeb638c141a1fe6890"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/alchivemycin_A/page-09.png",
+      "size_bytes": 1026433,
+      "sha256": "afe82adb247197680424d84039db11a92b110978a496b0ffcc95edd568e1f838"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/alchivemycin_A/page-10.png",
+      "size_bytes": 559542,
+      "sha256": "92d8ad2589d1e2e4fdcd536dd01647870251d201db8f125edcd5e62fe0135e39"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/hyperfirin/page-1.png",
+      "size_bytes": 868603,
+      "sha256": "2ebadf979dfa7d6dc72bdceded9aac1b22feffea97219f9bb5c8737f23cf3570"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/hyperfirin/page-2.png",
+      "size_bytes": 832072,
+      "sha256": "de531d430e6e273afb587e4a1f3854e19256d932d33bcef37cf144b70b65843d"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/hyperfirin/page-3.png",
+      "size_bytes": 870940,
+      "sha256": "0a8b6ac411d0dfcbec154be9a02aee928d5ecc3db96b680fe9d815c7ab557a64"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/hyperfirin/page-4.png",
+      "size_bytes": 1299827,
+      "sha256": "b7baddb9df9311ea75961217dd6fbabac57d20793e0f99e882d09be37ac9a47b"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/hyperfirin/page-5.png",
+      "size_bytes": 870728,
+      "sha256": "55e025826b55ff8c7a9e8093b6f5736a0a0282c7ad584885ee1145d423014372"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/ineleganolide/page-1.png",
+      "size_bytes": 880902,
+      "sha256": "e2a11b0103d5971d2553cd048e83c496db04ad3c57b3152a64c059d038d641a0"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/ineleganolide/page-2.png",
+      "size_bytes": 748625,
+      "sha256": "90959936406ad22eb3ca71b04c4530209ebdaa6036ff0e89c6b1dea7b170ceac"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/ineleganolide/page-3.png",
+      "size_bytes": 1220153,
+      "sha256": "bb75bb45dc224c3e31910e2086c3ba533fcc2d038448eed816b9d726849214a4"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/ineleganolide/page-4.png",
+      "size_bytes": 1195998,
+      "sha256": "f8931d772bb230349fa5fbb5f5143956c544008a0eac84c2eeb63011988ea133"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/ineleganolide/page-5.png",
+      "size_bytes": 1111833,
+      "sha256": "a7f152a8aebfca54e31ffb8a486b9622f0c861b315abfa40042b780809686d80"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/kalmanol/page-1.png",
+      "size_bytes": 891349,
+      "sha256": "d81945fee38b2f0230bc77cdfaf6e86e8d0629e9c6d56bbfe74f1ddff62bb32f"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/kalmanol/page-2.png",
+      "size_bytes": 1109666,
+      "sha256": "9621889175c1bfcc5a0c6c90fa842e2fb2f74fa77052d44d626b7898262609be"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/kalmanol/page-3.png",
+      "size_bytes": 1089233,
+      "sha256": "6855308d826a5d579c84dd6e1bf11ab9bdc0f74bcfbe263d7569d5c892cddc91"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/kalmanol/page-4.png",
+      "size_bytes": 962603,
+      "sha256": "a892469066c68d0b63df2bc8a95bd58c78bb169052c9c6371d22df89c9a67f0b"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/kalmanol/page-5.png",
+      "size_bytes": 767244,
+      "sha256": "106b137623f8e56659ebb341bd6c7047bcd4cdec9e4ecb6be27cb3264582fbde"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/principinol_B/page-1.png",
+      "size_bytes": 915433,
+      "sha256": "1b9689ed1abaf2e1de38a19abaa53e6f27e1704fed407ca858a5a6aba05ae6a0"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/principinol_B/page-2.png",
+      "size_bytes": 855987,
+      "sha256": "43641104b6d93e267c921276b90601a692ceb939540b244ec18c67d123f078e1"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/principinol_B/page-3.png",
+      "size_bytes": 1043676,
+      "sha256": "9f73af078e4fc58eb3524053bd54acd8df61f19044f77c93440cecb10d514e46"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/principinol_B/page-4.png",
+      "size_bytes": 980995,
+      "sha256": "ea889e8f27fa613082a627a0f64b5ec18ee73d7951663968fe9bad943526aaed"
+    },
+    {
+      "path": "experiments/ocr_ablation/hires_pages/principinol_B/page-5.png",
+      "size_bytes": 776566,
+      "sha256": "2ca9c8a22325227c187bac8521cb99c33c456dd16986ef098dcfed0682e49154"
+    },
+    {
+      "path": "experiments/ocr_ablation/manifests/kalmanol_page_4_repair.json",
+      "size_bytes": 889,
+      "sha256": "e98b763cd1d4d0be00876f14cb1c7225ecd65b3a1594ca3880e04817d083c22f"
+    },
+    {
+      "path": "experiments/ocr_ablation/manifests/source_manifest.json",
+      "size_bytes": 3322,
+      "sha256": "843cdba99badf7aa9b8b81d5772414caebeeb3d995943239c0036f6d9cbd448c"
+    },
+    {
+      "path": "experiments/ocr_ablation/manifests/source_pack_manifest.sha256.json",
+      "size_bytes": 7365,
+      "sha256": "afb5aedabd950ce2a993466c0c04f5f1cb5e0d60cc426cb5df47895931922463"
+    },
+    {
+      "path": "experiments/ocr_ablation/prompts/controller_prompt.md",
+      "size_bytes": 13781,
+      "sha256": "f13186a03d4e4d29bfc1b9b79c0fa08ee4707d7c71873db3dcd54faaa4b9a52f"
+    },
+    {
+      "path": "experiments/ocr_ablation/prompts/worker_prompt.md",
+      "size_bytes": 4129,
+      "sha256": "3f6af3a8c8f23f50e0f71f9e334b00a16ddf7a530e942aa9874bbeb5ee47594c"
+    },
+    {
+      "path": "experiments/ocr_ablation/templates/gemini_evidence_output.schema.json",
+      "size_bytes": 6231,
+      "sha256": "b6a1d526b30e9bf25dfe07a4fef4dab4a13942539745a83a23b8410b9bfdd673"
+    },
+    {
+      "path": "experiments/ocr_ablation/templates/human_scoring_template.csv",
+      "size_bytes": 91,
+      "sha256": "cc809ecb7b9a4850a1920b0e8f56fb574fe4f6ff1b9dc362b801284fbcd57493"
+    },
+    {
+      "path": "experiments/ocr_ablation/templates/ocr_output.schema.json",
+      "size_bytes": 1711,
+      "sha256": "7c53b329fdbdc54a7e33767921f4290615f3de1ac502a27b3110d8bd8b9f4ad4"
+    },
+    {
+      "path": "experiments/route_image_understanding/README.md",
+      "size_bytes": 446,
+      "sha256": "ba7306f386e4d35d3c667ba0fb97965a1f615cc828a45ef6ee04f58364291d7d"
+    },
+    {
+      "path": "experiments/route_image_understanding/docs/ROUTE_IMAGE_SELECTION.md",
+      "size_bytes": 715,
+      "sha256": "c2043911c80207a76284ad9c18e383fc9622444e295ddd1df48dbfacba1a6108"
+    },
+    {
+      "path": "experiments/route_image_understanding/docs/SOURCE_PACK_README.md",
+      "size_bytes": 1812,
+      "sha256": "0fca539434cb2274d4e81f0f8e05a01bbaaa0860836ba811eb1d30489d32c29b"
+    },
+    {
+      "path": "experiments/route_image_understanding/manifests/source_manifest.json",
+      "size_bytes": 29328,
+      "sha256": "bec4f324c6731fb3db7db1d40925761ab036cf859ebc07021000377cc861c033"
+    },
+    {
+      "path": "experiments/route_image_understanding/manifests/source_pack_manifest.sha256.json",
+      "size_bytes": 5226,
+      "sha256": "1c44c55f3a59f2849d7e1219e87fab94bbb331de84959f778c3db4fc9fc8ce9b"
+    },
+    {
+      "path": "experiments/route_image_understanding/previews/raw_contact_sheet.png",
+      "size_bytes": 709720,
+      "sha256": "da8416e5d09c52fd34bf7f1138c544afae5a9526ccdd5276807afd8903b0a11a"
+    },
+    {
+      "path": "experiments/route_image_understanding/previews/tokenized_contact_sheet.png",
+      "size_bytes": 495016,
+      "sha256": "2748d7ec008c468616560b74e20ecad825f59ef6b7cd8fd9fa513a497a924a16"
+    },
+    {
+      "path": "experiments/route_image_understanding/prompts/controller_prompt.md",
+      "size_bytes": 10076,
+      "sha256": "dd74c5a24c2aafd694efa8f48b99d4bc8d4a045fe1b9e7ede58ce8f8456920b4"
+    },
+    {
+      "path": "experiments/route_image_understanding/prompts/worker_prompt.md",
+      "size_bytes": 2276,
+      "sha256": "3d6e44231a1c17529d921124ae2740c200620e70d34e0dc8be1a1f0a3761f569"
+    },
+    {
+      "path": "experiments/route_image_understanding/route_images/raw/alchivemycin_A/alchivemycin_fig3a.png",
+      "size_bytes": 144588,
+      "sha256": "283de18d482e7afa826ba76802fbd3d68952747cc8fa9e4638c54b15caa18ad2"
+    },
+    {
+      "path": "experiments/route_image_understanding/route_images/raw/alchivemycin_A/alchivemycin_fig4.png",
+      "size_bytes": 234365,
+      "sha256": "4b1acff31e71d113a8a467a03edab076a9de7dc9cbf40b7f7d91e19038e64a4e"
+    },
+    {
+      "path": "experiments/route_image_understanding/route_images/raw/alchivemycin_A/alchivemycin_fig5c.png",
+      "size_bytes": 90903,
+      "sha256": "0dc26da551f6fc4e007bbd29f8df1dce2596d1d704c3b864bc5d3f4b3a23d249"
+    },
+    {
+      "path": "experiments/route_image_understanding/route_images/raw/hyperfirin/hyperfirin_scheme2.png",
+      "size_bytes": 136964,
+      "sha256": "ad0380c467ea7bd183a5166df4b1553a3a2932364ec012372470fed85aab4a35"
+    },
+    {
+      "path": "experiments/route_image_understanding/route_images/raw/hyperfirin/hyperfirin_scheme3.png",
+      "size_bytes": 73068,
+      "sha256": "323259a88428ba900c28e87278f050421622e80f7a127f813f6538365abd7569"
+    },
+    {
+      "path": "experiments/route_image_understanding/route_images/raw/ineleganolide/ineleganolide_scheme1.png",
+      "size_bytes": 315407,
+      "sha256": "1d4403003a5b983d04d67ce78356bfae56973dc87ee9c35f4382c8db880768c0"
+    },
+    {
+      "path": "experiments/route_image_understanding/route_images/raw/kalmanol/kalmanol_scheme2.png",
+      "size_bytes": 385175,
+      "sha256": "d06be48e98b3d35c9a3078d17294f3527cdc657e6e7992a434a57534d9de873b"
+    },
+    {
+      "path": "experiments/route_image_understanding/route_images/raw/kalmanol/kalmanol_scheme3.png",
+      "size_bytes": 535670,
+      "sha256": "e492b1523f8478adde2e1f615bbb9de8587d77c8adc08582683605ed53d0b899"
+    },
+    {
+      "path": "experiments/route_image_understanding/route_images/raw/principinol_B/principinol_scheme2.png",
+      "size_bytes": 528672,
+      "sha256": "986865e8fe44c33c71ebdc660f3c9b387b92f0d121efc10f30f5bfa7240d0ab6"
+    },
+    {
+      "path": "experiments/route_image_understanding/route_images/tokenized/alchivemycin_A/alchivemycin_fig3a.png",
+      "size_bytes": 90633,
+      "sha256": "0afc2645c073d5b54e6ee61a453665a93d76deb3f89381b938205e3605e6bb29"
+    },
+    {
+      "path": "experiments/route_image_understanding/route_images/tokenized/alchivemycin_A/alchivemycin_fig4.png",
+      "size_bytes": 94445,
+      "sha256": "20fa2dd7e22240444a769e2384c45b422a71f166ac6f7265b0199adcf1e3fd5d"
+    },
+    {
+      "path": "experiments/route_image_understanding/route_images/tokenized/alchivemycin_A/alchivemycin_fig5c.png",
+      "size_bytes": 48937,
+      "sha256": "6a343154cd3ca502618bd7f39c2ee8813bbbd21951ab4dc96ec211ad97fc9bfa"
+    },
+    {
+      "path": "experiments/route_image_understanding/route_images/tokenized/hyperfirin/hyperfirin_scheme2.png",
+      "size_bytes": 112954,
+      "sha256": "1adb23f56fb4d5cc1dc99cd3262b18f7e6fec05f1fe540e638fe721ff0b485ec"
+    },
+    {
+      "path": "experiments/route_image_understanding/route_images/tokenized/hyperfirin/hyperfirin_scheme3.png",
+      "size_bytes": 65263,
+      "sha256": "695879336aba3cc1c609069373823615dee29411807684313d16b63ccbaefc19"
+    },
+    {
+      "path": "experiments/route_image_understanding/route_images/tokenized/ineleganolide/ineleganolide_scheme1.png",
+      "size_bytes": 192815,
+      "sha256": "e787b7f6ffa9dd7d429d7b6d488219886f070b06b08e24383e59cecf9261c704"
+    },
+    {
+      "path": "experiments/route_image_understanding/route_images/tokenized/kalmanol/kalmanol_scheme2.png",
+      "size_bytes": 159473,
+      "sha256": "21cd4f4b60ef8063478597e34c5f2f927081877da8cac7033dc2834e6c531207"
+    },
+    {
+      "path": "experiments/route_image_understanding/route_images/tokenized/kalmanol/kalmanol_scheme3.png",
+      "size_bytes": 180308,
+      "sha256": "492b45691938860e18574be7baeb904a12d5028831476537bacb6d9dec527676"
+    },
+    {
+      "path": "experiments/route_image_understanding/route_images/tokenized/principinol_B/principinol_scheme2.png",
+      "size_bytes": 222016,
+      "sha256": "efef344930bb2df449811136485345b3ab14f7514b7ecb8f81f28aec0e92a907"
+    },
+    {
+      "path": "experiments/route_image_understanding/templates/ARCHITECTURE_DECISION_TEMPLATE.md",
+      "size_bytes": 408,
+      "sha256": "c3c020fce0139128e5db094449fe17cc097a6a526f955017645944fcf1445eb1"
+    },
+    {
+      "path": "experiments/route_image_understanding/templates/aggregate_comparison_template.csv",
+      "size_bytes": 92,
+      "sha256": "e81e649225f2e0df8c75c54cd00ec0643e84280cb74c7c51187b8c51ebe55b05"
+    },
+    {
+      "path": "experiments/route_image_understanding/templates/error_analysis_template.md",
+      "size_bytes": 294,
+      "sha256": "39b5d6e53e38ea0fb6ad8045624cab132f2884867e23ddfa8c605f600ce0e645"
+    },
+    {
+      "path": "experiments/route_image_understanding/templates/human_scoring_template.csv",
+      "size_bytes": 172,
+      "sha256": "1285d98096ebf075f1eb4d34ad7131308fe6def88a4a4519930f8f97f09a4a2d"
+    },
+    {
+      "path": "experiments/route_image_understanding/templates/per_paper_comparison_template.csv",
+      "size_bytes": 92,
+      "sha256": "d4dd0da31821099a4f6b00422e6de6bd9a37aac8e090e30742a6e48e66ae4b35"
+    },
+    {
+      "path": "experiments/route_image_understanding/templates/route_image_output.schema.json",
+      "size_bytes": 5287,
+      "sha256": "8844ea833cc198371f80c8b2c60aa69da7bb619b74b05cd41ce75b72fc80c071"
+    },
+    {
+      "path": "harness/__init__.py",
+      "size_bytes": 162,
+      "sha256": "44aa4513a6528b8465224ec0b15f3abdc64e6f16ffa32864213fd07d6c3d0626"
+    },
+    {
+      "path": "harness/__main__.py",
+      "size_bytes": 49,
+      "sha256": "0f7d54f3fbb1f79a85eb8110f11793db99da6f3c61ee979de5abe9a1b5f3fdb3"
+    },
+    {
+      "path": "harness/api.py",
+      "size_bytes": 5772,
+      "sha256": "f7027d9698a980fdd30936a9d68658f3517deb99e4b97b13e93fb00bd8f9bdad"
+    },
+    {
+      "path": "harness/cli.py",
+      "size_bytes": 2662,
+      "sha256": "ed3e32feaa4cd112debd2eee6f94cbc4bd2b494c959b4966c6adddd6935f5a97"
+    },
+    {
+      "path": "harness/config.py",
+      "size_bytes": 2713,
+      "sha256": "7784018de60745e3c385fcd95facd08c5498ecf698d233d16500315319cf20ab"
+    },
+    {
+      "path": "harness/evaluation.py",
+      "size_bytes": 1747,
+      "sha256": "aa6825ec85cf0043dbe6d5b9b23a8c2a03ed25726dbd84ff30bb2130136c2027"
+    },
+    {
+      "path": "harness/ocr.py",
+      "size_bytes": 3976,
+      "sha256": "b1739fa1eaa3bc656923e0b0cb227bcbde14f58243ff11a485dbac3aed67e4db"
+    },
+    {
+      "path": "harness/runner.py",
+      "size_bytes": 7251,
+      "sha256": "8e92a3596847298d979d31fc3fe5b6b0f08cf7adc41398cd078c3bd03c30a0d3"
+    },
+    {
+      "path": "harness/sealing.py",
+      "size_bytes": 3418,
+      "sha256": "abc48fffd3cd008e7680624232ee490cb36155c61c61a10a730005d6ec8123ff"
+    },
+    {
+      "path": "harness/suites.py",
+      "size_bytes": 3927,
+      "sha256": "65548319cc0beecd6bddfe4b3f9840cfcb9c9c1fae00430b7d64d18ddc74f2d0"
+    },
+    {
+      "path": "harness/validation.py",
+      "size_bytes": 3810,
+      "sha256": "f1e49e3c1ca16b433632c0e550568733ad86dc6a0b626a9d75b2e60318f8abfe"
+    },
+    {
+      "path": "pyproject.toml",
+      "size_bytes": 547,
+      "sha256": "9a0c5f3bad66abb31b00f9ffa02afff9ccfc13ec4a0c74e97b4a60533af19224"
+    },
+    {
+      "path": "tests/test_cli.py",
+      "size_bytes": 1219,
+      "sha256": "4de6c88c987b1cc367fbeac5c1977cdbf90f831c1ff7b818a3d186ad649932ca"
+    },
+    {
+      "path": "tests/test_config.py",
+      "size_bytes": 2346,
+      "sha256": "26ca8df033822a023d68f0a309bc41b58dac4355aeafd2059e78127800108a87"
+    },
+    {
+      "path": "tests/test_evaluation.py",
+      "size_bytes": 2679,
+      "sha256": "6a49511068c11263cbd7657119cd430e6aabab6806c5737efb80eb5c1bc36a34"
+    },
+    {
+      "path": "tests/test_ocr.py",
+      "size_bytes": 3311,
+      "sha256": "cd2b1df70e6b203e61db23b388f91ce81ea11e4c7189c9a9cde487290eb27459"
+    },
+    {
+      "path": "tests/test_runner.py",
+      "size_bytes": 7662,
+      "sha256": "2511def528385ced6982edcff195a623169ca4e9849700b35446d9cb51f56b3b"
+    },
+    {
+      "path": "tests/test_sealing.py",
+      "size_bytes": 3943,
+      "sha256": "6ed2abf3bae87fec78d403fbaf55bcf72b5877f322b5bf7824a00d09fd62cb6b"
+    },
+    {
+      "path": "tests/test_suites.py",
+      "size_bytes": 4196,
+      "sha256": "f687d2482bd1c13e3765f7e1b8b8a1e799d5c7a4e7fd92d565ee27d3b0fd241c"
+    },
+    {
+      "path": "tests/test_validation.py",
+      "size_bytes": 2319,
+      "sha256": "2f257273b16684814ecf0beff6eacc244f16b13942ef94212d83d5c1600d1799"
+    },
+    {
+      "path": "tools/ocr/eng.traineddata",
+      "size_bytes": 5199098,
+      "sha256": "5dc5d8d640a212c9d6184921ba103b186f50e0fed9ee716c53e6b312b400d747"
+    },
+    {
+      "path": "tools/ocr/package-lock.json",
+      "size_bytes": 5063,
+      "sha256": "ccc36c116203c8d4cd8b9cebe3465779e0bcba451461d42b8e25985e7c307339"
+    },
+    {
+      "path": "tools/ocr/package.json",
+      "size_bytes": 154,
+      "sha256": "122d973f578ab7be019339ebbe80afa96397180862fa2a655f2dfcd40769491a"
+    },
+    {
+      "path": "tools/ocr/run_ocr.mjs",
+      "size_bytes": 2407,
+      "sha256": "b5edb2d4841e541f7af4026cb635443733bb854ffb9a3399503d0aa210e71460"
+    }
+  ]
+}
