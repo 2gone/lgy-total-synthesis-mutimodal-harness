@@ -1,0 +1,4 @@
+prompt_id = "article-router"
+version = "1.0.0"
+schema_version = "tsdaf.article-routing-result.v1"
+model_profile = "gemini-3.7-flash-high-chat-completions-v1"

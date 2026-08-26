@@ -1,0 +1,55 @@
+{
+  "schema_version": "tsdaf.paper-package.v1",
+  "paper_id": "alchivemycin_A",
+  "display_name": "Alchivemycin A",
+  "source_pdf": {
+    "sha256": "5ad8252e2ef59f608c7e4c47720b9ef4899e672b73d374d2e73fcb11d46a236f",
+    "media_type": "application/pdf",
+    "byte_size": 1275980,
+    "relative_path": "source/paper.pdf"
+  },
+  "normalized_document": {
+    "sha256": "f9949513fc8d286cd64aecf34291554567f4dba3b120db61b023a352a5594777",
+    "media_type": "application/json",
+    "byte_size": 10869,
+    "relative_path": "normalized/document.json"
+  },
+  "normalized_blocks": {
+    "sha256": "65d86d6c648cee0abaf97eeeef9966ab7183aadcfc37bf81f8a0d105a9e2c2c5",
+    "media_type": "application/x-ndjson",
+    "byte_size": 178644,
+    "relative_path": "normalized/blocks.jsonl"
+  },
+  "assets": [
+    {
+      "sha256": "22f3e824e9c9e1e17ae83ebeca1fe7fd85744f66aaa12db99d6d667ccf7c7ecb",
+      "media_type": "image/jpeg",
+      "byte_size": 199657,
+      "relative_path": "images/bc4d6d84f81eda3d6bfef83760ef92ffb6264f18a9d86f59c18a23479d226140.jpg"
+    },
+    {
+      "sha256": "92ae913ab45d0d0d890a7ff639b053c635abfa351d7ecfcf4329776ea57f52c2",
+      "media_type": "image/jpeg",
+      "byte_size": 96078,
+      "relative_path": "images/6d83005d8884b2d59c02d9e5bead1c0a46aa7b3fc15bd7931a1dc98fc5bf5e57.jpg"
+    },
+    {
+      "sha256": "a3057bc392aca32054932b4677850e965f10627995a3b5e0df54f254cd158f17",
+      "media_type": "image/jpeg",
+      "byte_size": 121225,
+      "relative_path": "images/f34db0c89d7f2bfa49549b1e43b131b7b8ee1fd250ac86c403c54f41d320ef48.jpg"
+    },
+    {
+      "sha256": "9335d15e09fc7d4889f316c95ba1db3a7418d230af8ddc6e3c307e58b4f9a45b",
+      "media_type": "image/jpeg",
+      "byte_size": 158335,
+      "relative_path": "images/053d3943609b83ebd2ce43724bc3b04f789eac3d774cc5f67d94318c0491462e.jpg"
+    },
+    {
+      "sha256": "4d64043f869c5417aa84c02b9634b0ec859ce4af4588dce9f431b9682beb58b6",
+      "media_type": "image/jpeg",
+      "byte_size": 229214,
+      "relative_path": "images/e02471e61eec2b129cce608ca1767ff1c1c9f1b3f49771fe57f43cacd4efb933.jpg"
+    }
+  ]
+}

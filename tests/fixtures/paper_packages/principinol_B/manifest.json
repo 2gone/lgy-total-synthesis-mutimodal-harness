@@ -1,0 +1,49 @@
+{
+  "schema_version": "tsdaf.paper-package.v1",
+  "paper_id": "principinol_B",
+  "display_name": "Principinol B",
+  "source_pdf": {
+    "sha256": "38b78065c24f052132ef2f0039f16e3a27633506e669f32640d668fc4f779fc1",
+    "media_type": "application/pdf",
+    "byte_size": 3629408,
+    "relative_path": "source/paper.pdf"
+  },
+  "normalized_document": {
+    "sha256": "fc42d151ea40fa95e597c927d3f37b99137b28ec1c3eb11656959a7f34b2a713",
+    "media_type": "application/json",
+    "byte_size": 5723,
+    "relative_path": "normalized/document.json"
+  },
+  "normalized_blocks": {
+    "sha256": "9c8b329d5b0c0d5c62c3bd7f1d1ef3a277b6056e1fad6b609526ca1a801bd54c",
+    "media_type": "application/x-ndjson",
+    "byte_size": 86089,
+    "relative_path": "normalized/blocks.jsonl"
+  },
+  "assets": [
+    {
+      "sha256": "29a1e2e5fed01c1b7bb067216fd028d5b5b7e107a47641f7a32105147af5db35",
+      "media_type": "image/jpeg",
+      "byte_size": 84901,
+      "relative_path": "images/32b92e2b0a06ae8347c5236ae97589a3b887bbf6eb07d572350fa92cfcb2c1e8.jpg"
+    },
+    {
+      "sha256": "dc98f1c370c2b62e6c5ca9573ce00b65e709bb26cc6672f7e0ec126bb104f87c",
+      "media_type": "image/jpeg",
+      "byte_size": 199791,
+      "relative_path": "images/1ded7af06391480218aeb9eb94324610c02d166a4466d774cdebc4ad6c1e4050.jpg"
+    },
+    {
+      "sha256": "d7734d1d7391bf6e41db50eb5aae9363d75651c46866bbb82ac0ccbb8b4209bd",
+      "media_type": "image/jpeg",
+      "byte_size": 92305,
+      "relative_path": "images/0bece6a688d151d75c04ab1e3c3e408e59cc84db4235783033d8bacad5051284.jpg"
+    },
+    {
+      "sha256": "63cbf50cabca1d050e2620483346d565e14f54ab7914a308d6e945ec443e83b8",
+      "media_type": "image/jpeg",
+      "byte_size": 50554,
+      "relative_path": "images/872ba1a359ae1c4c7ed39fda30e0f4ad01d5d973f7bf5c79a09bc80ae5d54f6a.jpg"
+    }
+  ]
+}

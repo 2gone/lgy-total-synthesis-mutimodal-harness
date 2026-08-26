@@ -1,0 +1,14 @@
+* text=auto eol=lf
+*.md text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.csv text eol=lf
+*.toml text eol=lf
+*.yml text eol=lf
+*.mjs text eol=lf
+*.pdf binary
+*.png binary
+*.traineddata binary
+experiments/ocr_ablation/prompts/controller_prompt.md binary
+experiments/route_image_understanding/prompts/controller_prompt.md binary
+experiments/ocr_ablation/templates/human_scoring_template.csv binary

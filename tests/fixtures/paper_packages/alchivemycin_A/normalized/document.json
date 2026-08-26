@@ -1,0 +1,288 @@
+{
+  "schema_version": "paper_document.v1",
+  "paper_id": "alchivemycin_A",
+  "source_sha256": "5ad8252e2ef59f608c7e4c47720b9ef4899e672b73d374d2e73fcb11d46a236f",
+  "parse_run_id": "mineru-98646ca910515bf85323",
+  "reported_backend": "hybrid",
+  "reported_version": "3.4.4",
+  "artifacts": {
+    "markdown": "full.md",
+    "content_list": "6af69b29-c37a-4cbb-99d4-23da9bb322eb_content_list.json",
+    "content_list_v2": "6af69b29-c37a-4cbb-99d4-23da9bb322eb_content_list_v2.json",
+    "layout_or_middle": "layout.json",
+    "model_output": "6af69b29-c37a-4cbb-99d4-23da9bb322eb_model.json"
+  },
+  "pages": [
+    {
+      "page_idx": 0,
+      "page_size": [
+        595.0,
+        790.0
+      ],
+      "block_ids": [
+        "mineru-98646ca910515bf85323:p0000:b0000",
+        "mineru-98646ca910515bf85323:p0000:b0001",
+        "mineru-98646ca910515bf85323:p0000:b0002",
+        "mineru-98646ca910515bf85323:p0000:b0003",
+        "mineru-98646ca910515bf85323:p0000:b0004",
+        "mineru-98646ca910515bf85323:p0000:b0005",
+        "mineru-98646ca910515bf85323:p0000:b0006",
+        "mineru-98646ca910515bf85323:p0000:b0007",
+        "mineru-98646ca910515bf85323:p0000:b0008",
+        "mineru-98646ca910515bf85323:p0000:b0009",
+        "mineru-98646ca910515bf85323:p0000:b0010",
+        "mineru-98646ca910515bf85323:p0000:b0011",
+        "mineru-98646ca910515bf85323:p0000:b0012",
+        "mineru-98646ca910515bf85323:p0000:b0013",
+        "mineru-98646ca910515bf85323:p0000:b0014"
+      ]
+    },
+    {
+      "page_idx": 1,
+      "page_size": [
+        595.0,
+        790.0
+      ],
+      "block_ids": [
+        "mineru-98646ca910515bf85323:p0001:b0000",
+        "mineru-98646ca910515bf85323:p0001:b0001",
+        "mineru-98646ca910515bf85323:p0001:b0002",
+        "mineru-98646ca910515bf85323:p0001:b0003",
+        "mineru-98646ca910515bf85323:p0001:b0004",
+        "mineru-98646ca910515bf85323:p0001:b0005",
+        "mineru-98646ca910515bf85323:p0001:b0006"
+      ]
+    },
+    {
+      "page_idx": 2,
+      "page_size": [
+        595.0,
+        790.0
+      ],
+      "block_ids": [
+        "mineru-98646ca910515bf85323:p0002:b0000",
+        "mineru-98646ca910515bf85323:p0002:b0001",
+        "mineru-98646ca910515bf85323:p0002:b0002",
+        "mineru-98646ca910515bf85323:p0002:b0003",
+        "mineru-98646ca910515bf85323:p0002:b0004",
+        "mineru-98646ca910515bf85323:p0002:b0005",
+        "mineru-98646ca910515bf85323:p0002:b0006",
+        "mineru-98646ca910515bf85323:p0002:b0007",
+        "mineru-98646ca910515bf85323:p0002:b0008",
+        "mineru-98646ca910515bf85323:p0002:b0009",
+        "mineru-98646ca910515bf85323:p0002:b0010",
+        "mineru-98646ca910515bf85323:p0002:b0011",
+        "mineru-98646ca910515bf85323:p0002:b0012",
+        "mineru-98646ca910515bf85323:p0002:b0013",
+        "mineru-98646ca910515bf85323:p0002:b0014"
+      ]
+    },
+    {
+      "page_idx": 3,
+      "page_size": [
+        595.0,
+        790.0
+      ],
+      "block_ids": [
+        "mineru-98646ca910515bf85323:p0003:b0000",
+        "mineru-98646ca910515bf85323:p0003:b0001",
+        "mineru-98646ca910515bf85323:p0003:b0002",
+        "mineru-98646ca910515bf85323:p0003:b0003",
+        "mineru-98646ca910515bf85323:p0003:b0004",
+        "mineru-98646ca910515bf85323:p0003:b0005",
+        "mineru-98646ca910515bf85323:p0003:b0006",
+        "mineru-98646ca910515bf85323:p0003:b0007",
+        "mineru-98646ca910515bf85323:p0003:b0008"
+      ]
+    },
+    {
+      "page_idx": 4,
+      "page_size": [
+        595.0,
+        790.0
+      ],
+      "block_ids": [
+        "mineru-98646ca910515bf85323:p0004:b0000",
+        "mineru-98646ca910515bf85323:p0004:b0001",
+        "mineru-98646ca910515bf85323:p0004:b0002",
+        "mineru-98646ca910515bf85323:p0004:b0003",
+        "mineru-98646ca910515bf85323:p0004:b0004",
+        "mineru-98646ca910515bf85323:p0004:b0005",
+        "mineru-98646ca910515bf85323:p0004:b0006",
+        "mineru-98646ca910515bf85323:p0004:b0007",
+        "mineru-98646ca910515bf85323:p0004:b0008"
+      ]
+    },
+    {
+      "page_idx": 5,
+      "page_size": [
+        595.0,
+        790.0
+      ],
+      "block_ids": [
+        "mineru-98646ca910515bf85323:p0005:b0000",
+        "mineru-98646ca910515bf85323:p0005:b0001",
+        "mineru-98646ca910515bf85323:p0005:b0002",
+        "mineru-98646ca910515bf85323:p0005:b0003",
+        "mineru-98646ca910515bf85323:p0005:b0004",
+        "mineru-98646ca910515bf85323:p0005:b0005",
+        "mineru-98646ca910515bf85323:p0005:b0006",
+        "mineru-98646ca910515bf85323:p0005:b0007"
+      ]
+    },
+    {
+      "page_idx": 6,
+      "page_size": [
+        595.0,
+        790.0
+      ],
+      "block_ids": [
+        "mineru-98646ca910515bf85323:p0006:b0000",
+        "mineru-98646ca910515bf85323:p0006:b0001",
+        "mineru-98646ca910515bf85323:p0006:b0002",
+        "mineru-98646ca910515bf85323:p0006:b0003",
+        "mineru-98646ca910515bf85323:p0006:b0004",
+        "mineru-98646ca910515bf85323:p0006:b0005",
+        "mineru-98646ca910515bf85323:p0006:b0006"
+      ]
+    },
+    {
+      "page_idx": 7,
+      "page_size": [
+        595.0,
+        790.0
+      ],
+      "block_ids": [
+        "mineru-98646ca910515bf85323:p0007:b0000",
+        "mineru-98646ca910515bf85323:p0007:b0001",
+        "mineru-98646ca910515bf85323:p0007:b0002",
+        "mineru-98646ca910515bf85323:p0007:b0003",
+        "mineru-98646ca910515bf85323:p0007:b0004",
+        "mineru-98646ca910515bf85323:p0007:b0005",
+        "mineru-98646ca910515bf85323:p0007:b0006",
+        "mineru-98646ca910515bf85323:p0007:b0007",
+        "mineru-98646ca910515bf85323:p0007:b0008",
+        "mineru-98646ca910515bf85323:p0007:b0009",
+        "mineru-98646ca910515bf85323:p0007:b0010",
+        "mineru-98646ca910515bf85323:p0007:b0011",
+        "mineru-98646ca910515bf85323:p0007:b0012",
+        "mineru-98646ca910515bf85323:p0007:b0013",
+        "mineru-98646ca910515bf85323:p0007:b0014",
+        "mineru-98646ca910515bf85323:p0007:b0015",
+        "mineru-98646ca910515bf85323:p0007:b0016",
+        "mineru-98646ca910515bf85323:p0007:b0017",
+        "mineru-98646ca910515bf85323:p0007:b0018",
+        "mineru-98646ca910515bf85323:p0007:b0019",
+        "mineru-98646ca910515bf85323:p0007:b0020",
+        "mineru-98646ca910515bf85323:p0007:b0021",
+        "mineru-98646ca910515bf85323:p0007:b0022",
+        "mineru-98646ca910515bf85323:p0007:b0023",
+        "mineru-98646ca910515bf85323:p0007:b0024",
+        "mineru-98646ca910515bf85323:p0007:b0025",
+        "mineru-98646ca910515bf85323:p0007:b0026",
+        "mineru-98646ca910515bf85323:p0007:b0027",
+        "mineru-98646ca910515bf85323:p0007:b0028",
+        "mineru-98646ca910515bf85323:p0007:b0029",
+        "mineru-98646ca910515bf85323:p0007:b0030",
+        "mineru-98646ca910515bf85323:p0007:b0031",
+        "mineru-98646ca910515bf85323:p0007:b0032",
+        "mineru-98646ca910515bf85323:p0007:b0033",
+        "mineru-98646ca910515bf85323:p0007:b0034"
+      ]
+    },
+    {
+      "page_idx": 8,
+      "page_size": [
+        595.0,
+        790.0
+      ],
+      "block_ids": [
+        "mineru-98646ca910515bf85323:p0008:b0000",
+        "mineru-98646ca910515bf85323:p0008:b0001",
+        "mineru-98646ca910515bf85323:p0008:b0002",
+        "mineru-98646ca910515bf85323:p0008:b0003",
+        "mineru-98646ca910515bf85323:p0008:b0004",
+        "mineru-98646ca910515bf85323:p0008:b0005",
+        "mineru-98646ca910515bf85323:p0008:b0006",
+        "mineru-98646ca910515bf85323:p0008:b0007",
+        "mineru-98646ca910515bf85323:p0008:b0008",
+        "mineru-98646ca910515bf85323:p0008:b0009",
+        "mineru-98646ca910515bf85323:p0008:b0010",
+        "mineru-98646ca910515bf85323:p0008:b0011",
+        "mineru-98646ca910515bf85323:p0008:b0012",
+        "mineru-98646ca910515bf85323:p0008:b0013",
+        "mineru-98646ca910515bf85323:p0008:b0014",
+        "mineru-98646ca910515bf85323:p0008:b0015",
+        "mineru-98646ca910515bf85323:p0008:b0016",
+        "mineru-98646ca910515bf85323:p0008:b0017",
+        "mineru-98646ca910515bf85323:p0008:b0018",
+        "mineru-98646ca910515bf85323:p0008:b0019",
+        "mineru-98646ca910515bf85323:p0008:b0020",
+        "mineru-98646ca910515bf85323:p0008:b0021",
+        "mineru-98646ca910515bf85323:p0008:b0022",
+        "mineru-98646ca910515bf85323:p0008:b0023",
+        "mineru-98646ca910515bf85323:p0008:b0024",
+        "mineru-98646ca910515bf85323:p0008:b0025",
+        "mineru-98646ca910515bf85323:p0008:b0026",
+        "mineru-98646ca910515bf85323:p0008:b0027",
+        "mineru-98646ca910515bf85323:p0008:b0028",
+        "mineru-98646ca910515bf85323:p0008:b0029",
+        "mineru-98646ca910515bf85323:p0008:b0030",
+        "mineru-98646ca910515bf85323:p0008:b0031",
+        "mineru-98646ca910515bf85323:p0008:b0032",
+        "mineru-98646ca910515bf85323:p0008:b0033",
+        "mineru-98646ca910515bf85323:p0008:b0034",
+        "mineru-98646ca910515bf85323:p0008:b0035",
+        "mineru-98646ca910515bf85323:p0008:b0036",
+        "mineru-98646ca910515bf85323:p0008:b0037",
+        "mineru-98646ca910515bf85323:p0008:b0038",
+        "mineru-98646ca910515bf85323:p0008:b0039",
+        "mineru-98646ca910515bf85323:p0008:b0040",
+        "mineru-98646ca910515bf85323:p0008:b0041",
+        "mineru-98646ca910515bf85323:p0008:b0042",
+        "mineru-98646ca910515bf85323:p0008:b0043",
+        "mineru-98646ca910515bf85323:p0008:b0044"
+      ]
+    },
+    {
+      "page_idx": 9,
+      "page_size": [
+        595.0,
+        790.0
+      ],
+      "block_ids": [
+        "mineru-98646ca910515bf85323:p0009:b0000",
+        "mineru-98646ca910515bf85323:p0009:b0001",
+        "mineru-98646ca910515bf85323:p0009:b0002",
+        "mineru-98646ca910515bf85323:p0009:b0003",
+        "mineru-98646ca910515bf85323:p0009:b0004",
+        "mineru-98646ca910515bf85323:p0009:b0005",
+        "mineru-98646ca910515bf85323:p0009:b0006",
+        "mineru-98646ca910515bf85323:p0009:b0007",
+        "mineru-98646ca910515bf85323:p0009:b0008",
+        "mineru-98646ca910515bf85323:p0009:b0009",
+        "mineru-98646ca910515bf85323:p0009:b0010",
+        "mineru-98646ca910515bf85323:p0009:b0011",
+        "mineru-98646ca910515bf85323:p0009:b0012",
+        "mineru-98646ca910515bf85323:p0009:b0013",
+        "mineru-98646ca910515bf85323:p0009:b0014",
+        "mineru-98646ca910515bf85323:p0009:b0015",
+        "mineru-98646ca910515bf85323:p0009:b0016",
+        "mineru-98646ca910515bf85323:p0009:b0017",
+        "mineru-98646ca910515bf85323:p0009:b0018",
+        "mineru-98646ca910515bf85323:p0009:b0019",
+        "mineru-98646ca910515bf85323:p0009:b0020",
+        "mineru-98646ca910515bf85323:p0009:b0021",
+        "mineru-98646ca910515bf85323:p0009:b0022",
+        "mineru-98646ca910515bf85323:p0009:b0023",
+        "mineru-98646ca910515bf85323:p0009:b0024",
+        "mineru-98646ca910515bf85323:p0009:b0025"
+      ]
+    }
+  ],
+  "counts": {
+    "blocks": 176,
+    "images": 5
+  },
+  "warnings": []
+}

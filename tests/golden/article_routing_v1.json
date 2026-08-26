@@ -1,0 +1,100 @@
+{
+  "schema_version": "tsdaf.article-routing-human-gold.v1",
+  "gold_id": "weak-article-router-v1-five-paper",
+  "frozen_date": "2026-08-26",
+  "total_visual_decisions": 37,
+  "papers": [
+    {
+      "paper_id": "alchivemycin_A",
+      "canonical_package_sha256": "cd8704c9f7c2b7aafaadf7c955011c79fbe5afac5a94fa7ebc6e30659811578e",
+      "expected_article_type": "TOTAL_SYNTHESIS",
+      "expected_visual_count": 5,
+      "required_route_attributes": [
+        "CHEMOENZYMATIC"
+      ],
+      "forward_assets": [
+        {
+          "human_label": "Fig. 3",
+          "visual_id": "MAIN-P0004-A0000",
+          "source_asset_sha256": "a3057bc392aca32054932b4677850e965f10627995a3b5e0df54f254cd158f17"
+        },
+        {
+          "human_label": "Fig. 4",
+          "visual_id": "MAIN-P0005-A0000",
+          "source_asset_sha256": "9335d15e09fc7d4889f316c95ba1db3a7418d230af8ddc6e3c307e58b4f9a45b"
+        },
+        {
+          "human_label": "complete Fig. 5",
+          "visual_id": "MAIN-P0006-A0000",
+          "source_asset_sha256": "4d64043f869c5417aa84c02b9634b0ec859ce4af4588dce9f431b9682beb58b6"
+        }
+      ]
+    },
+    {
+      "paper_id": "hyperfirin",
+      "canonical_package_sha256": "ab9e5955dd9cdef1950138e0a7d0ca64065c5c39a55cdaa18d1ed2ecba7386cf",
+      "expected_article_type": "TOTAL_SYNTHESIS",
+      "expected_visual_count": 9,
+      "required_route_attributes": [],
+      "forward_assets": [
+        {
+          "human_label": "Scheme 2 route asset",
+          "visual_id": "MAIN-P0001-A0001",
+          "source_asset_sha256": "5983f3b72b704d3ad0f4d94c7f03287f2577dd0d356b22aba156293987468be0"
+        },
+        {
+          "human_label": "Scheme 3 route asset",
+          "visual_id": "MAIN-P0002-A0000",
+          "source_asset_sha256": "d706696f559b0075b106465a58ba6059d9085b0df5fead74b22b42751facb94a"
+        }
+      ]
+    },
+    {
+      "paper_id": "ineleganolide",
+      "canonical_package_sha256": "1b0d69f350a2d7766bc0021960b11d719df8a2bf123dd195a8804795854e1078",
+      "expected_article_type": "TOTAL_SYNTHESIS",
+      "expected_visual_count": 13,
+      "required_route_attributes": [],
+      "forward_assets": [
+        {
+          "human_label": "Scheme 1",
+          "visual_id": "MAIN-P0001-A0000",
+          "source_asset_sha256": "3d2eda8baea927ef6c5e8ffdde12a76a6653e3be28c15c27fb1bb15b96b61328"
+        }
+      ]
+    },
+    {
+      "paper_id": "kalmanol",
+      "canonical_package_sha256": "7cf7c4e3b2cf67d21c939e9c43bba382250260b5995fb6b779e037a923694500",
+      "expected_article_type": "TOTAL_SYNTHESIS",
+      "expected_visual_count": 6,
+      "required_route_attributes": [],
+      "forward_assets": [
+        {
+          "human_label": "Scheme 2 route asset",
+          "visual_id": "MAIN-P0001-A0001",
+          "source_asset_sha256": "f3b6874b62543babe547b945209cd1b7e78410f5468ddac64d44ba132e43bd6b"
+        },
+        {
+          "human_label": "Scheme 3 route asset",
+          "visual_id": "MAIN-P0002-A0000",
+          "source_asset_sha256": "0084dd0937d74c0401c6e243103bf47213015f9dbf9472b601f62554001cc007"
+        }
+      ]
+    },
+    {
+      "paper_id": "principinol_B",
+      "canonical_package_sha256": "e77c9ce11c376e5b423eafff53120a7a7a4727cf5bd2ab52a4beb6a7eae11e60",
+      "expected_article_type": "TOTAL_SYNTHESIS",
+      "expected_visual_count": 4,
+      "required_route_attributes": [],
+      "forward_assets": [
+        {
+          "human_label": "Scheme 2",
+          "visual_id": "MAIN-P0001-A0000",
+          "source_asset_sha256": "dc98f1c370c2b62e6c5ca9573ce00b65e709bb26cc6672f7e0ec126bb104f87c"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "total-synthesis-multimodal-harness"
+version = "1.0.0"
+description = "Controlled multimodal experiment harness for total-synthesis papers"
+requires-python = ">=3.11"
+dependencies = [
+  "jsonschema>=4.23,<5",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3,<9",
+]
+
+[project.scripts]
+total-synthesis-harness = "harness.cli:main"
+
+[tool.setuptools]
+packages = ["harness"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]

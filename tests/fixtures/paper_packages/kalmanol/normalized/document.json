@@ -1,0 +1,168 @@
+{
+  "schema_version": "paper_document.v1",
+  "paper_id": "kalmanol",
+  "source_sha256": "7297073433fd7008dd1a9611d566705ee322cf794cbf54d774077959263c8680",
+  "parse_run_id": "mineru-703d4452fb21c6ca00ad",
+  "reported_backend": "hybrid",
+  "reported_version": "3.4.4",
+  "artifacts": {
+    "markdown": "full.md",
+    "content_list": "75ff612b-faae-4571-83d8-11b52b0e870c_content_list.json",
+    "content_list_v2": "75ff612b-faae-4571-83d8-11b52b0e870c_content_list_v2.json",
+    "layout_or_middle": "layout.json",
+    "model_output": "75ff612b-faae-4571-83d8-11b52b0e870c_model.json"
+  },
+  "pages": [
+    {
+      "page_idx": 0,
+      "page_size": [
+        595.0,
+        841.0
+      ],
+      "block_ids": [
+        "mineru-703d4452fb21c6ca00ad:p0000:b0000",
+        "mineru-703d4452fb21c6ca00ad:p0000:b0001",
+        "mineru-703d4452fb21c6ca00ad:p0000:b0002",
+        "mineru-703d4452fb21c6ca00ad:p0000:b0003",
+        "mineru-703d4452fb21c6ca00ad:p0000:b0004",
+        "mineru-703d4452fb21c6ca00ad:p0000:b0005",
+        "mineru-703d4452fb21c6ca00ad:p0000:b0006",
+        "mineru-703d4452fb21c6ca00ad:p0000:b0007",
+        "mineru-703d4452fb21c6ca00ad:p0000:b0008",
+        "mineru-703d4452fb21c6ca00ad:p0000:b0009",
+        "mineru-703d4452fb21c6ca00ad:p0000:b0010",
+        "mineru-703d4452fb21c6ca00ad:p0000:b0011",
+        "mineru-703d4452fb21c6ca00ad:p0000:b0012",
+        "mineru-703d4452fb21c6ca00ad:p0000:b0013",
+        "mineru-703d4452fb21c6ca00ad:p0000:b0014",
+        "mineru-703d4452fb21c6ca00ad:p0000:b0015",
+        "mineru-703d4452fb21c6ca00ad:p0000:b0016",
+        "mineru-703d4452fb21c6ca00ad:p0000:b0017"
+      ]
+    },
+    {
+      "page_idx": 1,
+      "page_size": [
+        595.0,
+        841.0
+      ],
+      "block_ids": [
+        "mineru-703d4452fb21c6ca00ad:p0001:b0000",
+        "mineru-703d4452fb21c6ca00ad:p0001:b0001",
+        "mineru-703d4452fb21c6ca00ad:p0001:b0002",
+        "mineru-703d4452fb21c6ca00ad:p0001:b0003",
+        "mineru-703d4452fb21c6ca00ad:p0001:b0004",
+        "mineru-703d4452fb21c6ca00ad:p0001:b0005",
+        "mineru-703d4452fb21c6ca00ad:p0001:b0006",
+        "mineru-703d4452fb21c6ca00ad:p0001:b0007",
+        "mineru-703d4452fb21c6ca00ad:p0001:b0008",
+        "mineru-703d4452fb21c6ca00ad:p0001:b0009",
+        "mineru-703d4452fb21c6ca00ad:p0001:b0010",
+        "mineru-703d4452fb21c6ca00ad:p0001:b0011",
+        "mineru-703d4452fb21c6ca00ad:p0001:b0012"
+      ]
+    },
+    {
+      "page_idx": 2,
+      "page_size": [
+        595.0,
+        841.0
+      ],
+      "block_ids": [
+        "mineru-703d4452fb21c6ca00ad:p0002:b0000",
+        "mineru-703d4452fb21c6ca00ad:p0002:b0001",
+        "mineru-703d4452fb21c6ca00ad:p0002:b0002",
+        "mineru-703d4452fb21c6ca00ad:p0002:b0003",
+        "mineru-703d4452fb21c6ca00ad:p0002:b0004",
+        "mineru-703d4452fb21c6ca00ad:p0002:b0005",
+        "mineru-703d4452fb21c6ca00ad:p0002:b0006",
+        "mineru-703d4452fb21c6ca00ad:p0002:b0007",
+        "mineru-703d4452fb21c6ca00ad:p0002:b0008",
+        "mineru-703d4452fb21c6ca00ad:p0002:b0009",
+        "mineru-703d4452fb21c6ca00ad:p0002:b0010",
+        "mineru-703d4452fb21c6ca00ad:p0002:b0011",
+        "mineru-703d4452fb21c6ca00ad:p0002:b0012"
+      ]
+    },
+    {
+      "page_idx": 3,
+      "page_size": [
+        595.0,
+        841.0
+      ],
+      "block_ids": [
+        "mineru-703d4452fb21c6ca00ad:p0003:b0000",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0001",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0002",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0003",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0004",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0005",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0006",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0007",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0008",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0009",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0010",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0011",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0012",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0013",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0014",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0015",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0016",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0017",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0018",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0019",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0020",
+        "mineru-703d4452fb21c6ca00ad:p0003:b0021"
+      ]
+    },
+    {
+      "page_idx": 4,
+      "page_size": [
+        595.0,
+        841.0
+      ],
+      "block_ids": [
+        "mineru-703d4452fb21c6ca00ad:p0004:b0000",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0001",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0002",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0003",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0004",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0005",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0006",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0007",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0008",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0009",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0010",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0011",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0012",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0013",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0014",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0015",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0016",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0017",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0018",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0019",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0020",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0021",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0022",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0023",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0024",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0025",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0026",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0027",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0028",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0029",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0030",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0031",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0032",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0033",
+        "mineru-703d4452fb21c6ca00ad:p0004:b0034"
+      ]
+    }
+  ],
+  "counts": {
+    "blocks": 101,
+    "images": 4
+  },
+  "warnings": []
+}

@@ -1,30 +1,28 @@
-# Local credentials and environments
 .env
 .env.*
 !.env.example
+.tsdaf-workspace/
+
 .venv/
 venv/
-
-# Python
 __pycache__/
 *.py[cod]
-.pytest_cache/
-.coverage
-htmlcov/
-*.egg-info/
+*$py.class
 build/
 dist/
+*.egg-info/
 
-# Node OCR dependencies
-node_modules/
-npm-debug.log*
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
-# Editor and operating-system files
 .idea/
 .vscode/
 .DS_Store
 Thumbs.db
 
-# Local scratch space; scientific results are intentionally not ignored
 .work/
 *.tmp

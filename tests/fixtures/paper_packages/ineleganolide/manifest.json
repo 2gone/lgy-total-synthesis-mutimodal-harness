@@ -1,0 +1,103 @@
+{
+  "schema_version": "tsdaf.paper-package.v1",
+  "paper_id": "ineleganolide",
+  "display_name": "Ineleganolide",
+  "source_pdf": {
+    "sha256": "3ddb93a0267dbce84dd083eb6a1c3ff063ef85f61d01681ff50d5b3de766d7b1",
+    "media_type": "application/pdf",
+    "byte_size": 1733430,
+    "relative_path": "source/paper.pdf"
+  },
+  "normalized_document": {
+    "sha256": "fffe545a29eebf0f7eb4977629cc1ba0f284f634970c12747baf202258aebc9a",
+    "media_type": "application/json",
+    "byte_size": 7204,
+    "relative_path": "normalized/document.json"
+  },
+  "normalized_blocks": {
+    "sha256": "4a29cbd33ed5532810fa21325dd6325672eac97c41acd6cbfbe1c5daddb64a65",
+    "media_type": "application/x-ndjson",
+    "byte_size": 116669,
+    "relative_path": "normalized/blocks.jsonl"
+  },
+  "assets": [
+    {
+      "sha256": "ec73a6f0cc2f200452c63f61ad61d5b987ecf6a1ffd616422d1d7f259707dcc4",
+      "media_type": "image/jpeg",
+      "byte_size": 1502,
+      "relative_path": "images/0e713a62dc61083791c9c728eaa105ad56a6ab16953dc71ab3c9f7e9d11b787e.jpg"
+    },
+    {
+      "sha256": "44b2f672d5fb369f184a99088a331c740b23c4609173342b1b29e4e7f9fa99ca",
+      "media_type": "image/jpeg",
+      "byte_size": 1708,
+      "relative_path": "images/5093536c137e0d48a61c89e2a102359733efb48fa584d2111140e9b20c1da544.jpg"
+    },
+    {
+      "sha256": "d83a9c9eb968ecc887cc6914945b13acc247155bab349c0fddd89a23edfcc0ae",
+      "media_type": "image/jpeg",
+      "byte_size": 1088,
+      "relative_path": "images/76fcc898f2b95c260c745af8ce57c2552eba3919465222baf5094a62f3512c73.jpg"
+    },
+    {
+      "sha256": "fecfdcc85782dfbcb2a52335e82e2b834fd22ee2a955a7b6564b6569d035a578",
+      "media_type": "image/jpeg",
+      "byte_size": 6279,
+      "relative_path": "images/b3aef10d6ceff95c37befac218c442d2c631ecd87a08372a4b8c494ba9d4df46.jpg"
+    },
+    {
+      "sha256": "ca463afaf5806e0de287580b94b71069732fc5536d135e6ee887d208966f68a0",
+      "media_type": "image/jpeg",
+      "byte_size": 6256,
+      "relative_path": "images/d71c2bb2db73e883da65aacd4f3bd17071d910d2200ad917c614dcee9888e6ed.jpg"
+    },
+    {
+      "sha256": "d81fc8582e4e19a51379c201c66c21e9a852df69a7ee24eda9d16be3ce9623ad",
+      "media_type": "image/jpeg",
+      "byte_size": 8003,
+      "relative_path": "images/8cff32bd0e1453a6cdac1e8cf2dd101f09b9e7e4205ff08960043ff14edac988.jpg"
+    },
+    {
+      "sha256": "93d799af12b973b425d18df3b76d4b7d7da868bb4305e5391e8f9694f477e844",
+      "media_type": "image/jpeg",
+      "byte_size": 43687,
+      "relative_path": "images/20acb762d866ba254ac0a4d6916e242399710f1c326317dd278267b490b4b1db.jpg"
+    },
+    {
+      "sha256": "f900807387b9455670320a7cc25de8cb68c3c517f293fab9f1f9b6d119eba30b",
+      "media_type": "image/jpeg",
+      "byte_size": 6671,
+      "relative_path": "images/09270b49109bac935e0759b06c15abe26cbe1c89d58301503ed1fc8a900b8048.jpg"
+    },
+    {
+      "sha256": "3d2eda8baea927ef6c5e8ffdde12a76a6653e3be28c15c27fb1bb15b96b61328",
+      "media_type": "image/jpeg",
+      "byte_size": 180527,
+      "relative_path": "images/6a58405765519442146d1d89fb2942d5e32dee9ffe0e6c52126aa40c3d0a474d.jpg"
+    },
+    {
+      "sha256": "75f12a49c91cf4cdf417f22f27726165f066c8e26e0671a9f1e2a1bd061d97e8",
+      "media_type": "image/jpeg",
+      "byte_size": 39387,
+      "relative_path": "images/8d260882ef96cbbeb49beac8e895a021a746d3ecf64eed878d398ff5531ae65a.jpg"
+    },
+    {
+      "sha256": "cc15c4401d15a35876754d90625d80e7f78a04f964c160abdafdfc4a4d2516d9",
+      "media_type": "image/jpeg",
+      "byte_size": 19447,
+      "relative_path": "images/f9973ba4d5cbb7dda0b58d5ce2ac617bf9da194d5d1abe9a4da26e54ebbf5f83.jpg"
+    },
+    {
+      "sha256": "0cee7276338f4f98bc48881950bd018f34fbac38791abe89422e333c057bf79f",
+      "media_type": "image/jpeg",
+      "byte_size": 16468,
+      "relative_path": "images/6ff7b19d2858ca2c0f64353099c88f25a70a12717007d5cd7cef16f3445a4d73.jpg"
+    },
+    {
+      "sha256": "c9c23ceae64d43e36e7543f5826c1db49b9a33935c21d5bf2fdf1abe5ae81282",
+      "media_type": "image/jpeg",
+      "byte_size": 6650,
+      "relative_path": "images/fbe5c96aa012a9b98749bb694eb74b1d911503dc21ba172dba7eec816dfdeac6.jpg"
+    }
+  ]
+}

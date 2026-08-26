@@ -1,14 +1,21 @@
-* text=auto eol=lf
+* text=auto
+
 *.md text eol=lf
 *.py text eol=lf
 *.json text eol=lf
+*.jsonl text eol=lf
 *.csv text eol=lf
 *.toml text eol=lf
+*.yaml text eol=lf
 *.yml text eol=lf
-*.mjs text eol=lf
+
 *.pdf binary
 *.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
 *.traineddata binary
-experiments/ocr_ablation/prompts/controller_prompt.md binary
-experiments/route_image_understanding/prompts/controller_prompt.md binary
-experiments/ocr_ablation/templates/human_scoring_template.csv binary
+
+# These source notes use Markdown's two-space hard line breaks intentionally.
+docs/research/HARNESS_ENGINEERING_0824.md whitespace=-trailing-space
+docs/research/THESIS_MAINLINE_0824.md whitespace=-trailing-space

@@ -1,23 +1,15 @@
-# Total Synthesis Multimodal Harness
+# TS-DAF Slice 1
 
-A private, reproducible collaboration package for two controlled experiments using exactly `gemini-3.7-flash-high`:
+This repository is the production home for TS-DAF Slice 1. The active work plan is [WI-0001: Weak Article Router v1](docs/work/WI-0001-weak-article-router-v1.md).
 
-1. `ocr_ablation` — compare PDF-only, PDF + high-resolution pages, and PDF + pages + deterministic OCR.
-2. `route_image_understanding` — compare a full PDF, selected raw route crops, and structure-hidden tokenized route crops.
+The preserved experimental delivery is under [`tests/legacy_harness/`](tests/legacy_harness/).
+The [CLI guide](docs/guides/CLI.md) documents the fixed `package validate`, `route run`,
+`route resume`, `run inspect`, and `docs check` commands.
 
-The repository contains experiment inputs and an execution Harness, but no credentials and no previous model outputs. The two suites have separate prompts, manifests, schemas, result roots, and evaluation barriers.
-
-## Quick start
+Run the legacy suite explicitly from PowerShell:
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -e ".[dev]"
-Copy-Item .env.example .env
-python -m harness validate --offline
-python -m harness dry-run --suite ocr_ablation --condition A_pdf_only --paper ineleganolide
+$env:PYTHONPATH = (Resolve-Path 'tests/legacy_harness').Path
+python -m pytest -c tests/legacy_harness/pyproject.toml tests/legacy_harness/tests
+Remove-Item Env:PYTHONPATH
 ```
-
-Fill `.env` locally before a paid run. The model name is locked in code and is not configurable.
-
-See `docs/RUNBOOK.md`, `docs/COLLABORATION.md`, and each experiment's supplied controller prompt before running or scoring experiments.

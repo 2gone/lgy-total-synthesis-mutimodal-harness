@@ -1,0 +1,154 @@
+{
+  "schema_version": "paper_document.v1",
+  "paper_id": "principinol_B",
+  "source_sha256": "38b78065c24f052132ef2f0039f16e3a27633506e669f32640d668fc4f779fc1",
+  "parse_run_id": "mineru-b6d3a5ea418fa3b818fd",
+  "reported_backend": "hybrid",
+  "reported_version": "3.4.4",
+  "artifacts": {
+    "markdown": "full.md",
+    "content_list": "e4d9ad79-56b8-4464-b3fa-24fff939193b_content_list.json",
+    "content_list_v2": "e4d9ad79-56b8-4464-b3fa-24fff939193b_content_list_v2.json",
+    "layout_or_middle": "layout.json",
+    "model_output": "e4d9ad79-56b8-4464-b3fa-24fff939193b_model.json"
+  },
+  "pages": [
+    {
+      "page_idx": 0,
+      "page_size": [
+        595.0,
+        841.0
+      ],
+      "block_ids": [
+        "mineru-b6d3a5ea418fa3b818fd:p0000:b0000",
+        "mineru-b6d3a5ea418fa3b818fd:p0000:b0001",
+        "mineru-b6d3a5ea418fa3b818fd:p0000:b0002",
+        "mineru-b6d3a5ea418fa3b818fd:p0000:b0003",
+        "mineru-b6d3a5ea418fa3b818fd:p0000:b0004",
+        "mineru-b6d3a5ea418fa3b818fd:p0000:b0005",
+        "mineru-b6d3a5ea418fa3b818fd:p0000:b0006",
+        "mineru-b6d3a5ea418fa3b818fd:p0000:b0007",
+        "mineru-b6d3a5ea418fa3b818fd:p0000:b0008",
+        "mineru-b6d3a5ea418fa3b818fd:p0000:b0009",
+        "mineru-b6d3a5ea418fa3b818fd:p0000:b0010",
+        "mineru-b6d3a5ea418fa3b818fd:p0000:b0011",
+        "mineru-b6d3a5ea418fa3b818fd:p0000:b0012",
+        "mineru-b6d3a5ea418fa3b818fd:p0000:b0013",
+        "mineru-b6d3a5ea418fa3b818fd:p0000:b0014",
+        "mineru-b6d3a5ea418fa3b818fd:p0000:b0015"
+      ]
+    },
+    {
+      "page_idx": 1,
+      "page_size": [
+        595.0,
+        841.0
+      ],
+      "block_ids": [
+        "mineru-b6d3a5ea418fa3b818fd:p0001:b0000",
+        "mineru-b6d3a5ea418fa3b818fd:p0001:b0001",
+        "mineru-b6d3a5ea418fa3b818fd:p0001:b0002",
+        "mineru-b6d3a5ea418fa3b818fd:p0001:b0003",
+        "mineru-b6d3a5ea418fa3b818fd:p0001:b0004",
+        "mineru-b6d3a5ea418fa3b818fd:p0001:b0005",
+        "mineru-b6d3a5ea418fa3b818fd:p0001:b0006",
+        "mineru-b6d3a5ea418fa3b818fd:p0001:b0007"
+      ]
+    },
+    {
+      "page_idx": 2,
+      "page_size": [
+        595.0,
+        841.0
+      ],
+      "block_ids": [
+        "mineru-b6d3a5ea418fa3b818fd:p0002:b0000",
+        "mineru-b6d3a5ea418fa3b818fd:p0002:b0001",
+        "mineru-b6d3a5ea418fa3b818fd:p0002:b0002",
+        "mineru-b6d3a5ea418fa3b818fd:p0002:b0003",
+        "mineru-b6d3a5ea418fa3b818fd:p0002:b0004",
+        "mineru-b6d3a5ea418fa3b818fd:p0002:b0005",
+        "mineru-b6d3a5ea418fa3b818fd:p0002:b0006",
+        "mineru-b6d3a5ea418fa3b818fd:p0002:b0007",
+        "mineru-b6d3a5ea418fa3b818fd:p0002:b0008",
+        "mineru-b6d3a5ea418fa3b818fd:p0002:b0009",
+        "mineru-b6d3a5ea418fa3b818fd:p0002:b0010",
+        "mineru-b6d3a5ea418fa3b818fd:p0002:b0011"
+      ]
+    },
+    {
+      "page_idx": 3,
+      "page_size": [
+        595.0,
+        841.0
+      ],
+      "block_ids": [
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0000",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0001",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0002",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0003",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0004",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0005",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0006",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0007",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0008",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0009",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0010",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0011",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0012",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0013",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0014",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0015",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0016",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0017",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0018",
+        "mineru-b6d3a5ea418fa3b818fd:p0003:b0019"
+      ]
+    },
+    {
+      "page_idx": 4,
+      "page_size": [
+        595.0,
+        841.0
+      ],
+      "block_ids": [
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0000",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0001",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0002",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0003",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0004",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0005",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0006",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0007",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0008",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0009",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0010",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0011",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0012",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0013",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0014",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0015",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0016",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0017",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0018",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0019",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0020",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0021",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0022",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0023",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0024",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0025",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0026",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0027",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0028",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0029",
+        "mineru-b6d3a5ea418fa3b818fd:p0004:b0030"
+      ]
+    }
+  ],
+  "counts": {
+    "blocks": 87,
+    "images": 4
+  },
+  "warnings": []
+}

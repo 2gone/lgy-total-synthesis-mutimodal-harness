@@ -1,0 +1,90 @@
+{
+  "schema_version": "tsdaf.recorded-gemini-interactions.v1",
+  "model_profile": "gemini-3.7-flash-high-chat-completions-v1",
+  "interactions": [
+    {
+      "request": {
+        "input": [
+          {
+            "type": "user_input",
+            "content": [
+              {
+                "type": "text",
+                "text": "Classify the article."
+              }
+            ]
+          }
+        ],
+        "model": "gemini-3.7-flash-high",
+        "store": false,
+        "stream": false,
+        "background": false,
+        "generation_config": {
+          "thinking_level": "high"
+        },
+        "system_instruction": "Return only a submit_routing tool result.",
+        "tools": [
+          {
+            "type": "function",
+            "name": "submit_routing",
+            "description": "Submit the routing result.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "article_type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "article_type"
+              ],
+              "additionalProperties": false
+            }
+          }
+        ],
+        "response_format": {
+          "type": "text",
+          "mime_type": "application/json",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "article_type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "article_type"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "request_sha256": "3aa7f1823bec239a86e1689a7af9244428ab3c20309a0c8815d0d84eef892a59",
+      "response": {
+        "id": "interaction-task7-001",
+        "status": "completed",
+        "steps": [
+          {
+            "type": "model_output",
+            "content": [
+              {
+                "type": "text",
+                "text": "{\"article_type\":\"research_article\"}"
+              }
+            ]
+          }
+        ],
+        "output_text": "{\"article_type\":\"research_article\"}",
+        "usage": {
+          "total_input_tokens": 101,
+          "total_output_tokens": 29,
+          "total_tokens": 130,
+          "total_cached_tokens": 17,
+          "total_thought_tokens": 11,
+          "total_tool_use_tokens": 7
+        }
+      },
+      "elapsed_ms": 37.5
+    }
+  ]
+}

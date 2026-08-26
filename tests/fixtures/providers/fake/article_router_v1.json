@@ -1,0 +1,138 @@
+{
+  "schema_version": "tsdaf.fake-article-router.v1",
+  "papers": [
+    {
+      "paper_id": "alchivemycin_A",
+      "canonical_package_sha256": "cd8704c9f7c2b7aafaadf7c955011c79fbe5afac5a94fa7ebc6e30659811578e",
+      "article_type": "TOTAL_SYNTHESIS",
+      "disposition": "ROUTED",
+      "route_group_id": "RG001",
+      "target_names": ["alchivemycin A"],
+      "attributes": ["CHEMOENZYMATIC"],
+      "ordered_visual_ids": [
+        "MAIN-P0004-A0000",
+        "MAIN-P0005-A0000",
+        "MAIN-P0006-A0000"
+      ],
+      "core_text_block_ids": [
+        "MAIN-P0002-B0009",
+        "MAIN-P0002-B0010",
+        "MAIN-P0006-B0002"
+      ],
+      "visual_decisions": [
+        {"visual_id": "MAIN-P0001-A0000", "initial_decision": "OTHER", "triage_result": null, "final_decision": "OTHER"},
+        {"visual_id": "MAIN-P0003-A0000", "initial_decision": "RETROSYNTHESIS", "triage_result": null, "final_decision": "RETROSYNTHESIS"},
+        {"visual_id": "MAIN-P0004-A0000", "initial_decision": "FORWARD_ROUTE", "triage_result": null, "final_decision": "FORWARD_ROUTE"},
+        {"visual_id": "MAIN-P0005-A0000", "initial_decision": "FORWARD_ROUTE", "triage_result": null, "final_decision": "FORWARD_ROUTE"},
+        {"visual_id": "MAIN-P0006-A0000", "initial_decision": "FORWARD_ROUTE", "triage_result": null, "final_decision": "FORWARD_ROUTE"}
+      ]
+    },
+    {
+      "paper_id": "hyperfirin",
+      "canonical_package_sha256": "ab9e5955dd9cdef1950138e0a7d0ca64065c5c39a55cdaa18d1ed2ecba7386cf",
+      "article_type": "TOTAL_SYNTHESIS",
+      "disposition": "ROUTED",
+      "route_group_id": "RG001",
+      "target_names": ["Hyperfirin"],
+      "attributes": [],
+      "ordered_visual_ids": [
+        "MAIN-P0001-A0001",
+        "MAIN-P0002-A0000"
+      ],
+      "core_text_block_ids": [
+        "MAIN-P0001-B0003",
+        "MAIN-P0002-B0009"
+      ],
+      "visual_decisions": [
+        {"visual_id": "MAIN-P0000-A0000", "initial_decision": "OTHER", "triage_result": null, "final_decision": "OTHER"},
+        {"visual_id": "MAIN-P0000-A0001", "initial_decision": "OTHER", "triage_result": null, "final_decision": "OTHER"},
+        {"visual_id": "MAIN-P0000-A0002", "initial_decision": "OTHER", "triage_result": null, "final_decision": "OTHER"},
+        {"visual_id": "MAIN-P0000-A0003", "initial_decision": "OTHER", "triage_result": null, "final_decision": "OTHER"},
+        {"visual_id": "MAIN-P0000-A0004", "initial_decision": "OTHER", "triage_result": null, "final_decision": "OTHER"},
+        {"visual_id": "MAIN-P0001-A0000", "initial_decision": "RETROSYNTHESIS", "triage_result": null, "final_decision": "RETROSYNTHESIS"},
+        {"visual_id": "MAIN-P0001-A0001", "initial_decision": "FORWARD_ROUTE", "triage_result": null, "final_decision": "FORWARD_ROUTE"},
+        {"visual_id": "MAIN-P0002-A0000", "initial_decision": "FORWARD_ROUTE", "triage_result": null, "final_decision": "FORWARD_ROUTE"},
+        {"visual_id": "MAIN-P0002-A0001", "initial_decision": "OPTIMIZATION_SCREENING", "triage_result": null, "final_decision": "OPTIMIZATION_SCREENING"}
+      ]
+    },
+    {
+      "paper_id": "ineleganolide",
+      "canonical_package_sha256": "1b0d69f350a2d7766bc0021960b11d719df8a2bf123dd195a8804795854e1078",
+      "article_type": "TOTAL_SYNTHESIS",
+      "disposition": "ROUTED",
+      "route_group_id": "RG001",
+      "target_names": ["(+)-ineleganolide"],
+      "attributes": [],
+      "ordered_visual_ids": ["MAIN-P0001-A0000"],
+      "core_text_block_ids": [
+        "MAIN-P0001-B0003",
+        "MAIN-P0002-B0001",
+        "MAIN-P0002-B0005"
+      ],
+      "visual_decisions": [
+        {"visual_id": "MAIN-P0000-A0000", "initial_decision": "OTHER", "triage_result": null, "final_decision": "OTHER"},
+        {"visual_id": "MAIN-P0000-A0001", "initial_decision": "OTHER", "triage_result": null, "final_decision": "OTHER"},
+        {"visual_id": "MAIN-P0000-A0002", "initial_decision": "OTHER", "triage_result": null, "final_decision": "OTHER"},
+        {"visual_id": "MAIN-P0000-A0003", "initial_decision": "RETROSYNTHESIS", "triage_result": null, "final_decision": "RETROSYNTHESIS"},
+        {"visual_id": "MAIN-P0000-A0004", "initial_decision": "RETROSYNTHESIS", "triage_result": null, "final_decision": "RETROSYNTHESIS"},
+        {"visual_id": "MAIN-P0000-A0005", "initial_decision": "RETROSYNTHESIS", "triage_result": null, "final_decision": "RETROSYNTHESIS"},
+        {"visual_id": "MAIN-P0000-A0006", "initial_decision": "RETROSYNTHESIS", "triage_result": null, "final_decision": "RETROSYNTHESIS"},
+        {"visual_id": "MAIN-P0000-A0007", "initial_decision": "OTHER", "triage_result": null, "final_decision": "OTHER"},
+        {"visual_id": "MAIN-P0001-A0000", "initial_decision": "FORWARD_ROUTE", "triage_result": null, "final_decision": "FORWARD_ROUTE"},
+        {"visual_id": "MAIN-P0002-A0000", "initial_decision": "MECHANISM", "triage_result": null, "final_decision": "MECHANISM"},
+        {"visual_id": "MAIN-P0003-A0000", "initial_decision": "ANALYTICAL", "triage_result": null, "final_decision": "ANALYTICAL"},
+        {"visual_id": "MAIN-P0004-A0000", "initial_decision": "OTHER", "triage_result": null, "final_decision": "OTHER"},
+        {"visual_id": "MAIN-P0004-A0001", "initial_decision": "OTHER", "triage_result": null, "final_decision": "OTHER"}
+      ]
+    },
+    {
+      "paper_id": "kalmanol",
+      "canonical_package_sha256": "7cf7c4e3b2cf67d21c939e9c43bba382250260b5995fb6b779e037a923694500",
+      "article_type": "TOTAL_SYNTHESIS",
+      "disposition": "ROUTED",
+      "route_group_id": "RG001",
+      "target_names": ["(+)-kalmanol"],
+      "attributes": [],
+      "ordered_visual_ids": [
+        "MAIN-P0001-A0001",
+        "MAIN-P0002-A0000"
+      ],
+      "core_text_block_ids": [
+        "MAIN-P0001-B0002",
+        "MAIN-P0001-B0004",
+        "MAIN-P0002-B0003",
+        "MAIN-P0003-B0002"
+      ],
+      "visual_decisions": [
+        {"visual_id": "MAIN-P0000-A0000", "initial_decision": "OTHER", "triage_result": null, "final_decision": "OTHER"},
+        {"visual_id": "MAIN-P0001-A0000", "initial_decision": "RETROSYNTHESIS", "triage_result": null, "final_decision": "RETROSYNTHESIS"},
+        {"visual_id": "MAIN-P0001-A0001", "initial_decision": "FORWARD_ROUTE", "triage_result": null, "final_decision": "FORWARD_ROUTE"},
+        {"visual_id": "MAIN-P0001-A0002", "initial_decision": "OPTIMIZATION_SCREENING", "triage_result": null, "final_decision": "OPTIMIZATION_SCREENING"},
+        {"visual_id": "MAIN-P0002-A0000", "initial_decision": "FORWARD_ROUTE", "triage_result": null, "final_decision": "FORWARD_ROUTE"},
+        {"visual_id": "MAIN-P0002-A0001", "initial_decision": "OPTIMIZATION_SCREENING", "triage_result": null, "final_decision": "OPTIMIZATION_SCREENING"}
+      ]
+    },
+    {
+      "paper_id": "principinol_B",
+      "canonical_package_sha256": "e77c9ce11c376e5b423eafff53120a7a7a4727cf5bd2ab52a4beb6a7eae11e60",
+      "article_type": "TOTAL_SYNTHESIS",
+      "disposition": "ROUTED",
+      "route_group_id": "RG001",
+      "target_names": ["principinol B"],
+      "attributes": ["ASYMMETRIC"],
+      "ordered_visual_ids": ["MAIN-P0001-A0000"],
+      "core_text_block_ids": [
+        "MAIN-P0001-B0002",
+        "MAIN-P0002-B0001",
+        "MAIN-P0002-B0005",
+        "MAIN-P0003-B0001"
+      ],
+      "visual_decisions": [
+        {"visual_id": "MAIN-P0000-A0000", "initial_decision": "RETROSYNTHESIS", "triage_result": null, "final_decision": "RETROSYNTHESIS"},
+        {"visual_id": "MAIN-P0001-A0000", "initial_decision": "FORWARD_ROUTE", "triage_result": null, "final_decision": "FORWARD_ROUTE"},
+        {"visual_id": "MAIN-P0002-A0000", "initial_decision": "MECHANISM", "triage_result": null, "final_decision": "MECHANISM"},
+        {"visual_id": "MAIN-P0003-A0000", "initial_decision": "FAILED_ONLY_ROUTE", "triage_result": null, "final_decision": "FAILED_ONLY_ROUTE"}
+      ]
+    }
+  ]
+}

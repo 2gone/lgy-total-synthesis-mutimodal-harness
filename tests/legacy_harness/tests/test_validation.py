@@ -11,6 +11,7 @@ import pytest
 
 ALPHA_SHA256 = "8ed3f6ad685b959ead7022518e1af76cd816f8e8ec7ccdda1ed4018e8f2223f8"
 REPO_ROOT = Path(__file__).resolve().parents[1]
+WORKTREE_ROOT = REPO_ROOT.parents[1]
 
 
 def _validation_module():
@@ -68,14 +69,14 @@ def test_manifest_builder_is_deterministic_and_excludes_git_metadata(tmp_path) -
 
 def test_git_index_bytes_match_the_distributed_manifest() -> None:
     """Catches checkout-time line-ending conversion that invalidates distributed hashes."""
-    if not (REPO_ROOT / ".git").exists():
+    if not (WORKTREE_ROOT / ".git").exists():
         pytest.skip("Git index is unavailable in a source archive")
     manifest = json.loads((REPO_ROOT / "MANIFEST.sha256.json").read_text(encoding="utf-8"))
     mismatches = []
     for item in manifest["files"]:
         completed = subprocess.run(
-            ["git", "show", f":{item['path']}"],
-            cwd=REPO_ROOT,
+            ["git", "show", f":tests/legacy_harness/{item['path']}"],
+            cwd=WORKTREE_ROOT,
             check=True,
             stdout=subprocess.PIPE,
         )
