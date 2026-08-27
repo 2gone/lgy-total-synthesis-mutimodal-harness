@@ -8,6 +8,7 @@ TS-DAF 是一个小而逻辑清晰的总合成研究证据 Harness。复杂性�
 - 原始 PDF 与原始源资产是不可变证据；规范化产物是派生物，拥有自己的 hash，不能宣称与源文件字节相同。
 - 内容寻址产物、seal、event 和 manifest 才是真相；SQLite 只是可在删除后重建的派生投影。
 - 默认命令和 CI 均离线。live 调用必须有明确授权；凭据只经进程环境进入，绝不进入日志、产物或文档。
+- commit、push 等 Git 写操作必须由用户明确授权；具体执行约束见 [AGENTS.md](AGENTS.md)。
 - Task 2 import checker 是冻结的工具债务，不是生产依赖、架构示例或 Python 解释器项目。
 - 新 abstraction 至少要有两个当前消费者；若两轮 review/fix 暴露同一根因，停止打补丁并请求 scope/design adjudication。
 

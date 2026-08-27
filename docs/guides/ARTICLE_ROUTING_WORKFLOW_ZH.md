@@ -7,14 +7,14 @@
 ```text
 normalized paper package
   -> validation + canonicalization
+  -> immutable canonical artifacts + concrete local runner (attempt/cache/seal/manifest/event; SQLite-derived index)
+  -> recorded/offline provider or explicitly authorized live provider
   -> text-first MainArticleRouter
   -> flagged-only visual triage
-  -> immutable VisualRoutingHandoff + CoarseTextHandoff
-  -> hash-bound release receipt
-  -> ImageProcessingJob
+  -> two immutable PROPOSED handoffs: VisualRoutingHandoff + CoarseTextHandoff
 ```
 
-`MainArticleRouter` 只处理文本，绝不接收 image bytes。仅显式标记的资产可进入隔离的 visual triage。路由 CLI 在两个 `PROPOSED` handoff 后停止：它不签发 release receipt，也不创建 image job；后续授权必须以 handoff content hash 严格绑定 release receipt 和 image job。
+validation/canonicalization 后，具体 local runner 写入可恢复的 attempt、cache、seal、manifest 和 event 证据，并以 SQLite-derived index 提供可重建的本地投影；recorded/offline provider 或经明确授权的 live provider 在该执行边界内被调用。`MainArticleRouter` 只处理文本，绝不接收 image bytes。仅显式标记的资产可进入隔离的 visual triage。路由 CLI 在两个 `PROPOSED` handoff 后停止：它不签发 release receipt，也不创建 image job；后续授权必须以 handoff content hash 严格绑定 release receipt 和 image job。
 
 ## 合同、证据与路由组
 
