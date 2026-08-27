@@ -8,8 +8,8 @@ Each slice consumes stable contracts, immutable artifacts, and receipts establis
 
 Build the weak-article Router foundation: package boundary, canonicalization, text-first routing,
 isolated visual triage, immutable handoff, local Runner, offline tests, and five-paper gold
-validation. The offline foundation is implemented; Task 12 paid five-paper live validation remains
-paused on the selected remote API. The current boundary is tracked by [WI-0001](work/WI-0001-weak-article-router-v1.md).
+validation. The offline foundation and Task 12 five-paper explicit-live validation are complete.
+The current boundary is tracked by [WI-0001](work/WI-0001-weak-article-router-v1.md).
 
 ## Image processing v1 foundation
 

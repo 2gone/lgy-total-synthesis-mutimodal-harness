@@ -50,11 +50,12 @@ raw exception.
 never invokes a provider. It may reuse verified local content cache; otherwise it returns exit `3`
 with `LIVE_REQUIRED` before creating a workspace, execution, or attempt.
 
-Live work is enabled only by `--live`. It requires nonblank `OPENAI_API_KEY` and an absolute HTTPS
-`OPENAI_BASE_URL` ending exactly in `/v1`, without userinfo, a query, or a fragment. The model is
-fixed to `gemini-3.7-flash-high`; legacy `GEMINI_API_KEY` and `GEMINI_MODEL` do not select live
-behavior. Missing or invalid live configuration returns exit `2` before workspace mutation or SDK
-import. Set credentials only in a shell or credential manager, for example
+Live work is enabled only by `--live`. It requires nonblank `OPENAI_API_KEY` and an absolute
+`OPENAI_BASE_URL` ending exactly in `/v1`, without userinfo, a query, or a fragment. HTTPS is
+accepted; plain HTTP is accepted only for the literal loopback hosts `127.0.0.1`, `localhost`, or
+`::1`. The model is fixed to `gemini-3.7-flash-high`; legacy `GEMINI_API_KEY` and `GEMINI_MODEL`
+do not select live behavior. Missing or invalid live configuration returns exit `2` before workspace
+mutation or SDK import. Set credentials only in a shell or credential manager, for example
 `$env:OPENAI_API_KEY='...'`; no key is written to settings, events, artifacts, inspection output,
 or error output.
 
@@ -79,8 +80,9 @@ The optional `--workers`, `--retries`, `--timeout`, `--device`, `--workspace`, a
 `--execution-id` flags only control execution; there is no batch-size, model, or temperature flag.
 
 Offline image processing can reuse verified local results but will return `LIVE_REQUIRED` for any
-uncached OCSR crop. Live mode uses the same `OPENAI_API_KEY` and safe `OPENAI_BASE_URL` rules as
-article routing. The CLI never reads a `.env` file directly.
+uncached OCSR crop. Live mode uses the same `OPENAI_API_KEY`, but image OCSR requires an absolute
+HTTPS `OPENAI_BASE_URL` ending exactly in `/v1`, without userinfo, a query, or a fragment; it does
+not allow loopback HTTP. The CLI never reads a `.env` file directly.
 
 ## Resume
 

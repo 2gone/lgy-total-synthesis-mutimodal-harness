@@ -13,3 +13,6 @@
   and fixed-profile one-crop Gemini OCSR.
 - Relocated the original OCR and route-image experiment Harness to `tests/legacy_harness/` as an
   isolated historical test project.
+- Provider-visible route-group schema `RG001`–`RG999` with Host continuity/reference validation.
+- Completed five-paper first-local explicit-live routing validation: `1 passed in 260.30s`, with
+  all 37 visual decisions matching frozen gold and zero escalation.
