@@ -563,8 +563,8 @@
     },
     {
       "path": "tests/test_validation.py",
-      "size_bytes": 3242,
-      "sha256": "1b7680d2c845eda0d750db91bf123967b4c0c3fec33d2a720a7755d85fe47937"
+      "size_bytes": 3308,
+      "sha256": "7159c5c637334518c5829186058a92ce0aecf756c8e7ffaeaa532062a19794cb"
     },
     {
       "path": "tools/ocr/eng.traineddata",
