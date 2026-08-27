@@ -36,14 +36,22 @@ def test_help_lists_exact_command_groups(entrypoint_index: int) -> None:
     result = run([*entrypoints()[entrypoint_index], "--help"], REPOSITORY_ROOT)
 
     assert result.returncode == 0
-    assert "{package,route,run,docs}" in result.stdout
+    assert "{package,route,image,run,docs}" in result.stdout
     assert result.stderr == ""
 
 
 @pytest.mark.parametrize("entrypoint_index", (0, 1))
 @pytest.mark.parametrize(
     "arguments",
-    ((), ("unknown",), ("package",), ("route",), ("run",), ("docs", "check", "--live")),
+    (
+        (),
+        ("unknown",),
+        ("package",),
+        ("route",),
+        ("image",),
+        ("run",),
+        ("docs", "check", "--live"),
+    ),
 )
 def test_invalid_command_surfaces_exit_two(
     entrypoint_index: int, arguments: tuple[str, ...]

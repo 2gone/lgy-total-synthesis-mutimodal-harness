@@ -23,6 +23,7 @@ from tsdaf.contracts.schema import canonical_json_bytes as _canonical_json_bytes
 __all__ = (
     "GEMINI_MODEL_ID",
     "GEMINI_MODEL_PROFILE",
+    "GEMINI_OCSR_MODEL_PROFILE",
     "GeminiAdapterError",
     "GeminiInteraction",
     "GeminiInteractions",
@@ -31,9 +32,12 @@ __all__ = (
 
 GEMINI_MODEL_ID = "gemini-3.7-flash-high"
 GEMINI_MODEL_PROFILE = "gemini-3.7-flash-high-chat-completions-v1"
+GEMINI_OCSR_MODEL_PROFILE = "gemini-3.7-flash-high-molecule-ocsr-chat-completions-v1"
 
 _FIXTURE_SCHEMA_VERSION = "tsdaf.recorded-gemini-interactions.v1"
 _MAX_TRANSPORT_ATTEMPTS = 4
+_MAIN_GENERATION_CONFIG: dict[str, object] = {"thinking_level": "high"}
+_OCSR_GENERATION_CONFIG: dict[str, object] = {"temperature": 0}
 _REQUEST_ID_RE = _re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}\Z")
 
 
@@ -99,6 +103,7 @@ def _request_and_bytes(
     system_instruction: object | None,
     tools: object | None,
     response_format: object | None,
+    generation_config: _Mapping[str, object] | None = None,
 ) -> tuple[dict[str, object], bytes]:
     request: dict[str, object] = {
         "input": input,
@@ -106,7 +111,7 @@ def _request_and_bytes(
         "store": False,
         "stream": False,
         "background": False,
-        "generation_config": {"thinking_level": "high"},
+        "generation_config": dict(generation_config or _MAIN_GENERATION_CONFIG),
     }
     if system_instruction is not None:
         request["system_instruction"] = system_instruction
@@ -483,10 +488,29 @@ def _chat_request(request: _Mapping[str, object]) -> dict[str, object]:
     wire: dict[str, object] = {
         "model": GEMINI_MODEL_ID,
         "messages": _chat_messages(request),
-        "reasoning_effort": "high",
         "store": False,
         "stream": False,
     }
+    generation_config = request.get("generation_config")
+    if not isinstance(generation_config, _Mapping):
+        raise _failure(
+            _FailureCode.PROVIDER_REJECTED, "Gemini interaction request is not JSON-compatible"
+        ) from None
+    thinking_level = generation_config.get("thinking_level")
+    temperature = generation_config.get("temperature")
+    if thinking_level is not None:
+        if thinking_level != "high" or temperature is not None:
+            raise _failure(
+                _FailureCode.PROVIDER_REJECTED,
+                "Gemini interaction request is not JSON-compatible",
+            ) from None
+        wire["reasoning_effort"] = "high"
+    elif temperature == 0 and len(generation_config) == 1:
+        wire["temperature"] = 0
+    else:
+        raise _failure(
+            _FailureCode.PROVIDER_REJECTED, "Gemini interaction request is not JSON-compatible"
+        ) from None
     tools = request.get("tools")
     if tools is not None:
         if not isinstance(tools, list):
@@ -699,7 +723,15 @@ def _interaction(
 class GeminiInteractions:
     """Concrete fixed adapter with a private Chat Completions transport."""
 
-    __slots__ = ("_chat_completions", "_client", "_connection_error_type", "_monotonic", "_sleep")
+    __slots__ = (
+        "_chat_completions",
+        "_client",
+        "_connection_error_type",
+        "_generation_config",
+        "_max_transport_attempts",
+        "_monotonic",
+        "_sleep",
+    )
 
     def __init__(
         self,
@@ -708,11 +740,21 @@ class GeminiInteractions:
         model: str = GEMINI_MODEL_ID,
         monotonic: _Callable[[], float] = _time.monotonic,
         sleep: _Callable[[float], None] = _time.sleep,
+        generation_config: _Mapping[str, object] | None = None,
+        max_transport_attempts: int = _MAX_TRANSPORT_ATTEMPTS,
     ) -> None:
         _require_fixed_model(model)
+        if (
+            isinstance(max_transport_attempts, bool)
+            or not isinstance(max_transport_attempts, int)
+            or max_transport_attempts < 1
+        ):
+            raise ValueError("max_transport_attempts must be a positive integer")
         self._client: _Any = client
         self._monotonic = monotonic
         self._sleep = sleep
+        self._generation_config = dict(generation_config or _MAIN_GENERATION_CONFIG)
+        self._max_transport_attempts = max_transport_attempts
         self._chat_completions = False
         self._connection_error_type: type[BaseException] | None = None
 
@@ -741,6 +783,44 @@ class GeminiInteractions:
         adapter._connection_error_type = _APIConnectionError
         return adapter
 
+    @classmethod
+    def for_molecule_ocsr(
+        cls,
+        api_key: str,
+        *,
+        base_url: str,
+        model: str = GEMINI_MODEL_ID,
+        timeout: float = 120.0,
+        retries: int = 2,
+        monotonic: _Callable[[], float] = _time.monotonic,
+        sleep: _Callable[[float], None] = _time.sleep,
+    ) -> _Self:
+        """Create the fixed one-crop OCSR transport profile."""
+
+        if isinstance(timeout, bool) or not isinstance(timeout, int | float) or timeout <= 0:
+            raise ValueError("timeout must be a positive number")
+        if isinstance(retries, bool) or not isinstance(retries, int) or retries < 0:
+            raise ValueError("retries must be a nonnegative integer")
+        from openai import APIConnectionError as _APIConnectionError
+        from openai import OpenAI as _OpenAI
+
+        adapter = cls(
+            _OpenAI(
+                api_key=api_key,
+                base_url=base_url,
+                max_retries=0,
+                timeout=float(timeout),
+            ),
+            model=model,
+            monotonic=monotonic,
+            sleep=sleep,
+            generation_config=_OCSR_GENERATION_CONFIG,
+            max_transport_attempts=retries + 1,
+        )
+        adapter._chat_completions = True
+        adapter._connection_error_type = _APIConnectionError
+        return adapter
+
     def create(
         self,
         *,
@@ -756,9 +836,10 @@ class GeminiInteractions:
             system_instruction=system_instruction,
             tools=tools,
             response_format=response_format,
+            generation_config=self._generation_config,
         )
         started = self._monotonic()
-        for attempt in range(1, _MAX_TRANSPORT_ATTEMPTS + 1):
+        for attempt in range(1, self._max_transport_attempts + 1):
             try:
                 if self._chat_completions:
                     response = self._client.chat.completions.create(**_chat_request(request))
@@ -773,7 +854,7 @@ class GeminiInteractions:
                     code, retryable = _FailureCode.PROVIDER_TRANSIENT, True
                 else:
                     code, retryable = _failure_kind(error)
-                if retryable and attempt < _MAX_TRANSPORT_ATTEMPTS:
+                if retryable and attempt < self._max_transport_attempts:
                     self._sleep(_retry_delay(error, attempt))
                     continue
                 raise _failure(

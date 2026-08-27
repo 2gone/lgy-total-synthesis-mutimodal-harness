@@ -662,3 +662,77 @@ def test_chat_completions_preserves_image_bytes_and_uses_strict_json_schema(
         },
     }
     assert "parallel_tool_calls" not in request
+
+
+def test_molecule_ocsr_profile_uses_temperature_zero_timeout_and_three_attempts(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # Break caught: OCSR silently inherits the article-router reasoning or retry profile.
+    gemini = _gemini_module()
+    response = _FakeResponse(
+        {
+            "id": "chatcmpl-ocsr-001",
+            "model": "gemini-3.7-flash-high",
+            "choices": [{"message": {"content": '{"smiles":"CCO"}'}}],
+            "usage": {"prompt_tokens": 1, "completion_tokens": 1, "total_tokens": 2},
+        }
+    )
+    client = _FakeChatClient(response)
+    factory = _FakeOpenAI(client)
+    monkeypatch.setitem(
+        sys.modules,
+        "openai",
+        type(
+            "_OpenAIModule",
+            (),
+            {"APIConnectionError": _FakeAPIConnectionError, "OpenAI": factory},
+        )(),
+    )
+    adapter = gemini.GeminiInteractions.for_molecule_ocsr(
+        api_key=RAW_SECRET,
+        base_url="https://provider.example.invalid/v1",
+        timeout=120.0,
+        retries=2,
+    )
+
+    interaction = adapter.create(input=STATELESS_INPUT)
+
+    assert factory.calls == [
+        {
+            "api_key": RAW_SECRET,
+            "base_url": "https://provider.example.invalid/v1",
+            "max_retries": 0,
+            "timeout": 120.0,
+        }
+    ]
+    request = client.chat.completions.requests[0]
+    assert request["temperature"] == 0
+    assert "reasoning_effort" not in request
+    assert interaction.transport_attempts == 1
+
+    failing_client = _FakeChatClient(_FakeAPIConnectionError())
+    failing_client.chat.completions.actions.extend(
+        [_FakeAPIConnectionError(), _FakeAPIConnectionError()]
+    )
+    failing_factory = _FakeOpenAI(failing_client)
+    monkeypatch.setitem(
+        sys.modules,
+        "openai",
+        type(
+            "_OpenAIModule",
+            (),
+            {"APIConnectionError": _FakeAPIConnectionError, "OpenAI": failing_factory},
+        )(),
+    )
+    failing = gemini.GeminiInteractions.for_molecule_ocsr(
+        api_key=RAW_SECRET,
+        base_url="https://provider.example.invalid/v1",
+        timeout=120.0,
+        retries=2,
+        sleep=lambda _: None,
+    )
+
+    with pytest.raises(gemini.GeminiAdapterError):
+        failing.create(input=STATELESS_INPUT)
+
+    assert len(failing_client.chat.completions.requests) == 3

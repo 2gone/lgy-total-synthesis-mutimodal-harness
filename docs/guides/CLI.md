@@ -1,11 +1,12 @@
 # TS-DAF Slice 1 CLI
 
-The Slice 1 command line has five fixed commands:
+The command line has six fixed commands:
 
 ```text
 tsdaf package validate <package-dir>
 tsdaf route run <package-dir> [--live]
 tsdaf route resume <execution-id> [--live]
+tsdaf image run <job-json> <image-package-dir> --molyolo-bundle <bundle-dir> [--live]
 tsdaf run inspect <execution-id>
 tsdaf docs check
 ```
@@ -62,6 +63,24 @@ with optional visual triage, and materializes both proposed handoffs. The handof
 immutable content-addressed JSON objects and bound into exactly one `handoffs_materialized` event
 before the execution is sealed successful. This command does not issue a release receipt, create an
 image job, copy images, or produce named exports.
+
+## Image processing
+
+`image run` consumes an authorized image-job JSON file and the original image package. It verifies
+the declared source image, runs the external MolYOLO/YOLOv10 bundle, normalizes detections, writes
+one crop per molecule, and sends each crop in a separate Gemini OCSR request when `--live` is set.
+It does not read a PDF or MinerU package, perform molecule binding, or build the final Image Package.
+
+The extracted MolYOLO bundle must contain `weights/MolYOLO.pt` and
+`.vendor/molyolo_runtime/ultralytics/__init__.py`; its runtime and weight hashes are recorded as
+detector provenance. OCSR uses the fixed `gemini-3.7-flash-high` profile with `temperature=0`.
+Defaults are four concurrent single-crop requests, two retries, and a 120-second request timeout.
+The optional `--workers`, `--retries`, `--timeout`, `--device`, `--workspace`, and
+`--execution-id` flags only control execution; there is no batch-size, model, or temperature flag.
+
+Offline image processing can reuse verified local results but will return `LIVE_REQUIRED` for any
+uncached OCSR crop. Live mode uses the same `OPENAI_API_KEY` and safe `OPENAI_BASE_URL` rules as
+article routing. The CLI never reads a `.env` file directly.
 
 ## Resume
 

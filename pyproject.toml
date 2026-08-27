@@ -15,7 +15,9 @@ router = [
   "openai>=2.29,<3",
   "pydantic-settings>=2.7,<3",
 ]
-image = []
+image = [
+  "Pillow>=12,<13",
+]
 fusion = []
 dev = [
   "mypy>=1.14,<2",

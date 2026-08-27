@@ -1,0 +1,4 @@
+prompt_id = "molecule-ocsr"
+version = "1.0.0"
+schema_version = "tsdaf.gemini-ocsr-result.v1"
+model_profile = "gemini-3.7-flash-high-molecule-ocsr-chat-completions-v1"

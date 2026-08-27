@@ -5,6 +5,7 @@ from collections.abc import Callable, Sequence
 from pathlib import Path
 
 from tsdaf.apps.commands.docs import run_docs_check
+from tsdaf.apps.commands.image import run_image
 from tsdaf.apps.commands.package import run_package_validate
 from tsdaf.apps.commands.route import run_route, run_route_resume
 from tsdaf.apps.commands.run import run_inspect
@@ -20,6 +21,42 @@ def _route_run(namespace: argparse.Namespace) -> int:
 
 def _route_resume(namespace: argparse.Namespace) -> int:
     return run_route_resume(namespace.execution_id, live=namespace.live)
+
+
+def _positive_int(value: str) -> int:
+    parsed = int(value)
+    if parsed < 1:
+        raise argparse.ArgumentTypeError("value must be a positive integer")
+    return parsed
+
+
+def _nonnegative_int(value: str) -> int:
+    parsed = int(value)
+    if parsed < 0:
+        raise argparse.ArgumentTypeError("value must be a nonnegative integer")
+    return parsed
+
+
+def _positive_float(value: str) -> float:
+    parsed = float(value)
+    if parsed <= 0:
+        raise argparse.ArgumentTypeError("value must be a positive number")
+    return parsed
+
+
+def _image_run(namespace: argparse.Namespace) -> int:
+    return run_image(
+        namespace.job_path,
+        namespace.source_package_dir,
+        bundle_root=namespace.molyolo_bundle,
+        workspace=namespace.workspace,
+        device=namespace.device,
+        workers=namespace.workers,
+        retries=namespace.retries,
+        timeout=namespace.timeout,
+        execution_id=namespace.execution_id,
+        live=namespace.live,
+    )
 
 
 def _run_inspect(namespace: argparse.Namespace) -> int:
@@ -51,6 +88,23 @@ def _parser() -> argparse.ArgumentParser:
     resume.add_argument("execution_id")
     resume.add_argument("--live", action="store_true")
     resume.set_defaults(handler=_route_resume)
+
+    image = commands.add_parser("image", help="source-image processing commands")
+    image_commands = image.add_subparsers(dest="image_command", required=True)
+    image_run = image_commands.add_parser(
+        "run", help="detect, crop, and transcribe molecules from one source image"
+    )
+    image_run.add_argument("job_path", type=Path)
+    image_run.add_argument("source_package_dir", type=Path)
+    image_run.add_argument("--molyolo-bundle", type=Path, required=True)
+    image_run.add_argument("--workspace", type=Path, default=Path.cwd() / ".tsdaf-workspace")
+    image_run.add_argument("--device", default="auto")
+    image_run.add_argument("--workers", type=_positive_int, default=4)
+    image_run.add_argument("--retries", type=_nonnegative_int, default=2)
+    image_run.add_argument("--timeout", type=_positive_float, default=120.0)
+    image_run.add_argument("--execution-id")
+    image_run.add_argument("--live", action="store_true")
+    image_run.set_defaults(handler=_image_run)
 
     run = commands.add_parser("run", help="execution inspection commands")
     run_commands = run.add_subparsers(dest="run_command", required=True)
