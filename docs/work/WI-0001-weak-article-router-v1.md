@@ -65,7 +65,7 @@ acceptance:
 - [x] 完成计划冲突预检并写入下述裁决。
 - [x] Task 0 完成：旧 harness 已完整迁入 `tests/legacy_harness/`，独立复核通过；24 个 legacy tests 与 5 个 active tests 均通过。
 - [x] Task 1 完成：项目记忆、七个 ADR、确定性 STATUS 与 DOC001–DOC009 校验器已实现；修复轮次后 active tests 36/36。
-- [x] Task 2 完成：48 行首轮 RED 曾按旧规范得到 36/12；H6Q 经独立语义裁决改为 `(7,)` sound conservative control，修正后 handler RED 为 11/5、合并 RED 为 35/13。最终 round5 48、active 281、legacy 24，控制器完整复跑全绿；独立 actual-code/I1–I6 审查以 27 个编译有效新探针加 H6Q/反例得到 `PASS`（0 Critical / 0 Important / 0 Minor）。两个核定生成 residue 已安全清理且最终不存在；Task 3 依赖门禁已释放。
+- [x] Task 2 完成且历史工具债务已退役：在用户明确授权的路线 A 下，环境访问 mini-interpreter 被 394 行 bounded AST checker 取代，主 checker 测试收敛为 300 行 CLI 黑盒合同；三文件净删除 3,810 行。稳定 CLI、IMP001–IMP005、层级/合同/环境/cycle 边界和真实 `src/tsdaf` clean 均保留；focused `47 passed`、active `376 passed`，独立 reviewer `PASS_WITH_MINOR`（0 Critical / 0 Important，1 个非阻塞覆盖建议）。Task 2 保持关闭，不再扩展 Python 语言语义。
 - [x] Task 3 施工准备：B1–B7 已裁决，42 exports / 26 root models / 9 taxonomy enums 的详细 construction brief 经三项修订后独立复审 `PASS`（0 Critical / 0 Important / 0 Minor）；Task 2 门禁已满足，轻量领域比例检查完成，Task 3 已释放进入收窄的 RED-first 实现。
 - [x] Task 3 集成占位迁移：Task 2 的 scaffold 原先把全部边界包暂时断言为空导出；`tsdaf.contracts` 进入正式合同阶段后，控制器仅将该测试迁移为“contracts 显式导出、其余未施工边界包仍为空”。精确 42 项清单继续只由 Task 3 schema 测试维护，未修改生产设计或 Task 2 checker。
 - [x] Task 3 完成：六组合同测试先得到完整 RED，随后以直接 Pydantic 领域代码实现 source/package/routing/handoff/receipt/execution/schema；focused `180 passed`、active `461 passed`，Ruff、mypy、boundary、STATUS、docs 与 diff gate 全绿。控制器复核 42 exports / 26 roots / 9 enums、41,519-byte golden 及全部实现/测试 hash，并清理三个可再生测试目录；不同 reviewer 对领域完整性、schema 稳定、receipt/handoff 边界和越权字段给出双 `PASS`、0 Critical / 0 Important / 0 Minor。Task 4 依赖门禁已释放。
@@ -186,15 +186,15 @@ Task 0 的 import-boundary detector 必须用临时合成源码证明能抓住�
 
 以下执行方向优先于本文此前关于审查深度、fresh probe 数量和基础设施扩展的默认做法，但不改变 TS-DAF 的科学目标、核心数据边界、TDD、独立复核或 no-commit 约束。
 
-### Task 2 checker 的最终定位
+### Task 2 checker 退役后的最终定位
 
-`scripts/check_import_boundaries.py` 是已接受、已冻结的工程工具债务，不是领域架构范例：
+2026-08-27，用户明确授权路线 A；该授权只 supersede 本节原有“冻结且不得重写”条款，用于一次有界的历史债务清偿，不重开 Task 2 的领域范围。`scripts/check_import_boundaries.py` 已从 2,258 行 Python 语义 mini-interpreter 收敛为 394 行、仅使用标准库的 AST 边界检查器；配套主测试从 2,198 行收敛为 300 行 CLI 黑盒合同，legacy isolation 测试为 24 行。三文件共 277 行新增、4,087 行删除，未修改 `src/tsdaf`、contracts/schema、fixtures、provider、workflow、CI 或依赖。
 
-- Slice 1 不再扩展它的 Python 语言语义覆盖；Task 3–12 不得因人为语言边缘案例修改它。
-- 真实生产代码若触发误报，优先改写为更清晰且符合既有架构的表达；不得为了取悦 checker 牺牲可读性。
-- 只有真实生产代码出现无法规避的误报或明确漏报，才暂停并向用户报告是否重新打开该工具。
-- checker 不得被 `src/tsdaf` 导入，不得成为领域层依赖、设计中心或后续 Task 的复杂度来源。
-- Task 2 已完成，不回滚、不重写、不追加修复轮次。
+- 稳定入口 `python scripts/check_import_boundaries.py src/tsdaf`、0/1/2 退出码、stdout/stderr 契约、`IMP001`–`IMP005`、五层依赖矩阵、两个既有例外、contracts provider-neutral（含 `openai`）和确定性 cycle 检查均保留。
+- `IMP004` 只识别 import 直接产生的 `os.getenv`、`os.environ`、`getenv/environ` 与 `pydantic_settings.BaseSettings` 名称/模块别名；`tsdaf.apps` 豁免。assignment alias、闭包、控制流重绑定、动态 import、fixed point、scope graph 和表达式解释均明确不支持，也不得重新引入。
+- focused tests 为 `47 passed`，唯一 active suite 为 `376 passed`；Ruff、format、mypy、真实 checker、STATUS、docs 与 diff gate 均通过。不同 reviewer 给出 `PASS_WITH_MINOR`：0 Critical / 0 Important；唯一 Minor 是已实现的 module-alias `BaseSettings` 形式没有单独黑盒参数，按冻结政策记录但不扩展探针矩阵。
+- checker 仍不是领域架构范例，不得被 `src/tsdaf` 导入，也不得成为领域层依赖、设计中心或后续 Task 的复杂度来源。真实生产代码若触发误报，优先采用清晰且符合既有架构的写法；只有无法规避的真实误报或明确漏报才向用户报告是否重新打开工具。
+- Task 2 保持完成并再次关闭；历史解释器债务已经退役，后续不得因人为语言边缘案例追加修复轮次。
 
 ### 后续 Task 的复杂度来源与停止条件
 
