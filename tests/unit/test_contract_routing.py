@@ -29,6 +29,51 @@ def _sha(value: object) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+def test_direct_routing_schema_exposes_route_group_contract() -> None:
+    _, _, routing = _modules()
+    handoff = importlib.import_module("tsdaf.contracts.handoff")
+
+    schema = routing.ArticleRoutingResult.model_json_schema(mode="validation")
+    route_group_schema = schema["$defs"]["RouteGroup"]
+    selection_schema = schema["$defs"]["CoarseTextSelection"]
+    image_item_schema = handoff.RouteImageItem.model_json_schema(mode="validation")
+    pattern = r"^RG(?:00[1-9]|0[1-9][0-9]|[1-9][0-9]{2})$"
+
+    assert route_group_schema["properties"]["route_group_id"]["pattern"] == pattern
+    assert selection_schema["properties"]["route_group_id"]["pattern"] == pattern
+    assert image_item_schema["properties"]["route_group_id"]["pattern"] == pattern
+    assert (
+        schema["properties"]["route_groups"]["description"]
+        == "Route groups start at RG001 and increment contiguously by one in tuple order."
+    )
+    assert (
+        schema["properties"]["coarse_text_selections"]["description"]
+        == "Each coarse text selection reuses the exact route-group ID declared in route_groups."
+    )
+
+
+@pytest.mark.parametrize(
+    ("route_group_id", "valid"),
+    [("RG001", True), ("RG999", True), ("RG000", False), ("rg001", False), ("RG1000", False)],
+)
+def test_route_group_id_runtime_boundary_is_exact(route_group_id: str, valid: bool) -> None:
+    _, _, routing = _modules()
+    payload = {
+        "route_group_id": route_group_id,
+        "target_names": ("Target A",),
+        "synthesis_type": routing.ArticleType.TOTAL_SYNTHESIS,
+        "attributes": (),
+        "ordered_visual_ids": ("MAIN-P0000-A0000",),
+        "core_text_block_ids": ("MAIN-P0000-B0000",),
+    }
+
+    if valid:
+        assert routing.RouteGroup.model_validate(payload).route_group_id == route_group_id
+    else:
+        with pytest.raises(ValidationError):
+            routing.RouteGroup.model_validate(payload)
+
+
 def _artifact(source: Any, digit: str, path: str, media_type: str) -> Any:
     return source.ArtifactRef(
         sha256=digit * 64,

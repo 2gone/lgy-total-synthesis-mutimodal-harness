@@ -33,7 +33,7 @@ EXPECTED_FORWARD_IDS = (
     "MAIN-P0006-A0000",
 )
 EXPECTED_PROMPT_SHA256 = "804ef4b26e3c0a43169ce243d67ce8a1b6c2ba88d52350526ed08b20f81d4243"
-EXPECTED_SCHEMA_SHA256 = "9c706a30752a66a6d418712180e821499fabcd0a961517f61c7907cdc861d675"
+EXPECTED_SCHEMA_SHA256 = "dcd7fe3ad5b16955c33d6bc20ed272dce211fdc03d7659b2ea2137390743a155"
 EXPECTED_MODEL_PROFILE = "gemini-3.7-flash-high-chat-completions-v1"
 
 
@@ -373,6 +373,45 @@ def test_live_provider_uses_only_fixed_openai_environment(
             "base_url": "https://provider.example.invalid/v1",
         }
     ]
+
+
+@pytest.mark.parametrize(
+    "base_url",
+    (
+        "http://127.0.0.1:8317/v1",
+        "http://localhost:8317/v1",
+        "http://[::1]:8317/v1",
+    ),
+)
+def test_live_provider_allows_loopback_http_base_urls(
+    base_url: str,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # Break caught: explicit live routing rejects a local OpenAI-compatible endpoint.
+    from tsdaf.adapters.gemini.interactions import GeminiInteractions
+    from tsdaf.apps.commands import route as route_commands
+
+    calls: list[dict[str, object]] = []
+
+    class _Adapter:
+        def create(self, **request: object) -> object:
+            del request
+            raise AssertionError("the provider factory must not make a live request")
+
+    def capture_factory(cls: type[object], **kwargs: object) -> _Adapter:
+        del cls
+        calls.append(kwargs)
+        return _Adapter()
+
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-task12-loopback-test")
+    monkeypatch.setenv("OPENAI_BASE_URL", base_url)
+    monkeypatch.setattr(GeminiInteractions, "from_api_key", classmethod(capture_factory))
+
+    interaction_create, profile = route_commands._provider(True)
+
+    assert callable(interaction_create)
+    assert profile is None
+    assert calls == [{"api_key": "sk-task12-loopback-test", "base_url": base_url}]
 
 
 def test_validation_and_live_guards(

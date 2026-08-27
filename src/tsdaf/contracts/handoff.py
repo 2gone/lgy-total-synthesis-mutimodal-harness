@@ -24,12 +24,12 @@ from .package import (
     CanonicalVisualAsset,
 )
 from .routing import (
-    _ROUTE_GROUP_ID_RE,
     ArticleRoutingResult,
     ArticleType,
     CoarseTextSelection,
     RouteGroup,
     RouterProvenance,
+    _RouteGroupId,
 )
 from .source import ArtifactRef, BoundingBox
 
@@ -121,7 +121,7 @@ class RouteImageItem(ContractModel):
     caption: str | None
     related_block_ids: tuple[str, ...]
     related_original_paragraphs: tuple[str, ...]
-    route_group_id: str
+    route_group_id: _RouteGroupId
     sequence_index: int = Field(ge=0)
     router_execution_id: str
 
@@ -138,14 +138,6 @@ class RouteImageItem(ContractModel):
     def _validate_visual_group_id(cls, value: str) -> str:
         if _GROUP_ID_RE.fullmatch(value) is None:
             raise ValueError("invalid route image visual group id")
-        return value
-
-    @field_validator("route_group_id")
-    @classmethod
-    def _validate_route_group_id(cls, value: str) -> str:
-        match = _ROUTE_GROUP_ID_RE.fullmatch(value)
-        if match is None or int(match.group(1)) == 0:
-            raise ValueError("invalid route image route group id")
         return value
 
     @field_validator("router_execution_id")

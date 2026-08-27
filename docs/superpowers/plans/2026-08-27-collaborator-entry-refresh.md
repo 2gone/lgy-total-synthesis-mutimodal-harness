@@ -36,23 +36,23 @@
 - Consumes: current Task 12 plan/ledger evidence and implemented article/image code.
 - Produces: an accurate human/agent entry path with no duplicated source of truth.
 
-- [ ] **Step 1: Record stale statements and exact code boundaries**
+- [x] **Step 1: Record stale statements and exact code boundaries**
 
 Run `rg` over current guides for paused Task 12, HTTPS-only routing, image live claims, contract
 boundaries, and workflow entry points. Compare each statement with production code and sealed evidence.
 
-- [ ] **Step 2: Write the root principles and focused workflow guides**
+- [x] **Step 2: Write the root principles and focused workflow guides**
 
 State the ten principles from the approved design in the root README. Each workflow guide must list
 its exact input, output, stage sequence, key files, invariants, non-goals, current evidence and focused
 offline verification command.
 
-- [ ] **Step 3: Align agent, CLI, live-gold, roadmap and changelog facts**
+- [x] **Step 3: Align agent, CLI, live-gold, roadmap and changelog facts**
 
 Make AGENTS point to both guides and forbid scope drift. Record the five-paper live PASS and route-only
 loopback HTTP allowance without claiming image OCSR live validation.
 
-- [ ] **Step 4: Run documentation checks**
+- [x] **Step 4: Run documentation checks**
 
 Run `python -m tsdaf docs check`, `python scripts/generate_status.py --check`, link/stale-term scans,
 and `git diff --check`. Every command must exit zero or produce only explicitly historical matches.
@@ -66,17 +66,17 @@ and `git diff --check`. Every command must exit zero or produce only explicitly 
 - Consumes: Task 1 documentation diff.
 - Produces: one TS-DAF article-workflow review and one image-workflow review with Critical/Important findings.
 
-- [ ] **Step 1: Review article routing independently**
+- [x] **Step 1: Review article routing independently**
 
 Verify normalized-package input, text-first routing, visual-triage isolation, handoff/receipt binding,
 five-paper live status, URL policy, tests and non-goals against actual code/evidence.
 
-- [ ] **Step 2: Review image processing independently**
+- [x] **Step 2: Review image processing independently**
 
 Verify authorized-job input, source/hash validation, MolYOLO/crop/OCSR flow, lane-private models, fixed
 profile, current offline-only evidence and future binding boundary against actual code.
 
-- [ ] **Step 3: Resolve only real documentation defects**
+- [x] **Step 3: Resolve only real documentation defects**
 
 Fix Critical/Important contradictions once. Record stylistic or future-scope suggestions without
 blocking mainline integration.
@@ -91,7 +91,7 @@ blocking mainline integration.
 - Consumes: reviewed documentation and existing Task 12 implementation.
 - Produces: a verified, normally pushed `main` with exact remote SHA confirmation.
 
-- [ ] **Step 1: Run the complete offline gates**
+- [x] **Step 1: Run the complete offline gates**
 
 Run active pytest, Ruff check/format, Mypy, import-boundary, docs/status checks, legacy pytest,
 `git diff --check`, and a sensitive-file/path scan. Stop on any failure.

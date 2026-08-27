@@ -28,7 +28,7 @@ from tsdaf.lanes.document.search_index import InMemorySearchIndex
 __all__ = ("MainArticleRouter",)
 
 _ROUTER_ID = "main-article-router"
-_ROUTER_VERSION = "1.1.0"
+_ROUTER_VERSION = "1.2.0"
 _PROVIDER_ID = "lpzproxy-openai-compatible"
 _MODEL_ID = "gemini-3.7-flash-high"
 _PROVIDER_PROFILE_ID = "gemini-3.7-flash-high-chat-completions-v1"
@@ -468,6 +468,27 @@ def _mapping_arguments(value: object) -> dict[str, object] | None:
     return dict(value)
 
 
+def _structured_output_arguments(steps: list[dict[str, object]]) -> dict[str, object] | None:
+    model_outputs = [step for step in steps if step.get("type") == "model_output"]
+    if len(model_outputs) != 1:
+        return None
+    content = model_outputs[0].get("content")
+    if not isinstance(content, list) or len(content) != 1:
+        return None
+    item = content[0]
+    if (
+        not isinstance(item, Mapping)
+        or item.get("type") != "text"
+        or not isinstance(item.get("text"), str)
+    ):
+        return None
+    try:
+        parsed = json.loads(item["text"])
+    except json.JSONDecodeError:
+        return None
+    return _mapping_arguments(parsed)
+
+
 def _search_arguments(
     arguments: Mapping[str, object],
 ) -> tuple[str, tuple[int, int] | None, tuple[str, ...] | None, int] | None:
@@ -683,6 +704,41 @@ def _validate_submission(
     return result
 
 
+def _resolve_submission(
+    arguments: Mapping[str, object],
+    *,
+    package: CanonicalPaperPackage,
+    execution_id: str,
+    provenance: RouterProvenance,
+    resolve_visual_verification: (
+        Callable[[Mapping[str, object]], ArticleRoutingResult | TypedFailure] | None
+    ),
+) -> ArticleRoutingResult | TypedFailure:
+    if resolve_visual_verification is not None and _requests_unresolved_visual_verification(
+        arguments
+    ):
+        resolver = cast(Callable[..., object], resolve_visual_verification)
+        try:
+            delegated = resolver(routing_submission=arguments)
+        except Exception:
+            return _failure(
+                FailureCode.VISUAL_VERIFICATION_UNRESOLVED,
+                "The visual-verification callback did not resolve the routing result.",
+            )
+        if not isinstance(delegated, ArticleRoutingResult | TypedFailure):
+            return _failure(
+                FailureCode.VISUAL_VERIFICATION_UNRESOLVED,
+                "The visual-verification callback did not resolve the routing result.",
+            )
+        return delegated
+    return _validate_submission(
+        arguments,
+        package=package,
+        execution_id=execution_id,
+        provenance=provenance,
+    )
+
+
 class MainArticleRouter:
     """Compile one complete text context and execute a bounded stateless tool loop."""
 
@@ -758,11 +814,20 @@ class MainArticleRouter:
         invalid_submits = 0
 
         for turn in range(1, _MAX_PROVIDER_TURNS + 1):
-            request: dict[str, object] = {
-                "input": list(history),
-                "system_instruction": self._prompt.system_instruction,
-                "tools": self._tools,
-            }
+            if invalid_submits:
+                request = {
+                    "input": list(history),
+                    "system_instruction": self._prompt.system_instruction,
+                    "response_format": {
+                        "schema": ArticleRoutingResult.model_json_schema(mode="validation")
+                    },
+                }
+            else:
+                request = {
+                    "input": list(history),
+                    "system_instruction": self._prompt.system_instruction,
+                    "tools": self._tools,
+                }
             try:
                 interaction = interaction_create(**request)
             except Exception as error:
@@ -780,6 +845,17 @@ class MainArticleRouter:
             assert isinstance(raw_steps, list)
             steps = [dict(cast(Mapping[str, object], step)) for step in raw_steps]
             history.extend(steps)
+            if invalid_submits:
+                arguments = _structured_output_arguments(steps)
+                if arguments is None:
+                    return _schema_failure()
+                return _resolve_submission(
+                    arguments,
+                    package=package,
+                    execution_id=execution_id,
+                    provenance=self._provenance,
+                    resolve_visual_verification=resolve_visual_verification,
+                )
             calls = [step for step in steps if step.get("type") == "function_call"]
             if not calls:
                 return _failure(
@@ -810,36 +886,19 @@ class MainArticleRouter:
                 if len(checked_calls) != 1:
                     return _schema_failure()
                 call_id, _, arguments = submit_calls[0]
-                if (
-                    resolve_visual_verification is not None
-                    and _requests_unresolved_visual_verification(arguments)
-                ):
-                    resolver = cast(
-                        Callable[..., object],
-                        resolve_visual_verification,
-                    )
-                    try:
-                        delegated = resolver(routing_submission=arguments)
-                    except Exception:
-                        return _failure(
-                            FailureCode.VISUAL_VERIFICATION_UNRESOLVED,
-                            "The visual-verification callback did not resolve the routing result.",
-                        )
-                    if not isinstance(delegated, ArticleRoutingResult | TypedFailure):
-                        return _failure(
-                            FailureCode.VISUAL_VERIFICATION_UNRESOLVED,
-                            "The visual-verification callback did not resolve the routing result.",
-                        )
-                    return delegated
-                submitted = _validate_submission(
+                submitted = _resolve_submission(
                     arguments,
                     package=package,
                     execution_id=execution_id,
                     provenance=self._provenance,
+                    resolve_visual_verification=resolve_visual_verification,
                 )
                 if isinstance(submitted, ArticleRoutingResult):
                     return submitted
-                if submitted.code is FailureCode.VISUAL_VERIFICATION_REQUIRED:
+                if submitted.code not in {
+                    FailureCode.ROUTER_SCHEMA_INVALID,
+                    FailureCode.ROUTER_REFERENCE_INVALID,
+                }:
                     return submitted
                 invalid_submits += 1
                 if invalid_submits >= 2:
@@ -851,7 +910,8 @@ class MainArticleRouter:
                         {
                             "code": submitted.code.value,
                             "instruction": (
-                                "Correct the complete result and call submit_article_routing again."
+                                "Return the complete corrected result as the structured JSON "
+                                "response. Do not call a tool."
                             ),
                         },
                     )

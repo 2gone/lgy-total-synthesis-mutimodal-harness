@@ -419,7 +419,7 @@ def test_context_prompt_schema_and_profile_are_fully_bound_and_text_only() -> No
     assert provenance == result.provenance.model_dump(mode="json")
     assert provenance["schema_version"] == "tsdaf.router-provenance.v1"
     assert provenance["router_id"] == "main-article-router"
-    assert provenance["router_version"] == "1.1.0"
+    assert provenance["router_version"] == "1.2.0"
     assert provenance["provider_id"] == "lpzproxy-openai-compatible"
     assert provenance["model_id"] == "gemini-3.7-flash-high"
     assert provenance["provider_profile_id"] == "gemini-3.7-flash-high-chat-completions-v1"
@@ -703,10 +703,38 @@ def test_router_returns_only_stable_safe_failures_and_allows_one_semantic_correc
     assert visual_required.code is FailureCode.VISUAL_VERIFICATION_REQUIRED
     assert len(visual_provider.requests) == 1
 
+    def failing_visual_callback(**routing_submission: object) -> object:
+        del routing_submission
+        raise RuntimeError("visual callback failure")
+
+    visual_callback_provider = _ScriptedProvider(unresolved_visual)
+    unresolved_callback = router.route(
+        package=package,
+        execution_id="exec-unit-visual-callback-unresolved",
+        interaction_create=visual_callback_provider.create,
+        resolve_visual_verification=failing_visual_callback,
+    )
+    assert isinstance(unresolved_callback, TypedFailure)
+    assert unresolved_callback.code is FailureCode.VISUAL_VERIFICATION_UNRESOLVED
+    assert len(visual_callback_provider.requests) == 1
+
     def invalid_reference(turn: int, request: dict[str, object]) -> dict[str, object]:
         payload = _routing_payload(_initial_context(request))
         payload["paper_id"] = "unknown-paper"
-        return _function_response("submit_article_routing", payload, turn=turn)
+        if turn == 1:
+            return _function_response("submit_article_routing", payload, turn=turn)
+        return {
+            "id": f"interaction-reference-{turn}",
+            "status": "completed",
+            "steps": [
+                {
+                    "type": "model_output",
+                    "content": [
+                        {"type": "text", "text": json.dumps(payload, separators=(",", ":"))}
+                    ],
+                }
+            ],
+        }
 
     reference_provider = _ScriptedProvider(invalid_reference)
     bad_reference = router.route(
@@ -724,7 +752,19 @@ def test_router_returns_only_stable_safe_failures_and_allows_one_semantic_correc
         payload = _routing_payload(_initial_context(request))
         if turn == 1:
             payload["article_type"] = unsafe_value
-        return _function_response("submit_article_routing", payload, turn=turn)
+            return _function_response("submit_article_routing", payload, turn=turn)
+        return {
+            "id": f"interaction-correction-{turn}",
+            "status": "completed",
+            "steps": [
+                {
+                    "type": "model_output",
+                    "content": [
+                        {"type": "text", "text": json.dumps(payload, separators=(",", ":"))}
+                    ],
+                }
+            ],
+        }
 
     correction_provider = _ScriptedProvider(corrected_submit)
     corrected = router.route(
@@ -736,9 +776,56 @@ def test_router_returns_only_stable_safe_failures_and_allows_one_semantic_correc
     assert len(correction_provider.requests) == 2
     correction_step = correction_provider.requests[1]["input"][-1]
     correction = _function_result(correction_step)
-    assert set(correction) == {"code", "instruction"}
-    assert correction["code"] == "ROUTER_SCHEMA_INVALID"
+    assert correction == {
+        "code": "ROUTER_SCHEMA_INVALID",
+        "instruction": (
+            "Return the complete corrected result as the structured JSON response. "
+            "Do not call a tool."
+        ),
+    }
     assert unsafe_value not in correction_step["result"][0]["text"]
+    structured_request = correction_provider.requests[1]
+    first_response = json.loads(correction_provider.interactions[0].response_bytes)
+    assert structured_request["input"] == [
+        *correction_provider.requests[0]["input"],
+        *first_response["steps"],
+        correction_step,
+    ]
+    assert (
+        structured_request["system_instruction"]
+        == correction_provider.requests[0]["system_instruction"]
+    )
+    assert set(structured_request) == {"input", "system_instruction", "response_format"}
+    assert "tools" not in structured_request
+    assert structured_request["response_format"] == {
+        "schema": ArticleRoutingResult.model_json_schema(mode="validation")
+    }
+
+    def malformed_structured(turn: int, request: dict[str, object]) -> dict[str, object]:
+        if turn == 1:
+            payload = _routing_payload(_initial_context(request))
+            payload["article_type"] = unsafe_value
+            return _function_response("submit_article_routing", payload, turn=turn)
+        return {
+            "id": f"interaction-malformed-{turn}",
+            "status": "completed",
+            "steps": [
+                {
+                    "type": "model_output",
+                    "content": [{"type": "text", "text": "not-json"}],
+                }
+            ],
+        }
+
+    malformed_provider = _ScriptedProvider(malformed_structured)
+    malformed = router.route(
+        package=package,
+        execution_id="exec-unit-malformed-structured",
+        interaction_create=malformed_provider.create,
+    )
+    assert isinstance(malformed, TypedFailure)
+    assert malformed.code is FailureCode.ROUTER_SCHEMA_INVALID
+    assert len(malformed_provider.requests) == 2
 
     unsafe_exception = "Authorization: Bearer task-8-secret https://private.invalid"
     rejected_provider = ExplodingProvider(unsafe_exception)

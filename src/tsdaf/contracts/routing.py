@@ -2,11 +2,10 @@
 
 from __future__ import annotations
 
-import re
 from enum import StrEnum
-from typing import Literal, Self
+from typing import Annotated, Literal, Self
 
-from pydantic import field_validator, model_validator
+from pydantic import Field, StringConstraints, field_validator, model_validator
 
 from ._base import ContractModel, _sha256, _stable_string, _unique
 from .package import (
@@ -16,7 +15,10 @@ from .package import (
     CanonicalPaperPackage,
 )
 
-_ROUTE_GROUP_ID_RE = re.compile(r"RG([0-9]{3})")
+_RouteGroupId = Annotated[
+    str,
+    StringConstraints(pattern=r"^RG(?:00[1-9]|0[1-9][0-9]|[1-9][0-9]{2})$"),
+]
 
 
 class ArticleType(StrEnum):
@@ -88,20 +90,12 @@ FinalVisualDecision = TriageVisualDecision
 
 
 class RouteGroup(ContractModel):
-    route_group_id: str
+    route_group_id: _RouteGroupId
     target_names: tuple[str, ...]
     synthesis_type: ArticleType
     attributes: tuple[RouteAttribute, ...]
     ordered_visual_ids: tuple[str, ...]
     core_text_block_ids: tuple[str, ...]
-
-    @field_validator("route_group_id")
-    @classmethod
-    def _validate_route_group_id(cls, value: str) -> str:
-        match = _ROUTE_GROUP_ID_RE.fullmatch(value)
-        if match is None or int(match.group(1)) == 0:
-            raise ValueError("invalid route group id")
-        return value
 
     @field_validator("target_names")
     @classmethod
@@ -211,17 +205,9 @@ class VisualAssetDecision(ContractModel):
 
 
 class CoarseTextSelection(ContractModel):
-    route_group_id: str
+    route_group_id: _RouteGroupId
     block_id: str
     role: CoarseTextRole
-
-    @field_validator("route_group_id")
-    @classmethod
-    def _validate_route_group_id(cls, value: str) -> str:
-        match = _ROUTE_GROUP_ID_RE.fullmatch(value)
-        if match is None or int(match.group(1)) == 0:
-            raise ValueError("invalid selection route group id")
-        return value
 
     @field_validator("block_id")
     @classmethod
@@ -238,9 +224,15 @@ class ArticleRoutingResult(ContractModel):
     canonical_package_sha256: str
     article_type: ArticleType
     disposition: RoutingDisposition
-    route_groups: tuple[RouteGroup, ...]
+    route_groups: tuple[RouteGroup, ...] = Field(
+        description="Route groups start at RG001 and increment contiguously by one in tuple order."
+    )
     visual_decisions: tuple[VisualAssetDecision, ...]
-    coarse_text_selections: tuple[CoarseTextSelection, ...]
+    coarse_text_selections: tuple[CoarseTextSelection, ...] = Field(
+        description=(
+            "Each coarse text selection reuses the exact route-group ID declared in route_groups."
+        )
+    )
     provenance: RouterProvenance
 
     @field_validator("paper_id", "execution_id")

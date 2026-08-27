@@ -184,7 +184,7 @@ REQUIRED_NULLABLE = {
 }
 
 GOLDEN = Path(__file__).parents[1] / "golden" / "contracts" / "tsdaf-contracts-v1.schema.json"
-REVIEWED_GOLDEN_SHA256 = "9c706a30752a66a6d418712180e821499fabcd0a961517f61c7907cdc861d675"
+REVIEWED_GOLDEN_SHA256 = "dcd7fe3ad5b16955c33d6bc20ed272dce211fdc03d7659b2ea2137390743a155"
 
 
 def _contracts() -> tuple[Any, Any]:

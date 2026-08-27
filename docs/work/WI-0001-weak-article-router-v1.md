@@ -79,9 +79,9 @@ acceptance:
 - [x] Task 10 完成：现有 typed package/routing result 可确定性物化两个 immutable `PROPOSED` handoff，五篇得到精确 `3/2/1/2/1` 共九个原始完整资产，支持多路线 asset-level 顺序、唯一 final-decision 派生和逐字 canonical 文本；image job 仅在当前 handoff hash、release receipt 与 receipt artifact 三者严格绑定时构造，handoff 任一内容变化使旧 receipt 失效。实现者 focused `5 passed`、唯一 active `515 passed`，不同 reviewer `PASS`、0 Critical / 0 Important / 0 Minor。只新增 builder、job factory 和必要导出，无合同/schema/runner/export/policy/worker/framework 变化；Task 11 已释放。
 - [x] Task 11 完成：五个固定 CLI 命令已暴露默认离线安全的 package validation、route run/resume、execution-scoped inspect 与 checkout-only docs check；Router、interaction、handoff、attempt、cache 与 terminal seal 证据均通过现有 local runtime 落盘并可审计。实现者 focused `26 passed`、Task 8 regression `3 passed`、唯一 active `519 passed`；首次独立复核发现的三个 Important 经一次集中修复后，窄范围复核 `PASS`、0 Critical / 0 Important / 0 Minor。没有新增合同/schema、通用 CLI/观察性/发布框架、worker 或 live 行为；Task 12 已释放。
 - [x] Task 12 离线准备完成：独立于模型结果的五篇人工 gold 已冻结，SHA-256 `6af5e09151bd2b904ceefc28337655d5e14e28188824bc6c033f3801b22705af`；它绑定五个 canonical package、37 个 visual 和精确 `3/2/1/2/1` 九个原始资产。explicit-live 测试默认不被 active suite 发现，直接收集时也会跳过；只有显式 flag 加仓库外持久目录才能执行，并在全部 prediction seal 后才读取 gold。实现者 active `520 passed`，不同 reviewer `PASS`、0 Critical / 0 Important / 0 Minor；没有生产、合同/schema、prompt、fixture、SDK、provider 或 live 变化。
-- [ ] Task 12 direct-live 已获授权、尚未完成：用户明确指定 `C:\.env` 第 6–19 行的第二套远程 API，而不是前四行的本地 CLIProxyAPI。固定 Chat Completions profile 已完成 TDD 和独立复核。第一次论文运行封存为 `ROUTER_NO_SUBMIT`，其五回合/Router `1.1.0` 窄修正已通过 active `523 passed` 与独立 reviewer `PASS`。第二次首篇运行暴露 missing-strict；submit-only `strict: true` 与 provider profile `3.1.0` 的 TDD 已通过 active `523 passed` 和独立 reviewer `PASS`。第三次首篇执行实际携带 exact contract schema 与 submit strict，仍连续两次生成旧式/臆造字段并封存为 `ROUTER_SCHEMA_INVALID`。用户现已明确授权一个有界的 terminal `response_format/json_schema` fallback：先用无论文/无 gold 的 exact-contract probe 验证远端能力；通过后只修改 Main Router 及其现有聚合测试，完成 TDD 和一次独立复核，再允许一轮 live。retrieval tools、adapter、prompt、gold、contracts、fixtures 与 `5/6` 回合预算继续冻结。
+- [x] Task 12 第二远程 API 路线已关闭并由 first-local 路线取代：其三次首篇失败与两次 response-format transient 均已封存，验证了回合预算、submit strict 和远端 complex-function schema 执行问题，但没有得到可用五篇结果。用户随后明确切换到 `C:\.env` 第一套本地 API；第二 API 不再重试，既有证据保留且不再驱动生产设计。
 
-- [ ] Task 12 live 暂停：原 probe 及用户额外授权的一次简单重试均明确使用第二 API，并都返回安全错误 `PROVIDER_TRANSIENT`，没有 normalized output。用户判定当前为 API 问题并要求暂不继续；没有释放 TDD、实现者、reviewer 或生产/测试改动。
+- [x] Task 12 live 完成：first-local terminal structured fallback、route-group schema 单一事实源和无论文合成门禁均通过；随后冻结的五篇 explicit-live gold 在一次正式运行中 `1 passed in 260.30s`。五个 fresh execution 覆盖 37 个 visual decision、零 escalation，并精确转交 `3/2/1/2/1` 共九个原始资产；50 个 artifact ref、35 个 immutable seal 和 consolidated receipt 均经只读审计通过。
 
 ### Task 12 direct-live profile（2026-08-27）
 
@@ -123,6 +123,19 @@ acceptance:
 - probe 失败则不写生产代码；实现复核后的下一次 live 若仍复现同一 schema-invention 根因，则再次停止，不自动扩大 prompt/schema/adapter 或更换模型。
 - 已授权的单次 probe 于 2026-08-27 以进程退出码 `2` 和安全输出 `PROBE=FAIL ADAPTER_CODE=PROVIDER_TRANSIENT` 结束，未返回 normalized output，因此既未证明兼容也未证明不兼容。一次性门禁按设计关闭：未重试、未释放 TDD、未派实现者/复核者，Router、测试、adapter、gold 和全部冻结范围保持原 hash。详细证据见 `task-12-live-response-format-probe.md`。
 - 用户随后只授权一次简单重试。控制器以硬校验绑定 `C:\.env` 第 6/7 行的第二远程 API，纯合成合同对象本地预检通过；同一远端 invocation 约 299 秒后仍以 `PROBE=FAIL API_BLOCK=SECOND_REMOTE ADAPTER_CODE=PROVIDER_TRANSIENT` 结束。没有论文/gold、normalized output、token receipt 或代码改动；重试证据见 `task-12-live-response-format-probe-retry.md`。用户已将其归因为 API 问题并暂停本 live 路线。
+
+### First-local response-format 恢复（2026-08-27）
+
+- 第一 API 经重新登录后已完成基础 nonstreaming / `store=False` / high-reasoning smoke；进程级 `NO_PROXY=127.0.0.1,localhost,::1` 能绕过 Windows 系统代理并到达本地 endpoint。不得启动或重启 exe，不得持久修改环境、代理或配置。
+- 首篇正式 execution `exec_f85b11ce904d4852b0e5e71099f075bc` 已封存为 `FAILED_TERMINAL / ROUTER_SCHEMA_INVALID`。两个 submit 在科学语义上选中了正确文章类型、属性和三张正向资产，但使用旧式/臆造字段；host 正确拒绝，不进行字段映射或语义修补。
+- 重建实际 request 证明 submit parameters 与当前 `ArticleRoutingResult.model_json_schema(mode="validation")` 完全一致，`strict:true`、high reasoning、`store=False`、nonstreaming 均到达本地 Chat 请求。当前根因是本地 OpenAI-compatible transport/upstream 没有可靠约束复杂 function arguments；次要限制是旧 correction 只有通用错误码，不能迫使第二次 tool call 收敛。这不是领域 contract 或科学判断错误。
+- 用户授权按最合理方向继续。只复用已冻结的 terminal response-format 设计，并把兼容性门禁切到第一本地 API：一次合成 `NOT_IN_SCOPE` exact-schema probe，不读论文、fixture 或 gold。PASS 后只改 `main_router.py` 与现有 Router 聚合测试，Router 升为 `1.2.0`；一个实现者、一个不同 reviewer。FAIL 或实现后 live 再现同根因都立即停止，不继续改 prompt/schema/adapter 或增加尝试次数。
+- first-local probe 已在一次 transport attempt 内 `PASS`：normalized `model_output` 与合成 expected 对象 canonical hash 均为 `381c79fc294525dcb0c7fc39a1f1a143c24988ae7ab8e15f3fbe3c879e27d91a`，schema hash 为 `92a5cdf233be0cbbe5013b936dcddcd085b6b923a43758d5553dcb48e0d6cc91`。兼容性已建立，现释放一次 Main Router TDD；尚未运行论文或读取 gold。
+- Main Router terminal fallback 已完成 TDD：Router `1.2.0` 只在首个 schema/reference-invalid submit 后发出一次无 tools 的 exact-schema structured correction，并继续使用同一 host/reference/Visual Triage 校验和 immutable evidence。实现者 full `379 passed`；独立 reviewer 找到的唯一 Visual Triage failure 回归经一次集中修复后 scoped re-review `ADDRESSED`，0 个未关闭 Critical/Important。生产/测试变更仍限于 Main Router 和现有聚合测试；正式 first-local live gold 现已释放。
+- Router `1.2.0` 正式 live 已在首篇 fail-fast：fallback 成功消除旧式字段，第四回合输出使用全部当前字段且科学选择正确，但唯一 route ID 为 `rg_alchivemycin_a_001`，触发 route group 与 11 个 coarse selection 共 12 个 value errors。当前 JSON Schema 只声明该字段为普通 string；`RG001`/非零/连续顺序规则只存在于 Pydantic validators，provider 无法从 exact schema 获知。execution `exec_8ab19a2d9a2c4e178456e41b7d28fa43` 已封存，其他论文和 gold 未读取。由于最小稳健修复会重开冻结的 contract/schema，自动施工停止等待用户裁决。
+- 用户已授权推荐路线：仅重开 route-group ID 的合同/schema 表达，不改可接受领域值。单个 ID 由合同私有约束类型生成精确 `RG001`–`RG999` pattern；可变长数组的从 `RG001` 开始连续编号语义通过合同 schema description 明确传达，并仍由现有 model-level Host validator 强制。允许文件只有 `contracts/routing.py`、已经直接依赖 routing 合同的 `contracts/handoff.py`、现有 routing/schema 合同测试、schema golden，以及 CLI observability 测试中唯一旧 schema SHA 派生期望值。`RouteGroup`、`CoarseTextSelection`、`RouteImageItem` 三个当前消费者必须直接共用同一私有 annotation；禁止私有 regex 兼容层、prompt 重复、Host 改写、新 model/enum/export/framework、Router/adapter/gold/fixture 变更。完成 TDD 和一次独立复核后，先做一次无论文/无 gold 的单路线合成 probe，PASS 才释放一次正式 first-local live。
+- 该合同/schema 收敛已完成：实现者 focused `86 passed`、full `385 passed`，独立 reviewer `SPEC PASS / QUALITY PASS`、0 findings。合成 one-route 门禁在 prompt 不重复 `RG001/RG002` 的条件下一次返回 `RG001`，selection 正确复用，Host 校验与 expected/output hash 完全一致；1 次 transport、secret scan 为 0。现仅释放一次正式 first-local explicit-live，任何新失败都须封存并停止，不自动改 prompt/contract/Router/adapter/gold 或增加 retry。
+- 正式 first-local explicit-live 已完成并关闭 Task 12：五篇预测全部先 seal、再读取冻结 gold，最终 `1 passed in 260.30s`。receipt artifact SHA-256 为 `05c3b902035008218c1f1fec722a7db9e4dc5df801b1facc303a082af42a5019`，pointer SHA-256 为 `6170057a41f6f0cef9ab8c6d0afba829d8dedaf4dceff31fd64a80e6a1619b19`；仓库与外部 workspace 的 exact-key scan 均为零。没有自动重试、第二 API、管理 key、持久环境/代理/配置变化或 Git 写操作。
 
 ## 0.1 实施前预检裁决
 
@@ -1917,20 +1930,20 @@ Execute Tasks 0 through 12 in dependency order using RED, expected failure, GREE
 
 ### Checkpoint
 
-Tasks 0 through 11 are complete，Task 12 的离线 gold/安全门禁也已通过。Task 2 checker 仍是冻结工具债务，Task 3 contracts/schema 保持冻结。五篇自包含 fixture、canonical package、immutable runtime、recorded-compatible Gemini 边界、text-first Router、flagged-only Visual Triage、两个 `PROPOSED` handoff、release hash gate 和五个默认离线安全 CLI 命令已经形成完整生产骨架。人工 gold 已在任何预测前冻结为 SHA-256 `6af5e09151bd2b904ceefc28337655d5e14e28188824bc6c033f3801b22705af`。第二套远程 API 的三次首篇执行均已安全封存失败且没有读取 gold 或生成 receipt；其后的原 probe 与一次明确授权重试又都以 `PROVIDER_TRANSIENT` 未通过 exact-schema 门禁。用户已暂停 API/live 工作；生产代码和测试未因 probe 改变。
+Tasks 0 through 12 are complete. Task 2 checker 的历史 mini-interpreter 债务已经按路线 A 收敛并关闭。五篇自包含 fixture、canonical package、immutable runtime、recorded-compatible Gemini 边界、text-first Router、flagged-only Visual Triage、两个 `PROPOSED` handoff、release hash gate 和五个默认离线安全 CLI 命令已经形成完整 Slice 1 生产骨架。route-group 合同/schema 已以单一私有 annotation 向 provider 表达 `RG001`–`RG999`，同时保留 Host 连续性与引用闭合校验。冻结的五篇 gold 已在全部预测 seal 后一次性比对通过，50 个 artifact ref、35 个 immutable seal 与 consolidated receipt 均已验证。
 
 ### Blockers
 
-The third provider run repeated the same schema-invention root even though the exact contract schema and submit `strict: true` reached the Chat wire. Both second-API no-paper exact-schema invocations then terminated with safe `PROVIDER_TRANSIENT` before returning normalized output. The user identifies this as an API issue and has paused further live work.
+No architectural or scientific blocker is open. Minor/future extensions remain deferred and do not block Slice 1 closure.
 
 ### Next action
 
-保留并推送当前工程状态；Task 12 live 保持暂停，待用户未来确认 endpoint/provider/model 可用后再单独恢复。恢复前不进入 response-format TDD、不重试 API、不运行论文；frozen gold/contracts/fixtures、prompt、adapter、Router 测试和 `5/6` 预算保持不变。
+Preserve the uncommitted worktree and the repository-external live receipt. Any stage/commit/push requires fresh explicit user authorization; no further live retry or Task 12 scope expansion is active.
 
 ### Acceptance
 
-Slice 1 requires the five-paper gold set to pass, all artifacts to be sealed, and CI to make no paid calls.
+Met: the five-paper gold set passed, artifacts and execution records are sealed and audited, credentials are absent from repository/workspace evidence, and default CI performs no paid call.
 
 ### Completion receipt
 
-Pending.
+Receipt artifact SHA-256: `05c3b902035008218c1f1fec722a7db9e4dc5df801b1facc303a082af42a5019` (22,477 bytes). Pointer: `D:\Chengrui Wei\全合成数据库\2026-08-24\tsdaf-live-gold-local-route-schema-run\task-12-live-gold-receipt-ref.json`, SHA-256 `6170057a41f6f0cef9ab8c6d0afba829d8dedaf4dceff31fd64a80e6a1619b19`.

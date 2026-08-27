@@ -38,7 +38,10 @@ def _safe_base_url(value: str | None) -> str | None:
         return None
     parsed = urlsplit(value)
     if (
-        parsed.scheme != "https"
+        not (
+            parsed.scheme == "https"
+            or (parsed.scheme == "http" and parsed.hostname in {"127.0.0.1", "localhost", "::1"})
+        )
         or not parsed.netloc
         or parsed.username is not None
         or parsed.password is not None
