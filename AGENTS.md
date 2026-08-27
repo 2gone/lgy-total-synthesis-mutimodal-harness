@@ -6,7 +6,7 @@ Build an auditable TS-DAF pipeline that routes evidence for total-synthesis rese
 
 ## Required reading
 
-Read the [project charter](docs/PROJECT_CHARTER.md), [system overview](docs/architecture/SYSTEM_OVERVIEW.md), [roadmap](docs/ROADMAP.md), current [status](docs/STATUS.md), and then the focused work item.
+Read the [Chinese collaborator code guide](docs/guides/CODEBASE_GUIDE_ZH.md), [project charter](docs/PROJECT_CHARTER.md), [system overview](docs/architecture/SYSTEM_OVERVIEW.md), [roadmap](docs/ROADMAP.md), current [status](docs/STATUS.md), and then the focused work item.
 
 ## Architecture boundaries
 
@@ -14,7 +14,15 @@ One `tsdaf` distribution contains inward-facing lanes. Slice 1 accepts normalize
 
 ## Current focus
 
-The only current focus is [WI-0001 Weak Article Router v1](docs/work/WI-0001-weak-article-router-v1.md).
+The governed current focus remains
+[WI-0001 Weak Article Router v1](docs/work/WI-0001-weak-article-router-v1.md).
+
+## Implemented workflows
+
+The repository contains the Task1–12 weak article-routing workflow and image processing v1 from an
+authorized image job through MolYOLO, deterministic crop, and one-crop Gemini OCSR. Semantic binding
+and the final Image Package are not implemented. Governance status remains sourced from the focused
+work item and the generated status.
 
 ## Tests
 

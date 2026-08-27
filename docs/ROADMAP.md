@@ -6,7 +6,17 @@ Each slice consumes stable contracts, immutable artifacts, and receipts establis
 
 ## Slice 1
 
-Build the weak-article Router foundation: package boundary, canonicalization, text-first routing, isolated visual triage, immutable handoff, local Runner, offline tests, and five-paper gold validation. The current implementation boundary is tracked by [WI-0001](work/WI-0001-weak-article-router-v1.md).
+Build the weak-article Router foundation: package boundary, canonicalization, text-first routing,
+isolated visual triage, immutable handoff, local Runner, offline tests, and five-paper gold
+validation. The offline foundation is implemented; Task 12 paid five-paper live validation remains
+paused on the selected remote API. The current boundary is tracked by [WI-0001](work/WI-0001-weak-article-router-v1.md).
+
+## Image processing v1 foundation
+
+The release-gated local image worker foundation is implemented ahead of scaled orchestration:
+verified source materialization, external MolYOLO/YOLOv10, normalized coordinates, deterministic
+crops, and one-crop Gemini OCSR. Real-weight/GPU and remote OCSR canaries, Semantic Binder,
+molecule binding, and final Image Package construction remain future gates.
 
 ## Slice 2
 
@@ -22,7 +32,8 @@ Add the supporting-information lane, experimental procedures, entity linking, an
 
 ## Slice 5
 
-Add orchestration adapters, independent image workers, controlled canaries, and scaled rollout only after blind-gold quality and receipt gates pass.
+Operationalize the current image worker with orchestration adapters, controlled canaries, binding,
+review, and scaled rollout only after blind-gold quality and receipt gates pass.
 
 ## Follow-on direction
 
