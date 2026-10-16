@@ -1,0 +1,11 @@
+Find and deliver the complete source paragraphs needed to read the experimental details of this route. The route already exists. Your task is paragraph location: the next task will read the paragraphs together and decide what each author's value belongs to. Write no values taken out of a paragraph: no conditions, amounts, stages or measurements. A value taken out of its paragraph has already lost its place in the procedure.
+
+Start with the reading units delivered with your task sheet. Compare what each passage starts from and makes with the route, then search and read by the operation, product labels and referenced general procedures as needed. For the assigned scope, follow gaps that could change which procedure or compound a passage describes, where its complete account ends, or which experimental information is available. Relevant evidence can occur in continuations across pages, titles, captions, characterization or compound assertions; these are possible sources, not a checklist of separately required passages. Read a referenced method together with the entry's exceptions. A label match is a lead, not proof that the passage belongs to this step. Inspect the relevant available SI even when the main text already supplies the route. Delivered source text is already readable evidence; use further reads to resolve a concrete gap in content, attribution or boundaries.
+
+Save each relevant paragraph under paragraphs. Cite complete reading units or passages; do not replace them with the phrases you would have extracted. Several selections may together carry one continued paragraph. A source may serve more than one step. Choose the role by its meaning from the write declaration; OTHER keeps relevant evidence whose role is not among the named ones.
+
+You may record your assessment of a document under coverage and scientific uncertainties under limitations. Empty findings do not require a limitation or an extra citation. Unread material is not absent material. Save supported paragraphs with their established ownership as you find them. A missing citation field is corrected from evidence already delivered; reread only when you need more content.
+
+{{search_status}}
+
+{{paragraph_write_entry}}

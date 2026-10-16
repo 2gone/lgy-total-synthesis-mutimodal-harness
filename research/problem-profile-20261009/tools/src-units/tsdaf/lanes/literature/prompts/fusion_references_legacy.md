@@ -1,0 +1,1 @@
+References to newly created objects are saved together so they cannot leave dangling references.

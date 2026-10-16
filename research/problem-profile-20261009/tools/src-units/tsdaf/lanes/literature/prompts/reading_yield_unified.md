@@ -1,0 +1,1 @@
+- yield: preserve every author-reported value of what an experiment gave or recovered, one finding per value, including other runs, scales and recovered starting material. Follow the declared words shape. Product references do not decide experiment ownership or measurement identity. Retain the author’s scope and do not calculate a value or invent a label.

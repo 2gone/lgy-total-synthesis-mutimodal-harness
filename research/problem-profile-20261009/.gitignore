@@ -1,0 +1,6 @@
+# Only the code is kept here; everything a run writes beside tools/ (readings, units, records, packages) stays out.
+/*
+!/tools/
+!/.gitignore
+__pycache__/
+*.pyc

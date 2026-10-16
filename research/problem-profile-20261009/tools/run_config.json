@@ -1,0 +1,44 @@
+{
+  "_about": "The one place that says which model and which thinking level every step of the chain uses (agreed 2026-10-15). Every tool reads it through run_config.py; nothing else names a model. An environment variable can override a group's model for an experiment: TSDAF_WORKFLOW_MODEL, TSDAF_VISION_MODEL, TSDAF_OCSR_MODEL. Credentials are not here: OPENAI_BASE_URL and OPENAI_API_KEY from the process environment only.",
+  "workflow": {
+    "_about": "the reading of the paper: SI segmentation, the record of every experiment entry, the paper-level task",
+    "model": "gemini-3.8-flash-exp-a",
+    "_model_note": "Gemini-4-argon in the grey test on lpzproxy",
+    "effort": {
+      "segment": "medium",
+      "record": "medium",
+      "paper_task": "medium"
+    }
+  },
+  "vision": {
+    "_about": "the small image readings: the pre-stage's reading of cut-out lines, figure and scheme transcripts, printed labels of the drawings, whose compound a figure without running text belongs to, the check of the detector boxes before they go to the OCSR side",
+    "model": "gemini-3.8-flash-high",
+    "effort": {
+      "prestage_read": "low",
+      "prestage_read_fallback": "medium",
+      "figure_transcribe": "medium",
+      "figure_fill": "medium",
+      "figure_labels": "medium",
+      "figure_owner": "low",
+      "figure_owner_fallback": "medium",
+      "box_check": "medium",
+      "box_check_missed": "low"
+    }
+  },
+  "ocsr": {
+    "_about": "structures of the drawings. Our side: the molecule detector boxes every drawing of the figures the pre-stage transcribes, the figure reader gives the printed label beside each box, and after the record the chain binds each box to a compound of the result by that label (bound boxes are the drawings the result needs). The collaborator's side: the SMILES of those boxes (OCSR), returned per box.",
+    "model": "gemini-3.8-flash-exp-a",
+    "effort": "high",
+    "results_dir": "ocsr-results",
+    "_results_note": "relative to the workspace: <paper>.ocsr.json returned by the OCSR side, {detection_id: {smiles, inchi_key, formula, readable, is_abstract, confidence}}, detection_id being '<figure file>#<mark>' as written in structure-binding.json; while it is absent the bound boxes carry no structure yet"
+  },
+  "detector": {
+    "_about": "the molecule detector run before the figures are transcribed (the same as for the five reference papers)",
+    "weights": "moldet_yolo11l_640_general.pt",
+    "weights_sha256": "7fb8b755c1f9f21e7477dccd667aa8bb90fc47e99495780fb929551ea43bf7ef",
+    "imgsz": 1024,
+    "confidence_threshold": 0.25,
+    "iou_threshold": 0.5,
+    "_where": "machine-specific, from the process environment: TSDAF_DETECTOR_PYTHON (a Python with torch and ultralytics), TSDAF_DETECTOR_WEIGHTS (the file of the weights named here), TSDAF_DETECTOR_DEVICE (cuda, mps or cpu). Without them prestage_paper.py reads a paper's figure-labels/<rid>.detections.json made elsewhere, or reads the figures unmarked and says so."
+  }
+}

@@ -1,0 +1,1 @@
+References to new records declared in this write create prerequisites: a failed prerequisite blocks only its dependants; a failed dependant does not discard its valid prerequisites or independent records. Explicit groups remain all-or-nothing. Record only experiments and operations described by the literature.
