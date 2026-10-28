@@ -19,7 +19,8 @@ reuse = Path(sys.argv[sys.argv.index('--reuse-units') + 1]) if '--reuse-units' i
 RECORD = sys.argv[sys.argv.index('--record') + 1] if '--record' in sys.argv else 'actions'
 if '--model' in sys.argv: os.environ['TSDAF_WORKFLOW_MODEL'] = sys.argv[sys.argv.index('--model') + 1]      # overrides the workflow model of tools/run_config.json
 if '--si-text' in sys.argv: os.environ['SI_TEXT'] = sys.argv[sys.argv.index('--si-text') + 1]      # '__clean': read the SI text the pre-stage settled
-sys.path.insert(0, str(TOOLS)); from stages_from_actions import derive; import run_config
+sys.path.insert(0, str(TOOLS)); from stages_from_actions import derive; import run_config, data_marks as dm, general_marks as gm; from quantity_rule import text_of
+import host_repairs as hr
 REPAIR = '--repair' in sys.argv
 run = HERE / 'whole-paper' / label
 if REPAIR and not (run / 'units').exists(): raise SystemExit(f'--repair: no run to repair at {run}')
@@ -38,7 +39,7 @@ began = time.monotonic()
 units_dir = run / 'units'
 if REPAIR: timings['1 segment'] = None
 elif reuse is None:
-    code = step('1 segment', [python, str(TOOLS / 'si_units_probe.py'), paper, str(units_dir)], {'PROBE_LANE': 'WINDOWS', 'PROBE_FIGURES': 'labels', 'PROBE_MEMORY': '1', 'PROBE_ROWS': '60', 'PROBE_SAFE': '1', 'PROBE_EFFORT': os.environ.get('SEGMENT_EFFORT', run_config.effort('workflow', 'segment')), **({'PROBE_FALLBACK': 'medium'} if os.environ.get('SEGMENT_EFFORT') == 'high' else {})})
+    code = step('1 segment', [python, str(TOOLS / 'si_units_probe.py'), paper, str(units_dir)], {'PROBE_LANE': 'WINDOWS', 'PROBE_FIGURES': os.environ.get('PROBE_FIGURES', 'transcripts'), 'PROBE_MEMORY': '1', 'PROBE_ROWS': '60', 'PROBE_SAFE': '1', 'PROBE_EFFORT': os.environ.get('SEGMENT_EFFORT', run_config.effort('workflow', 'segment')), **({'PROBE_FALLBACK': 'medium'} if os.environ.get('SEGMENT_EFFORT') == 'high' else {})})
     if code != 0 or not (units_dir / f'{paper}.units.json').exists(): raise SystemExit('segmentation did not return units; see 1 segment.log')
 else:
     units_dir.mkdir(); (units_dir / f'{paper}.units.json').write_bytes((reuse / f'{paper}.units.json').read_bytes()); timings['1 segment'] = None
@@ -96,6 +97,40 @@ timings['4 frame'] = round(time.monotonic() - t, 2)
 
 t = time.monotonic()
 recorded = json.loads((run / 'entries/results.json').read_text()); paper_record = json.loads((run / 'paper.json').read_text())
+
+
+def frames_by_record(frames, results):
+    """Data printed inside a procedure unit belongs to the compound the entry's record says it is for: the record points at it
+    (characterization_frames: the compound and the first words of its data). Each frame of the unit is cut where a pointed start of
+    another compound than the one before is printed in it, and each piece goes to the compound pointed at; what comes before the first pointed start, and a frame where no start
+    is printed, keep the compound the segmentation gave. compound_from says which of the two gave it. Nothing is read from the chemistry."""
+    skip = lambda ch: ch.isspace() or ch in '$^_{}\\'
+    def find(text, words):
+        keep = [i for i, ch in enumerate(text) if not skip(ch)]; flat = ''.join(text[i] for i in keep).lower()
+        needle = ''.join(ch for ch in words or '' if not skip(ch)).lower(); at = flat.find(needle) if needle else -1
+        return keep[at] if at >= 0 else -1
+    pointed = {r['n']: list((r.get('record') or {}).get('characterization_frames') or []) for r in results}
+    out = []
+    for f in frames:
+        if 'compound_from' in f: out.append(f); continue      # cut at the record's data marks already (frames_by_marks)
+        if f.get('entry') is None or 'text' not in f: out.append({**f, 'compound_from': 'segmentation'}); continue
+        cuts = sorted({(at, p['compound'].strip()) for p in pointed.get(f['entry'], []) for at in [find(f['text'], p.get('starts_with'))] if at >= 0 and p.get('compound', '').strip()})
+        cuts = [c for k, c in enumerate(cuts) if k == 0 or c[1] != cuts[k - 1][1]]      # cut only where the compound changes
+        if not cuts: out.append({**f, 'compound_from': 'segmentation'}); continue
+        if cuts[0][0] > 0 and f['text'][:cuts[0][0]].strip(): out.append({**f, 'text': f['text'][:cuts[0][0]], 'compound_from': 'segmentation'})
+        for k, (at, compound) in enumerate(cuts):
+            end = cuts[k + 1][0] if k + 1 < len(cuts) else len(f['text'])
+            out.append({**f, 'compound_label': compound, 'compound_label_as_segmented': f['compound_label'], 'text': f['text'][at:end], 'compound_from': 'entry record'})
+    return out
+
+
+def frames_by_marks(frames, results):
+    return hr.frames_by_marks(frames, results, units, blocks, text_of, dm, unassigned_characterization, frame_audit, KINDS, flat)
+
+
+unassigned_characterization, frame_audit = [], []
+frames[:] = frames_by_marks(frames, recorded['results']) if RECORD != 'v4' else frames
+frames[:] = frames_by_record(frames, recorded['results']) if RECORD != 'v4' else frames
 # A page's compound as the page reader copied it may be the label, the name, or both ("name (label)", "label (a remark)"): the host
 # finds it among the paper's compounds, by label first and then by name; what was copied stays beside it.
 known = [c for c in (paper_record.get('record') or {}).get('compounds') or [] if c.get('label') or c.get('name')]
@@ -110,37 +145,54 @@ def canon(text, drop_sign=False):
     if drop_sign: t = re.sub(r'^\((?:\+|-|±|\+/-)\)-?', '', t)
     return re.sub(r'[\s-]+', '', t).lower()
 def compound_of(printed):
+    """(the compound, the compounds it could be): by label first, then by name. Where one label is carried by several compounds of
+    different names, the copied wording does not say which is meant: the first is given and all of them are listed."""
     plain = printed.strip(); inner = re.fullmatch(r'(.*?)\s*\(([^()]+)\)', plain); tries = [plain] + ([inner.group(2).strip(), inner.group(1).strip()] if inner else [])
+    which = lambda hits: (hits[0].get('label') or hits[0].get('name'), [{'label': c.get('label'), 'name': c.get('name')} for c in hits] if len(hits) > 1 else None)
     for t in tries:      # by label: as printed, then without typography
-        hit = next((c['label'] for c in known if c.get('label') and str(c['label']).strip() == t), None) or \
-              next((c['label'] for c in known if c.get('label') and canon(c['label']) == canon(t)), None)
-        if hit: return hit
+        hits = [c for c in known if c.get('label') and str(c['label']).strip() == t] or [c for c in known if c.get('label') and canon(c['label']) == canon(t)]
+        if hits: return which(hits)
     for t in tries:      # by name (a label may be a name too), the sign of rotation aside
-        hit = next((c.get('label') or c.get('name') for c in known for n in (c.get('name'), c.get('label')) if n and canon(n, True) == canon(t, True)), None)
-        if hit: return hit
-    return None
+        hits = [c for c in known if any(n and canon(n, True) == canon(t, True) for n in (c.get('name'), c.get('label')))]
+        if hits: return which(hits)
+    return None, None
 for f in frames:
-    if f['data_kind'] == 'PAGE': f['compound'] = compound_of(f['compound_label'])
+    if f['data_kind'] == 'PAGE':
+        f['compound'], candidates = compound_of(f['compound_label'])
+        if candidates: f['compound_candidates'] = candidates
 procedure_units = [(i, u) for i, u in enumerate(units) if u['kind'] == 'PROCEDURE']
 reaction_blocks = []
-disagreements, entry_notes = [], []
+disagreements, entry_notes, nonpreparation_records = [], [], []
 for (index, unit), result in zip(procedure_units, recorded['results']):
     record = (result['record'] if RECORD == 'v4' else result['resolved']) or {}
+    if result.get('entry_kind') == 'NOT_A_PREPARATION':
+        nonpreparation_records.append({'entry': result['n'], 'si_unit': index, 'source_block_ids': unit['block_ids'], 'record': record, 'original_record': result.get('record')})
+        disagreements += [{'entry': result['n'], **d} for d in record.get('differences') or []]
+        entry_notes += [{'entry': result['n'], 'what': u} for u in record.get('unresolved') or []]
+        continue
     for at, block in enumerate(record.get('blocks') or [None]):
         actions = None
         if block is not None and RECORD == 'actions':     # stages are the host's reading of the action list; the list itself is kept beside them
             actions = block['actions']; block = {**{k: v for k, v in block.items() if k != 'actions'}, 'steps': derive(block, 'addition')}
-        left = ([raw for _, raw, state in result['check'] or [] if state != 'TYPED'] if RECORD == 'v4' else {k: (result['check'] or {}).get(k) for k in ('unplaced', 'repeated', 'unknown', 'not_printed')}) if at == 0 else []
+        left = ([raw for _, raw, state in result['check'] or [] if state != 'TYPED'] if RECORD == 'v4' else {k: (result['check'] or {}).get(k) for k in ('unplaced', 'repeated', 'unknown', 'not_printed', 'printed_apart')}) if at == 0 else []
         reaction_blocks.append({'entry': result['n'], 'block_in_entry': at + 1, 'si_unit': index, 'compound_label_as_segmented': unit['compound_label'], 'sources': [blocks[b]['evidence_id'] for b in unit['block_ids']],
-                                'record': block, 'actions': actions, 'entry_kind': result.get('entry_kind'), 'reconciliation_left': left})
+                                'record': block, 'actions': actions, 'entry_kind': result.get('entry_kind'), 'reconciliation_left': left,
+                                # actions the host left unplaced for review: printed only where a later action is (record_actions.order_checked)
+                                'order_review': (result.get('order_review') or []) if at == 0 else []})
     disagreements += [{'entry': result['n'], **d} for d in record.get('differences') or []]
     entry_notes += [{'entry': result['n'], 'what': u} for u in record.get('unresolved') or []]
 cost = recorded['cost']; assert len(procedure_units) == len(recorded['results']), 'entries recorded and procedure units differ'
-result = {'paper': paper, 'label': label, 'si_text': os.environ.get('SI_TEXT', ''), 'models': run_config.summary(), 'record_tool': sys.argv[sys.argv.index('--record-tool') + 1] if '--record-tool' in sys.argv else 'record_actions.py', 'paper_record': paper_record['record'], 'reaction_blocks': reaction_blocks, 'characterization_records': frames, 'author_disagreements': disagreements,
+result = {'paper': paper, 'label': label, 'si_text': os.environ.get('SI_TEXT', ''), 'models': run_config.summary(), 'record_tool': sys.argv[sys.argv.index('--record-tool') + 1] if '--record-tool' in sys.argv else 'record_actions.py', 'paper_record': paper_record['record'],
+          # the SI general methods as the entry package prints them, sentence by sentence (tools/general_marks.py), kept whole at the paper level
+          'si_general_methods': gm.items((run / 'package/package.md').read_text(encoding='utf-8')) if (run / 'package/package.md').exists() else [], 'reaction_blocks': reaction_blocks, 'characterization_records': frames, 'unassigned_characterization_records': unassigned_characterization, 'frame_audit': frame_audit, 'quantity_risks': [{'entry': r['n'], **x} for r in recorded['results'] for x in r.get('quantity_risks', [])], 'nonpreparation_records': nonpreparation_records, 'author_disagreements': disagreements,
           'unresolved': entry_notes + [{'entry': None, 'what': u} for u in ((paper_record['record'] or {}).get('unresolved') or [])],
           'timings_seconds': timings, 'wall_seconds': None,
           'tokens': {'entry tasks': {'calls': cost.get('calls'), 'input': cost.get('input'), 'output': cost.get('output'), 'failed_tries': cost.get('failed_tries', 0), 'longest_call': recorded['longest_call']},
                      'paper task': {'input': paper_record['input'], 'output': paper_record['output'], 'error': paper_record['error']}}}
+# what the host lists for review at the paper level (owner 2026-10-26), the model's record unchanged: targets that may be one compound under
+# two labels, and products the entry records report that the paper-level compounds do not hold (an unlabelled ent- target, a named precursor)
+result['paper_level_candidates'] = {'target_alias_candidates': hr.target_alias_candidates(paper_record['record']),
+                                    'products_not_in_compounds': hr.products_not_in_compounds(paper_record['record'], reaction_blocks)}
 timings['5 assemble'] = round(time.monotonic() - t, 2)
 # 6 structures: each drawing the detector boxed and the figure reader labelled before the chain is bound to a compound of this result by
 # its printed label (tools/structure_step.py); the bound ones are the drawings the result needs, and their SMILES are attached once the OCSR

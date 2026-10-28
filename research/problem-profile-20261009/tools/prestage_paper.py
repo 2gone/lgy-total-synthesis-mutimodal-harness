@@ -17,8 +17,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parent)); import run_config, wai
 HERE = Path(__file__).resolve().parent.parent; REPO = HERE.parents[1]; FIX = REPO / 'tests/fixtures'
 rid = sys.argv[1]; LIMIT = 1000      # a guard only: the largest experimental documents of the corpus hold about 250 figures
 main_dir, si_dir = FIX / 'paper_packages' / rid, FIX / 'si_packages' / rid
-if not main_dir.exists(): shutil.copytree(Path(r'D:\tsdaf\packages') / rid, main_dir)
+# the packages come from import_ready200.py; the fallback below (the corpus node's own package store and SI parse list) is used only there
+if not main_dir.exists():
+    if not Path(r'D:\tsdaf\packages').exists(): raise SystemExit(f'{rid}: no main package in {main_dir} -- run import_ready200.py first')
+    shutil.copytree(Path(r'D:\tsdaf\packages') / rid, main_dir)
 if not si_dir.exists():
+    if not Path(r'D:\tsdaf\si_parsed_matches.json').exists(): raise SystemExit(f'{rid}: no experimental document in {si_dir} -- run import_ready200.py first')
     match = next(h for h in json.load(open(r'D:\tsdaf\si_parsed_matches.json', encoding='utf-8')) if h['package'] == rid)      # only a paper without its SI package needs the parse list
     best = None
     for doc in {d['blocks']: d for d in match['si_docs']}.values():      # the SI document that carries the procedures

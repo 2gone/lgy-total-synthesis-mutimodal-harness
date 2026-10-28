@@ -125,6 +125,10 @@ def _block_text(row: dict[str, Any], phase: SourcePhase) -> str:
     text: str = row["raw_text"]
     if phase == "SI" and row["type"] in PICTURE_TYPES and not text.strip():
         return _native_caption(row) or text
+    # A supplement's table is read with what is bound to it (its title and footnotes, where a table states the protocol of its rows),
+    # captions first as the entry package lays it out; a reader that saw the table body alone missed it (2026-10-20).
+    if phase == "SI" and row["type"] == "table" and text.strip() and row.get("captions"):
+        return "\n".join(row["captions"]) + "\n" + text
     return text
 
 

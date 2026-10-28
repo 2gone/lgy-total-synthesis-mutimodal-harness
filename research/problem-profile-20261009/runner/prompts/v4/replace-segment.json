@@ -1,0 +1,6 @@
+[
+ [
+  "The kinds are defined in the kind field of the response schema supplied with this request. Apply those definitions when assigning each unit.",
+  "The kinds are defined in the kind field of the response schema supplied with this request. Apply those definitions when assigning each unit. Decide the kind from what the rows report was done, not from a heading, a citation number or what the product was for: a preparation or an attempted transformation is PROCEDURE also when it serves an analysis, is printed in a footnote, or reports no label, isolated amount or yield. A citation alone is not a preparation. A table of reaction conditions tried, failed trials among them, is PROCEDURE."
+ ]
+]

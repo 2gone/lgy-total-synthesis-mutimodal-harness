@@ -97,11 +97,9 @@ for position, rid in papers:
         if joined: shutil.copyfile(joined, folder / 'processed/experimental.pdf')
         (folder / 'processed/documents.json').write_text(json.dumps({'documents': entry.get('documents'), 'pages': entry.get('pages'), 'notes': entry.get('notes')}, ensure_ascii=False, indent=1), encoding='utf-8')
         mine = [t for f, t in readings.items() if f.startswith(rid + '.')]
-        pagefig = HERE / 'figure-labels' / f'{rid}.page-figures.json'
-        if pagefig.exists(): mine += json.loads(pagefig.read_text(encoding='utf-8'))
         mended = HERE / 'figure-labels' / f'{rid}.rebox-figures.json'      # figures whose boxes were mended or added to (rebox_apply.py): that reading wins
         if mended.exists():
-            fixed = {t['file']: t for t in json.loads(mended.read_text(encoding='utf-8'))}; mine = [fixed.pop(t['file'], t) for t in mine] + list(fixed.values())
+            fixed = {t['file']: t for t in json.loads(mended.read_text(encoding='utf-8')) if not t['file'].endswith('-PAGE.png')}; mine = [fixed.pop(t['file'], t) for t in mine] + list(fixed.values())
         (folder / 'processed/figure_transcripts.json').write_text(json.dumps(mine, ensure_ascii=False, indent=1), encoding='utf-8')
     for src, dst in ((run / 'result.json', 'result.json'), (run / 'structure-binding.json', 'structure-binding.json'), (run / 'entries/results.json', 'entries_detail.json'),
                      (HERE / 'figure-labels' / f'{rid}.owners.json', 'pages_characterizing.json')):

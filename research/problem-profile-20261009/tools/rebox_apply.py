@@ -58,6 +58,14 @@ def apply(rid):
     if (HERE / 'figure-labels' / f'{rid}.owners.json').exists():
         owners = {f"{rid}.SI-P{o['page']:04d}-PAGE.png": o.get('compounds') or [] for o in json.loads((HERE / 'figure-labels' / f'{rid}.owners.json').read_text(encoding='utf-8'))}
     rows, to_read = [], []
+    # labels read for new marks before (an earlier run of this tool): the same mark with the same box is not read again
+    before = {}
+    out_file = HERE / 'figure-labels' / f'{rid}.rebox-figures.json'
+    if out_file.exists():
+        for r in json.loads(out_file.read_text(encoding='utf-8')):
+            boxes = {m['mark']: [round(v) for v in m['bbox_px']] for m in r.get('marks') or []}
+            for x in (r.get('transcript') or {}).get('molecules') or []:
+                if x.get('mark') in (r.get('new') or []): before[(r['file'], x['mark'], tuple(boxes.get(x['mark']) or []))] = (x.get('label'), r.get('labels_from'))
     for f in json.loads(found.read_text(encoding='utf-8'))['figures']:
         file, ok = f['file'], [c for c in f['candidates'] if c.get('verdict') == 'OK']
         if not ok or file not in figs: continue
@@ -86,7 +94,12 @@ def apply(rid):
         if new and len(owners.get(file) or []) == 1:
             for mark in new: row['labels'][mark] = owners[file][0]
             row['labels_from'] = 'the page (the compound the page characterizes)'
-        elif new: to_read.append(row)
+        elif new:
+            known = {mark: before.get((file, mark, tuple(round(v) for v in next(m['bbox_px'] for m in marks if m['mark'] == mark)))) for mark in new}
+            if all(known.values()):
+                for mark, (label, how) in known.items(): row['labels'][mark] = label
+                row['labels_from'] = next(iter(known.values()))[1]
+            else: to_read.append(row)
         rows.append(row)
     def label(row):
         # only the new marks are read, on the part of the figure around them (wide enough for a label printed under or beside a

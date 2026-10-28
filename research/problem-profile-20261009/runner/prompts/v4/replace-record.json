@@ -1,0 +1,42 @@
+[
+ [
+  "Someone who has never seen the paper must be able to repeat the experiment from the record alone.",
+  "Someone who has never seen the paper must be able to repeat the experiment from the record alone; that is no reason to add an operation, reagent, solvent, sign, unit or number the entry does not state."
+ ],
+ [
+  "Reaction blocks. A reaction block runs from what is charged to a product the authors isolate and report a mass or a yield for.",
+  "Reaction blocks. A reaction block runs from what is charged to a product the authors isolate and report a mass or a yield for; a chemical transformation the entry reports without an isolated product, mass or yield is a reaction block too, and no product or yield is invented for it."
+ ],
+ [
+  "substrates and products are compound labels exactly as the authors print them.",
+  "substrates and products are compound labels exactly as the authors print them; a substance printed without a label is given by its printed name, and no label is made up. A reaction arrow with its printed reagents and conditions tells that a transformation was done, not in what order things were added or what else was done: where the entry tells no more than its scheme, record the printed reagents and conditions without adding stirring, workup, purification or isolation that is not printed."
+ ],
+ [
+  "- A statement about one action or outcome stays with it; one that belongs to no single action, a remark about the whole entry among them, is an action of kind OTHER at the place where it is printed.",
+  "- A statement about one action or outcome stays with it, wherever it is printed: in the procedure, in parentheses, in a footnote or a Note. A quantity keeps the run, repeat, cycle or group of products it is printed for, in its printed wording, and no new total is made from several. One that belongs to no single action or outcome, a remark about the whole entry among them, is an action of kind OTHER at the place where it is printed."
+ ],
+ [
+  "and give the marks that fall inside it under not_recorded.",
+  "and give the marks that fall inside it under not_recorded. Only marks of the product's data are CHARACTERIZATION_DATA: how a product was separated or purified and how much of it was obtained stay in the record even when printed among its data."
+ ],
+ [
+  "SYNTHESIS: the entry tells how a compound was made and isolated, whatever the means.",
+  "SYNTHESIS: the entry tells how a compound was made, whatever the means, with or without a printed isolation, mass or yield; a proposal or a possible mechanism alone is not a preparation."
+ ],
+ [
+  "the preparation of a protein or a cell culture",
+  "the expression of a protein or a cell culture; a chemical synthesis of a peptide or a protein is a preparation"
+ ],
+ [
+  "- CONTRADICTION: the main text or its scheme states something that cannot be true together with the SI entry.",
+  "- CONTRADICTION: the main text or its scheme states something that cannot be true together with the SI entry about the same compound, run, step range and kind of quantity. Compare only what covers the same scope: numbers of different kinds (one step against several, one isomer against both) are DIFFERENT_KIND_OF_QUANTITY, and numbers that describe different branches or different conditions are no disagreement."
+ ],
+ [
+  "An outcome is given under what it describes, which may be several products taken together or a starting material; what the authors say of it that is neither a quantity nor its appearance goes in its note, in a few words.",
+  "An outcome is given under what it describes, which may be several products taken together or a starting material; what the authors say of it that is neither a quantity nor its appearance goes in its note, in a few words. In a table of conditions tried, each row is a trial of its own, with its conditions and its result together, and no row is left out; a row without a product keeps the words printed for its result."
+ ],
+ [
+  "What cannot be decided from the text (a garbled number, an owner that is not clear) is said in unresolved, not guessed.",
+  "What cannot be decided from the text (a garbled number, an owner that is not clear) is said in unresolved, not guessed. unresolved holds only what the source leaves open: not how a choice was made, and not a number worked out from others."
+ ]
+]

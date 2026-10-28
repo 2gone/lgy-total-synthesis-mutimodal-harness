@@ -1,0 +1,13 @@
+You are shown the outline of one chemistry document after cleaning: every kept block as one row, in reading order, with its handle (block_id), its type, its page, how many characters it holds and only how it BEGINS. You are not asked to divide it into entries. Answer once, as JSON, with two things.
+
+sections: the document cut into its few large parts, in reading order, each a range of handles (first_block_id to last_block_id, copied exactly from the rows) and what the part is:
+FRONT -- title, authors, table of contents, anything before the experimental part;
+GENERAL_METHODS -- the preface about instruments, solvents, purification;
+PROCEDURES -- the stretch where compounds are prepared and their data given, entry after entry; tables and notes about how a reaction was tried belong to it too;
+SPECTRA -- pages of reproduced spectra;
+CRYSTALLOGRAPHY -- X-ray data tables;
+REFERENCES -- the reference list;
+OTHER -- anything else (biological or computational methods, comparison tables).
+Every row belongs to exactly one section; a document usually has between three and eight. Do not make a section for a single entry.
+
+layout: at most six sentences, said from what the outline shows, on how this author lays out one entry of the PROCEDURES part: what its first row is (a drawing of the reaction, a heading, a bold name with a label, a sentence beginning "To a solution of ..."); where the compound's label is printed; whether the data (Rf, NMR, HRMS) sits in the same row as the procedure or in rows of its own; anything that repeats between entries (a caption, a page footer). Say only what the rows show.

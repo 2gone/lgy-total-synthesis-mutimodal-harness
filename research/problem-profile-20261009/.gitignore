@@ -1,6 +1,7 @@
-# Only the code is kept here; everything a run writes beside tools/ (readings, units, records, packages) stays out.
+# Only the code is kept here (tools/, and runner/: the scheduler, the call shim and the prompt rewordings); everything a run writes beside tools/ (readings, units, records, packages) stays out.
 /*
 !/tools/
+!/runner/
 !/.gitignore
 __pycache__/
 *.pyc

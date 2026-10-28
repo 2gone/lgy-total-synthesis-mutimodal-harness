@@ -1,0 +1,50 @@
+[
+  [
+    "A number that describes a substance is a quantity of that substance, whatever it measures: its concentration, its purity or strength, as much as its mass, volume or amount.",
+    "A number that describes a substance is a quantity of that substance, whatever it measures: its concentration, its purity or strength, as much as its mass, volume or amount. A concentration printed with the solvent a substance is dissolved in is that substance's concentration, and goes to that substance, not to the solvent."
+  ],
+  [
+    "The main text is there to settle what the entry leaves unclear (which compound a label means, what a reagent is), never to add quantities to the blocks.",
+    "The main text, and a procedure the entry refers to where the system gives it before the entry, are there to settle what the entry leaves unclear (which compound a label means, what a reagent is, what the entry's own words refer to), never to add quantities to the blocks."
+  ],
+  [
+    "The entry's own scheme is part of the entry. A quantity printed only there is recorded where it belongs with printed_in SCHEME; everything from the procedure text has printed_in TEXT.",
+    "The entry's own scheme is part of the entry. A quantity printed only there is recorded where it belongs with printed_in SCHEME; everything from the procedure text has printed_in TEXT.\n- Give of_what only where neither the place of a quantity nor its raw wording says all that it is a quantity of, and say there the rest in a few words of your own. of_what holds no quantity and is kept as written; it changes nothing about where a quantity belongs, and something that is not a substance does not become a material through it."
+  ],
+  [
+    "outcomes: everything the authors isolate and report (the product, a side product, another isomer, recovered starting material), each with every quantity reported for it (mass, amount, yield, ratio) and its appearance.",
+    "outcomes: everything the authors isolate and report (the product, a side product, another isomer, recovered starting material), each with every quantity reported for it (mass, amount, yield, ratio) and its appearance. An outcome is given under what it describes, which may be several products taken together or a starting material; what the authors say of it that is neither a quantity nor its appearance goes in its note, in a few words."
+  ],
+  [
+    "A quantity written in words stays in words.",
+    "A quantity written in words stays in words and is of the same kind as it would be in figures."
+  ],
+  [
+    "washing or drying a reagent before it is used is not WORKUP, it is the preparation of that reagent.",
+    "washing or drying a reagent before it is used is not WORKUP, it is the preparation of that reagent, and each thing done in it is an action of its own."
+  ],
+  [
+    "conditions are the temperatures, durations, atmosphere and repeat counts of the action;",
+    "conditions are the temperatures (in figures or in words), durations, atmosphere and repeat counts of the action;"
+  ],
+  [
+    "Write the entry down as a structured record. Someone who has never seen the paper must be able to repeat the experiment from the record alone, and the system checks every quantity of the record against the entry.",
+    "Write the entry down as a structured record of all that the authors report doing, observing and obtaining in it, with or without a number. Someone who has never seen the paper must be able to repeat the experiment from the record alone. The marks only locate the quantities; placing them all does not complete the record."
+  ],
+  [
+    "a number inside the characterization data,",
+    "a number inside the product's characterization data,"
+  ],
+  [
+    "- what tells the action in a few of the authors' own words.",
+    "- what tells the action in a few of the authors' own words, with whatever else they say about how it was done or what was seen that the other fields do not hold."
+  ],
+  [
+    "- A remark that applies to the whole entry is an action of kind OTHER at the place where it is printed.",
+    "- A statement about one action or outcome stays with it; one that belongs to no single action, a remark about the whole entry among them, is an action of kind OTHER at the place where it is printed."
+  ],
+  [
+    "give the marks that fall inside it under not_recorded.",
+    "give the marks that fall inside it under not_recorded. What the authors observe or measure while carrying out the experiment is not characterization data: it stays in the record with its action."
+  ]
+]

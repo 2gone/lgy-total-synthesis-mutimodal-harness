@@ -2,6 +2,18 @@
 
 TS-DAF 是一个小而逻辑清晰的总合成研究证据 Harness。复杂性应来自科学数据、溯源、不可变证据与可恢复性，而不是内部工具链或推测性的框架。
 
+## 语料流程：协作者从这里开始
+
+2026 年 10 月跑全合成文献语料用的整套流程在 [`research/`](research/README_ZH.md)，包括导入、前处理、v4 提示词的全链和统计，可以直接复现或拿来测试网关。输入是文献标准包集合（原始 PDF 加 MinerU 分块），只要配一个 OpenAI 兼容网关，就能一条命令跑完：
+
+```bash
+python -m venv .venv && .venv/bin/pip install -r research/requirements.txt
+export OPENAI_BASE_URL=<网关地址>  OPENAI_API_KEY=<密钥>
+.venv/bin/python research/problem-profile-20261009/runner/run_pipeline.py --packages <标准包集合> --name test1 --model <模型名> --papers-at-once 4 --budget 60 --hard-cap 70
+```
+
+输入格式、并发设置、输出位置和常见问题见 [research/README_ZH.md](research/README_ZH.md)。这套流程是研究用的，不是下文的生产工作流。
+
 ## 共同原则
 
 - 合同和 schema 只为真实消费者而存在；每条规则只有一个事实源，Host 校验与 provider 可见 schema 必须一致，绝不静默改写无效模型结果。

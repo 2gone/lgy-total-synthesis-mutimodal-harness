@@ -2,7 +2,11 @@
 stage begins; a principle applied here groups the actions. Changing the principle changes no model call.
   addition  a stage is what is put in at one point with what holds until the next thing is put in (the reviewed standard's reading)
   content   a stage ends only when what is in the vessel changes (something goes in or comes out)
-  action    every action is a stage"""
+  action    every action is a stage
+The stages are a view for reading, made by the host: what each material and condition belongs to is said by the actions, and a consumer
+reads it there. A stage gathers the materials and conditions of its actions with the index of the action each comes from; an action of
+kind OTHER (a remark, or something done that is none of the named kinds) is listed in the stage it falls in but adds nothing to the
+stage's materials or conditions, because the host cannot tell what those apply to."""
 import re
 
 REACTION = {'CHARGE', 'ADD', 'REMOVE', 'CONDITION', 'ATMOSPHERE', 'OTHER'}
@@ -39,5 +43,7 @@ def derive(block, principle='addition'):
         if last is None or last['g'] != g or (g == 'S' and (action.get('vessel') != last['actions'][-1].get('vessel') or _opens(action, last['actions'], principle, actions[:index]))):
             groups.append({'g': g, 'actions': [], 'index': []}); last = groups[-1]
         last['actions'].append(action); last['index'].append(index)
+    own = lambda g, key: [{**x, 'action': i} for a, i in zip(g['actions'], g['index']) if a['kind'] != 'OTHER' for x in a.get(key) or []]
     return [{'kind': _KIND[g['g']], 'what_happens': '; '.join(a['what'] for a in g['actions']), 'vessel': g['actions'][0].get('vessel'), 'actions': g['index'],
-             'materials': [m for a in g['actions'] for m in a['materials']], 'conditions': [c for a in g['actions'] for c in a['conditions']]} for g in groups]
+             'other_actions': [i for a, i in zip(g['actions'], g['index']) if a['kind'] == 'OTHER'], 'derived_by_host': True,
+             'materials': own(g, 'materials'), 'conditions': own(g, 'conditions')} for g in groups]

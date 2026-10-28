@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / 'src-units'))
 sys.path.insert(0, str(Path(__file__).resolve().parent)); import run_config, waits      # models and thinking levels: tools/run_config.json
+import host_repairs as hr
 import tsdaf.adapters.gemini.interactions as transport
 from tsdaf.adapters.gemini.interactions import GeminiInteractions
 from tsdaf.lanes.document.canonicalizer import canonicalize_paper_package
@@ -15,7 +16,6 @@ from tsdaf.contracts.reading_units import ReadingUnits
 
 paper, out = sys.argv[1], Path(sys.argv[2]); out.mkdir(parents=True, exist_ok=True)
 FIX = ROOT.parents[2] / 'tests/fixtures/si_packages'
-if not (FIX / paper).exists(): FIX = Path('/Users/hululu/Documents/Codex/2026-09-02/mu/worktrees/harness-core-20260909/tests/fixtures/si_packages')
 # SI_TEXT=__clean: the copy of the SI package whose text the pre-stage settled; everything else stays keyed by the paper
 package = canonicalize_paper_package(FIX / (paper + os.environ.get('SI_TEXT', '')))
 CONTRADICTIONS = [
@@ -68,7 +68,11 @@ SAFE = os.environ.get('PROBE_SAFE')
 SILENCE = float(os.environ.get('PROBE_SILENCE', '420' if SAFE else '900'))
 # PROBE_FALLBACK=medium: a part whose stream stalled twice at the asked thinking level is asked once more at this level, that part only.
 FALLBACK = os.environ.get('PROBE_FALLBACK')
-client = GeminiInteractions.from_api_key(api_key=os.environ['OPENAI_API_KEY'], base_url=os.environ['OPENAI_BASE_URL'], stream=True, timeout=SILENCE, **({'max_transport_attempts': 1} if SAFE else {}))
+# TSDAF_NO_STREAM=1 (2026-10-21): answered whole, not streamed -- lpzproxy gives Gemini's thinking text only in a whole answer (see
+# record_actions.whole); with no keep-alives the read timeout holds, NO_STREAM_TIMEOUT seconds
+NO_STREAM = os.environ.get('TSDAF_NO_STREAM') == '1'
+client = GeminiInteractions.from_api_key(api_key=os.environ['OPENAI_API_KEY'], base_url=os.environ['OPENAI_BASE_URL'], stream=not NO_STREAM,
+                                         timeout=float(os.environ.get('NO_STREAM_TIMEOUT', '900')) if NO_STREAM else SILENCE, **({'max_transport_attempts': 1} if SAFE else {}))
 import tsdaf.lanes.document.reading_units as lane
 # PROBE_TRACE: when each piece of a streamed answer arrived, and what it carried. Tells a connection closed for being silent from one closed
 # for having run too long: the first shows a long gap before the end, the second ends while pieces are still arriving.
@@ -118,14 +122,24 @@ figure_images = []
 if FIGURES:
     import base64
     read = {r['block_id']: r for r in json.loads((ROOT.parent / 'figure-labels' / f'{paper}.labels.json').read_text())}
-    files = {r['block_id']: r['file'] for r in json.loads((ROOT.parent / 'figure-labels' / f'{paper}.blocks.json').read_text()) if r['file']}
+    figure_index = json.loads((ROOT.parent / 'figure-labels' / f'{paper}.blocks.json').read_text())
+    files = {r['block_id']: r['file'] for r in figure_index if r['file']}
+    transcripts, transcript_rows = {}, []
+    if FIGURES == 'transcripts':
+        for name in ['transcript-medium.json', 'transcript-fill.json']:
+            path = ROOT.parent / 'figure-transcript' / name
+            if path.exists():
+                transcript_rows.extend(json.loads(path.read_text()))
+        transcripts = hr.figure_transcripts(paper, figure_index, transcript_rows)
     def figure_row(block_id):
-        labels = [m['printed_label'] or '(no label printed)' for m in read[block_id]['molecules']]
-        if FIGURES == 'labels':
+        if FIGURES == 'transcripts' and block_id in transcripts:
+            return hr.figure_text(block_id, transcripts[block_id])
+        labels = [m['printed_label'] or '(no label printed)' for m in read.get(block_id, {}).get('molecules', [])]
+        if FIGURES in ('labels', 'transcripts'):
             return (f"[FIGURE, not text. A drawing with {len(labels)} chemical structure(s). The compound labels printed beside them, read from the figure "
-                    f"left to right and top to bottom: {', '.join(labels)}. In a reaction drawing the product is usually the last.]")
+                    f"left to right and top to bottom: {', '.join(labels)}. In a reaction drawing the product is usually the last.]" + (' [No recorded transcript available; conditions not supplied.]' if FIGURES == 'transcripts' else ''))
         return f"[FIGURE, not text: shown below as the image named {block_id}.]"
-    package = package.model_copy(update={'blocks': tuple(b.model_copy(update={'raw_text': figure_row(b.block_id)}) if b.block_id in read and not b.raw_text.strip() else b for b in package.blocks)})
+    package = package.model_copy(update={'blocks': tuple(b.model_copy(update={'raw_text': ((b.raw_text + '\n') if b.raw_text.strip() else '') + figure_row(b.block_id)}) if b.block_id in (set(read) | set(transcripts)) and (FIGURES == 'transcripts' or not b.raw_text.strip()) else b for b in package.blocks)})
     if FIGURES == 'images':
         for block_id in read:
             data = Path(files[block_id]).read_bytes()
@@ -237,7 +251,7 @@ while True:
     if final: break
     start, scale = start + accepted[1], 1
 resolved = resolve_reading_units_answer(package, source_phase='SI', answer=ReadingUnitsAnswer(units=units, rationale=rationale), request_sha256=prepared.request_sha256,
-                                        model_profile=p.model_profile, resources=prepared.resources, not_shown_block_ids=prepared.not_shown_block_ids)
+                                        model_profile=f"{run_config.model('workflow')}-chat-completions-{os.environ.get('PROBE_EFFORT') or 'default'}", resources=prepared.resources, not_shown_block_ids=prepared.not_shown_block_ids)
 assert isinstance(resolved, ReadingUnits), resolved
 (out / f'{paper}.units.json').write_text(json.dumps(resolved.model_dump(mode='json'), ensure_ascii=False))
 (out / f'{paper}.log.json').write_text(json.dumps({'seconds': round(time.monotonic() - began, 1), 'calls': log, 'trace': TRACE}, ensure_ascii=False, indent=1))

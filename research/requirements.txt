@@ -1,0 +1,10 @@
+# The corpus pipeline under research/ (run_pipeline.py). Versions are those the October 2026 corpus runs used (Python 3.13); newer ones
+# are expected to work. The molecule detector is optional and not listed: torch and ultralytics, with weights of your own (TSDAF_DETECTOR_ENV).
+openai>=2.29
+httpx>=0.28
+pydantic>=2.12
+jsonschema>=4.25
+Pillow>=12.0
+PyMuPDF>=1.27
+pypdfium2>=5.11
+pdfplumber>=0.11

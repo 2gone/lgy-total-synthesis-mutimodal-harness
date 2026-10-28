@@ -29,10 +29,10 @@ def readings(paper):
         if path.exists():
             # a copy of the main text's reading (same_as) is the same figure: its drawings are bound once, under the main text's name
             out.update({t['file']: t for t in json.loads(path.read_text(encoding='utf-8')) if t['file'].startswith(paper + '.') and not t.get('error') and not t.get('same_as')})
-    pages = HERE / 'figure-labels' / f'{paper}.page-figures.json'      # the pages without running text, boxed whole (page_boxes.py)
-    if pages.exists(): out.update({t['file']: t for t in json.loads(pages.read_text(encoding='utf-8'))})
+    # the structures printed on spectrum pages (page_boxes.py) are not boxed for the result (the user's decision, 2026-10-17): the
+    # drawings of a compound are taken from the figures of the procedures and schemes only
     mended = HERE / 'figure-labels' / f'{paper}.rebox-figures.json'      # the figures whose boxes rebox.py mended or added to (rebox_apply.py)
-    if mended.exists(): out.update({t['file']: t for t in json.loads(mended.read_text(encoding='utf-8'))})
+    if mended.exists(): out.update({t['file']: t for t in json.loads(mended.read_text(encoding='utf-8')) if not t['file'].endswith('-PAGE.png')})
     return out
 
 
@@ -119,7 +119,7 @@ def by_form(bound, named):
         shared = len(found) > 1
         for cid in found:
             row_of[cid]['structures'].append({**item, 'binding': 'BOUND_SHARED' if shared else 'BOUND', 'printed_as': item.get('printed_as') or item['printed_label'],
-                                              **({'shared_with': [row_of[x]['author_labels'][0] for x in found if x != cid]} if shared else {})})
+                                              **({'shared_with': [(row_of[x]['author_labels'] or [named[ids.index(x)].get('name')])[0] for x in found if x != cid]} if shared else {})})
         counts['bound shared' if shared else 'bound by form'] += 1
     bound['unresolved'] = still
     s = bound['summary']; moved = counts['bound by form'] + counts['bound shared']
@@ -130,17 +130,21 @@ def by_form(bound, named):
 def bind(paper, label, result):
     """(the binding written beside the result, its summary for result.json). The compounds bound to are those of the paper-level record
     and every further label the reaction records use (a substrate, a product, something isolated): the paper-level list can miss one."""
-    # the paper-level list can name one label twice (two forms of one compound, an entry listed twice): one compound, its names and
-    # entries joined -- two compounds under one label would make every drawing of it AMBIGUOUS
+    # The paper-level list can name one label twice. Where the two carry the same name, or one carries none (an entry listed twice, one
+    # compound written with and without its sign of rotation), they are one compound: names and entries joined. Where they carry two
+    # different names, the record says two compounds share the label; both are kept, and a drawing of that label is AMBIGUOUS between
+    # them -- the host does not choose. A compound with a name and no label is kept too: its drawing can be bound by its name.
     named, at = [], {}
+    def same(a, b): return not a.get('name') or not b.get('name') or canon(a['name'], True) == canon(b['name'], True)
     for c in ((result.get('paper_record') or {}).get('compounds')) or []:
         key = binding.normalize_label(str(c.get('label') or ''))
-        if not key: continue
-        if key in at:
-            kept = at[key]; kept['name'] = kept.get('name') or c.get('name')
+        if not key and not str(c.get('name') or '').strip(): continue
+        kept = next((k for k in at.get(key or ('name', canon(c['name'], True)), []) if same(k, c)), None)
+        if kept is not None:
+            kept['name'] = kept.get('name') or c.get('name')
             kept['made_in_entries'] = sorted(set(kept.get('made_in_entries') or []) | set(c.get('made_in_entries') or []), key=str)
-        else: at[key] = dict(c); named.append(at[key])
-    seen = set(at)
+        else: at.setdefault(key or ('name', canon(c['name'], True)), []).append(dict(c)); named.append(at[key or ('name', canon(c['name'], True))][-1])
+    seen = {k for k in at if isinstance(k, str)}
     for block in result.get('reaction_blocks') or []:
         record = block.get('record') or {}
         for value in (record.get('substrates') or []) + (record.get('products') or []) + [o.get('product') for o in record.get('outcomes') or []]:
@@ -155,7 +159,7 @@ def bind(paper, label, result):
         found = str(block.get('compound_label_as_segmented') or '').strip()
         if found and not re.search(r'\band\b|,', found) and binding.normalize_label(found) not in seen:
             seen.add(binding.normalize_label(found)); named.append({'label': found, 'name': None, 'role': 'FROM_THE_SEGMENTATION', 'made_in_entries': [block.get('entry')]})
-    machine = {'paper_id': paper, 'machine_result_id': label, 'domain_payload': {'compounds': [{'compound_id': f'C{i + 1:03d}', 'author_labels': [c['label']]} for i, c in enumerate(named)]}}
+    machine = {'paper_id': paper, 'machine_result_id': label, 'domain_payload': {'compounds': [{'compound_id': f'C{i + 1:03d}', 'author_labels': [c['label']] if str(c.get('label') or '').strip() else []} for i, c in enumerate(named)]}}
     reading, has_structures = overlay(paper)
     # A drawing is often captioned with the compound's name and its number in brackets ("principinol B (1)", "(1)"). When the printed
     # words are not a label of the result as they stand, the bracketed part is, if it is one: the box binds by it, the printed words stay.

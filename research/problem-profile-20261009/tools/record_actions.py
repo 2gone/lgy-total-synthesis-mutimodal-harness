@@ -10,7 +10,9 @@ from pathlib import Path
 from openai import OpenAI
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(Path(__file__).resolve().parent)); import run_config, waits      # models and thinking levels: tools/run_config.json
-import quantity_marks as qm
+import quantity_marks as qm, procedure_refs, data_marks as dm, general_marks as gm
+import host_repairs as hr
+import hashlib
 
 pack, package, out = Path(sys.argv[1]), Path(sys.argv[2]).read_text(encoding='utf-8'), Path(sys.argv[3]); out.mkdir(parents=True, exist_ok=True)
 option = lambda name, default: sys.argv[sys.argv.index(name) + 1] if name in sys.argv else default
@@ -21,6 +23,12 @@ client = OpenAI(api_key=os.environ['OPENAI_API_KEY'], base_url=os.environ['OPENA
 obj = lambda props: {'type': 'object', 'additionalProperties': False, 'required': list(props), 'properties': props}
 strings = {'type': 'array', 'items': {'type': 'string'}}
 Q = obj({'ref': {'type': ['string', 'null']}, 'raw': {'type': ['string', 'null']}, 'printed_in': {'type': 'string', 'enum': ['TEXT', 'SCHEME']}})
+# QUANTITY_OF_WHAT=1 (2026-10-19, an experiment): a quantity may carry of_what, what it is a quantity of in the model's own words where its
+# place does not say all of it; kept as written, read by no rule of the host. It is optional, which a strict json_schema does not allow, so
+# it runs only through the json_object adapter (TSDAF_JSON_SCHEMA_SHIM=1), whose validation reads this same schema.
+if os.environ.get('QUANTITY_OF_WHAT') == '1':
+    if os.environ.get('TSDAF_JSON_SCHEMA_SHIM') != '1': raise SystemExit('QUANTITY_OF_WHAT=1 needs the json_object adapter (TSDAF_JSON_SCHEMA_SHIM=1)')
+    Q = {**Q, 'properties': {**Q['properties'], 'of_what': {'type': ['string', 'null']}}}
 MATERIALS = {'type': 'array', 'items': obj({'name': {'type': 'string'}, 'role': {'type': 'string', 'enum': ['SUBSTRATE', 'REAGENT', 'CATALYST', 'SOLVENT', 'QUENCH', 'WASH', 'DRYING_AGENT', 'ELUENT', 'OTHER']},
                                             'quantities': {'type': 'array', 'items': Q}})}
 CONDITIONS = {'type': 'array', 'items': obj({'kind': {'type': 'string', 'enum': ['TEMPERATURE', 'DURATION', 'ATMOSPHERE', 'REPEAT', 'OTHER']}, 'quantity': Q})}
@@ -28,11 +36,24 @@ ACTION = obj({'kind': {'type': 'string', 'enum': ['CHARGE', 'ADD', 'REMOVE', 'CO
               'vessel': {'type': 'string'}, 'with_previous': {'type': 'boolean'}, 'materials': MATERIALS, 'conditions': CONDITIONS})
 STEP = obj({'kind': {'type': 'string', 'enum': ['REACTION_STAGE', 'WORKUP', 'PURIFICATION']}, 'what_happens': {'type': 'string'}, 'materials': MATERIALS, 'conditions': CONDITIONS})
 OUTCOMES = {'type': 'array', 'items': obj({'product': {'type': 'string'}, 'quantities': {'type': 'array', 'items': Q}, 'appearance': {'type': ['string', 'null']}})}
-BLOCK = obj({'substrates': strings, 'products': strings, **({'actions': {'type': 'array', 'items': ACTION}} if FORM == 'actions' else {'steps': {'type': 'array', 'items': STEP}}), 'outcomes': OUTCOMES})
+# OUTCOME_NOTE=1 (2026-10-19, an experiment): an outcome may carry a note, what the authors say of it that is neither a quantity nor its
+# appearance, in the model's own words; kept as written, read by no rule of the host. Optional as of_what is, so through the adapter only.
+if os.environ.get('OUTCOME_NOTE') == '1':
+    if os.environ.get('TSDAF_JSON_SCHEMA_SHIM') != '1': raise SystemExit('OUTCOME_NOTE=1 needs the json_object adapter (TSDAF_JSON_SCHEMA_SHIM=1)')
+    OUTCOMES = {**OUTCOMES, 'items': {**OUTCOMES['items'], 'properties': {**OUTCOMES['items']['properties'], 'note': {'type': ['string', 'null']}}}}
+# DATA_MARKS=1 (2026-10-20): the entry's text carries data marks (tools/data_marks.py) and a characterization frame names the mark where its
+# data begin and the mark of its last piece; the host cuts the print at those marks instead of searching it for the first few words
+DATA_MARKS = os.environ.get('DATA_MARKS') == '1'
+FRAME_MARKS = {'from': {'type': 'string'}, 'to': {'type': 'string'}} if DATA_MARKS else {}
+# GENERAL_MARKS=1 (2026-10-21): the SI general methods are shown with a mark before each sentence (tools/general_marks.py) and a block names
+# the marks of those that state how its reaction was run; the host copies the sentences into the resolved record
+GENERAL_MARKS = os.environ.get('GENERAL_MARKS') == '1'
+BLOCK = obj({'substrates': strings, 'products': strings, **({'actions': {'type': 'array', 'items': ACTION}} if FORM == 'actions' else {'steps': {'type': 'array', 'items': STEP}}), 'outcomes': OUTCOMES,
+             **({'general_methods': strings} if GENERAL_MARKS else {})})
 ENTRY = obj({'entry_kind': {'type': 'string', 'enum': ['SYNTHESIS', 'CONDITIONS_TRIED_OR_FAILED_ATTEMPT', 'NOT_A_PREPARATION']}, 'blocks': {'type': 'array', 'items': BLOCK},
              'not_recorded': {'type': 'array', 'items': obj({'ref': {'type': 'string'}, 'reason': {'type': 'string', 'enum': ['PART_OF_ANOTHER_QUANTITY', 'SAME_PASSAGE_PRINTED_TWICE', 'CHARACTERIZATION_DATA', 'NOT_A_QUANTITY']}})},
              'differences': {'type': 'array', 'items': obj({'kind': {'type': 'string', 'enum': ['CONTRADICTION', 'SCHEME_VS_TEXT_IN_SI', 'SUMMARY_OR_OMISSION', 'DIFFERENT_KIND_OF_QUANTITY']}, 'statement': {'type': 'string'}})},
-             'characterization_frames': {'type': 'array', 'items': obj({'compound': {'type': 'string'}, 'starts_with': {'type': 'string'}})},
+             'characterization_frames': {'type': 'array', 'items': obj({'compound': {'type': 'string'}, 'starts_with': {'type': 'string'}, **FRAME_MARKS})},
              'unresolved': strings})
 
 OPENING = """You are given the main text of a total-synthesis paper and one experiment entry from its Supporting Information (SI), both as parsed text. Figures appear as transcripts: a figure reader copied what is printed in them, and you see no image. Write the entry down as a structured record. Someone who has never seen the paper must be able to repeat the experiment from the record alone, and the system checks every quantity of the record against the entry.
@@ -61,6 +82,10 @@ STAGES = """What a block holds:
 - materials of a step: every substance used in it, with every quantity the authors print for it. conditions of a step: each temperature, each duration, the atmosphere, each repeat count.
 - outcomes: everything the authors isolate and report (the product, a side product, a second isomer, recovered starting material), each with every reported quantity (mass, amount, yield, ratio such as dr) and its appearance."""
 
+FRAME_SENTENCE = ("in the entry's text a data mark such as ⟦d4⟧ stands where each block begins and where each piece of data begins; point at the data in "
+                  "characterization_frames: the compound, from the data mark where its data begin, to the data mark of its last piece, and starts_with "
+                  "the first few words after the from mark. A data mark only points at the data and is not a quantity mark: it is never listed under not_recorded; and give the marks that fall inside it under not_recorded.")
+GENERAL_SENTENCE = """The SI general methods. A mark such as ⟦g3⟧ stands before each sentence of the general methods. What they state holds for the experiments of the paper unless an entry says otherwise. For each block, general_methods lists the marks of the sentences that state how this block's reaction itself was run (the gas over it, the state of the solvents and reagents it used) and that this entry neither overrides nor states differently; the system copies those sentences into the record. Sentences about instruments, measurements, workup or purification are not listed, nor is a sentence that the entry's own text overrides. Nothing of the general methods is written into the actions."""
 CLOSING = """Quantities are only useful if they are faithful, so the record holds what is printed and nothing else.
 - Never compute, convert or complete: no equivalents, totals or units that the authors did not print. A quantity written in words stays in words.
 - A number that describes a substance is a quantity of that substance, whatever it measures: its concentration, its purity or strength, as much as its mass, volume or amount.
@@ -73,8 +98,8 @@ The main text is there to settle what the entry leaves unclear (which compound a
 - SUMMARY_OR_OMISSION: the other place only leaves something out, rounds it, or names a nominal scale; nothing is contradicted.
 - DIFFERENT_KIND_OF_QUANTITY: the two numbers measure different things, such as two kinds of yield.
 A number or label that looks misprinted is quoted as printed, not corrected.
-
-Characterization data (Rf, NMR, HRMS, IR, melting point, optical rotation) is kept verbatim by the system and is not copied into the record: point at it in characterization_frames (the compound, the first few words), and give the marks that fall inside it under not_recorded.
+""" + ("\n" + GENERAL_SENTENCE + "\n" if GENERAL_MARKS else "") + """
+Characterization data (Rf, NMR, HRMS, IR, melting point, optical rotation) is kept verbatim by the system and is not copied into the record: """ + (FRAME_SENTENCE if DATA_MARKS else "point at it in characterization_frames (the compound, the first few words), and give the marks that fall inside it under not_recorded.") + """
 entry_kind is a label and changes nothing about what is recorded: every entry is written down in full as described above, as faithfully as the fields allow. SYNTHESIS: the entry tells how a compound was made and isolated, whatever the means. CONDITIONS_TRIED_OR_FAILED_ATTEMPT: the entry as a whole is a set of conditions screened or an attempt reported as not having worked. NOT_A_PREPARATION: the entry makes no compound (an assay, a measurement protocol, a calculation, the preparation of a protein or a cell culture).
 What cannot be decided from the text (a garbled number, an owner that is not clear) is said in unresolved, not guessed."""
 SYSTEM = '\n\n'.join([OPENING, ACTIONS if FORM == 'actions' else STAGES, CLOSING])
@@ -82,27 +107,67 @@ SYSTEM = '\n\n'.join([OPENING, ACTIONS if FORM == 'actions' else STAGES, CLOSING
 blocks = {}
 for line in (pack / 'inputs/si/blocks.jsonl').read_text(encoding='utf-8').splitlines():
     row = json.loads(line); blocks['SI-P%04d-B%04d' % (row['page_idx'], row['reading_order'])] = row
-units = [(i, u) for i, u in enumerate(json.loads((pack / 'inputs/si/units.json').read_text(encoding='utf-8'))['units']) if u['kind'] == 'PROCEDURE']
+all_units = json.loads((pack / 'inputs/si/units.json').read_text(encoding='utf-8'))['units']
+units = [(i, u) for i, u in enumerate(all_units) if u['kind'] == 'PROCEDURE']
+# REFERENCED_PROCEDURES=1: a procedure the entry names (General Procedure 1, Method B, the procedure for 12) and the SI heads by that name
+# is given to the task before the entry, for reading (tools/procedure_refs.py); off, the task reads the main text and its entry only
+REFS = os.environ.get('REFERENCED_PROCEDURES') == '1'
 sheet = collections.defaultdict(list)
 if (pack / 'worksheets/A_procedure_quantities.csv').exists():
     for row in csv.DictReader(open(pack / 'worksheets/A_procedure_quantities.csv', encoding='utf-8-sig')): sheet[row['entry']].append(row)
-main_text = package.split('## 2. SI: GENERAL METHODS')[0]
+# what every entry task reads before its entry: the main text and the SI general methods (2026-10-20: before, the general methods were cut
+# off, so the drying, the atmosphere and the like they state reached no entry task); the model decides what of them applies
+main_text = package.split('## 3. SI: EXPERIMENT ENTRIES')[0]
+general = package.split('## 2. SI: GENERAL METHODS', 1)[1].split('## 3. SI: EXPERIMENT ENTRIES')[0] if '## 2. SI: GENERAL METHODS' in package else ''
+general_items = gm.items(package) if GENERAL_MARKS else []
+if GENERAL_MARKS: main_text = gm.show(main_text, general_items)
 figures = {m.group(1): m.group(0) for m in re.finditer(r'\[FIGURE (SI-P\d+-B\d+).*?(?=\n\n|\Z)', package, re.S)}
 entries = []
 for n, (index, unit) in enumerate(units, 1):
-    texts, marks = qm.mark_entry(unit['block_ids'], blocks, sheet[f'E{n:02d}'])
+    input_ids, linked_units = hr.input_blocks(index, all_units)
+    texts, marks = qm.mark_entry(input_ids, blocks, sheet[f'E{n:02d}'])
+    entry_items = dm.items(texts) if DATA_MARKS else []; shown = dm.show(texts, entry_items) if DATA_MARKS else {b: t['marked'] for b, t in texts.items()}
     parts = [f"### Entry {n} (compound label as segmented: {unit['compound_label']}; SI page {blocks[unit['block_ids'][0]]['page_idx'] + 1})"]
-    for block_id in unit['block_ids']:
-        if texts[block_id]['marked'].strip(): parts.append(f"[{block_id}] {texts[block_id]['marked']}")
+    for block_id in input_ids:
+        if texts[block_id]['marked'].strip(): parts.append(f"[{block_id}] {shown[block_id]}")
         if block_id in figures: parts.append(figures[block_id])
-    entries.append({'n': n, 'entry': f'E{n:02d}', 'si_unit': index, 'text': '\n\n'.join(parts), 'texts': texts, 'marks': marks, 'scheme': '\n'.join(figures[b] for b in unit['block_ids'] if b in figures)})
+    entries.append({'n': n, 'entry': f'E{n:02d}', 'si_unit': index, 'input_block_ids': input_ids, 'linked_data_units': linked_units, 'text': '\n\n'.join(parts), 'texts': texts, 'marks': marks, 'data_marks': entry_items,
+                    'refs': procedure_refs.section(procedure_refs.referred(index, all_units, blocks)) if REFS else '', 'scheme': '\n'.join(figures[b] for b in input_ids if b in figures)})
+    # the passages a quotation may come from besides the entry's own blocks: its figures, the general methods, a referenced procedure
+    entries[-1]['also_printed'] = '\n'.join([entries[-1]['scheme'], general, entries[-1]['refs']])
+# Include provider-visible prompt dependencies without reading any credential file.
+prompt_dependencies = {}
+if os.environ.get('SHIM_REPLACE'):
+    prompt_dependencies['replacements'] = Path(os.environ['SHIM_REPLACE']).read_text()
+for marker, filename in json.loads(os.environ.get('SHIM_ADDENDA') or '{}').items():
+    prompt_dependencies[marker] = Path(filename).read_text()
+for item in entries:
+    item['input_fingerprint'] = hashlib.sha256(json.dumps({'version': 'stage1-H1-H8', 'system': SYSTEM, 'shim': prompt_dependencies, 'model': MODEL, 'effort': effort, 'schema': ENTRY, 'text': item['text'], 'refs': item['refs'], 'main': main_text, 'marks': item['marks'], 'data': item['data_marks'], 'general': general_items}, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 cost = collections.Counter(); calls = []
+
+
+# TSDAF_NO_STREAM=1 (2026-10-21): one call answered whole instead of streamed. lpzproxy gives Gemini's thinking text only in a whole answer,
+# never in a stream, and every run keeps its thinking; with no keep-alives in a whole answer the read timeout holds (NO_STREAM_TIMEOUT)
+NO_STREAM = os.environ.get('TSDAF_NO_STREAM') == '1'; NO_STREAM_TIMEOUT = float(os.environ.get('NO_STREAM_TIMEOUT', '900'))
+
+
+def whole(messages, schema_name, schema):
+    """(content, usage) of one call answered whole, in the shape streamed() gives."""
+    r = client.with_options(timeout=NO_STREAM_TIMEOUT).chat.completions.create(model=MODEL, messages=messages, reasoning_effort=effort,
+            response_format={'type': 'json_schema', 'json_schema': {'name': schema_name, 'strict': True, 'schema': schema}})
+    choice = r.choices[0] if r.choices else None; content = (choice.message.content if choice else None) or ''
+    usage = {**(r.usage.model_dump(exclude_none=True) if r.usage else {}), 'answered_as': getattr(r, 'model', None)}
+    if not content.strip():
+        raise ValueError(f"empty answer (finish {choice.finish_reason if choice else None}, output tokens {usage.get('completion_tokens')}, of them thought {(usage.get('completion_tokens_details') or {}).get('reasoning_tokens')})")
+    usage['finish'] = choice.finish_reason
+    return content, usage
 
 
 def streamed(messages):
     """The answer of one streamed call. The gateway sends a keep-alive every 15 s while the model is silent, and a keep-alive also resets
     the client's read timeout, so a stream whose model has stopped would be waited on forever: a watch closes the stream when no chunk of
     the model's own (thinking or answer) has come for SILENCE seconds."""
+    if NO_STREAM: return whole(messages, 'entry', ENTRY)
     stream = client.chat.completions.create(model=MODEL, messages=messages, reasoning_effort=effort, stream=True, stream_options={'include_usage': True},
                                             response_format={'type': 'json_schema', 'json_schema': {'name': 'entry', 'strict': True, 'schema': ENTRY}})
     heard, done, stalled = [time.monotonic()], threading.Event(), []
@@ -159,37 +224,50 @@ def ask(messages, what):
 
 
 def located(record, texts):
-    """Where each action's begins_with is printed (block, offset), found by the host; None when the entry does not print those words."""
-    flat = [(block_id, qm.squeeze(t['plain'])) for block_id, t in texts.items()]; found = []
-    for block in record.get('blocks') or []:
-        for action in block.get('actions') or []:
-            words = qm.squeeze(action.get('begins_with')); place = None
-            for order, (block_id, text) in enumerate(flat):
-                at = text.find(words) if words else -1
-                if at >= 0: place = [block_id, order, at]; break
-            found.append(place)
+    return hr.locate(record, texts)
+
+
+def order_checked(record, texts, places):
+    return hr.order_checked(record, texts, places)
+
+
+def summary(found): return {k: (v if k in ('unplaced', 'repeated', 'unknown', 'not_printed', 'printed_apart', 'no_wording', 'frame_issues', 'problems') else len(v)) for k, v in found.items()}
+
+
+def checked(record, item):
+    """The host's check of a record: its quantities against the marks (quantity_marks.reconcile) and, with data marks, its characterization
+    frames against them (data_marks.frame_issues); one count of problems for the hand-back and for keeping the better of two answers."""
+    found = qm.reconcile(record, item['texts'], item['marks'], item['also_printed'])
+    if DATA_MARKS:
+        issues = dm.frame_issues(record, item['data_marks'], item['texts'])
+        found = {**found, 'frame_issues': [[c, w] for c, w in issues], 'problems': found['problems'] + len(issues)}
     return found
 
 
-def summary(found): return {k: (v if k in ('unplaced', 'repeated', 'unknown', 'not_printed', 'no_wording', 'problems') else len(v)) for k, v in found.items()}
+def note(found, item):
+    return qm.hand_back_note(found, item['marks']) + (dm.issue_note([tuple(x) for x in found.get('frame_issues') or []]) if DATA_MARKS else '')
 
 
 def run(item):
-    messages = [{'role': 'system', 'content': SYSTEM}, {'role': 'user', 'content': 'THE MAIN TEXT\n\n' + main_text + '\n\nTHE ENTRY TO WRITE\n\n' + item['text']}]
+    messages = [{'role': 'system', 'content': SYSTEM}, {'role': 'user', 'content': 'THE MAIN TEXT\n\n' + main_text + '\n\n' + item['refs'] + 'THE ENTRY TO WRITE\n\n' + item['text']}]
     first = record = ask(messages, f"entry {item['n']}")
-    base = {'entry': item['entry'], 'n': item['n'], 'si_unit': item['si_unit'], 'marks': item['marks']}
+    base = {'entry': item['entry'], 'n': item['n'], 'si_unit': item['si_unit'], 'input_block_ids': item['input_block_ids'], 'linked_data_units': item['linked_data_units'], 'input_fingerprint': item['input_fingerprint'], 'general_items': general_items, 'marks': item['marks'], **({'data_marks': item['data_marks']} if DATA_MARKS else {})}
     if record is None: return {**base, 'record': None, 'first_record': None, 'handed_back': None, 'check': None, 'resolved': None, 'kept': None}
-    found = first_found = qm.reconcile(record, item['texts'], item['marks'], item['scheme']); handed = None; kept = 'first'
+    found = first_found = checked(record, item); handed = None; kept = 'first'
     if found['problems']:
         handed = summary(found)
-        second = ask(messages + [{'role': 'assistant', 'content': json.dumps(record, ensure_ascii=False)}, {'role': 'user', 'content': qm.hand_back_note(found, item['marks'])}], f"entry {item['n']} handed back")
+        second = ask(messages + [{'role': 'assistant', 'content': json.dumps(record, ensure_ascii=False)}, {'role': 'user', 'content': note(found, item)}], f"entry {item['n']} handed back")
         if second is not None:
-            again = qm.reconcile(second, item['texts'], item['marks'], item['scheme'])
-            # The second record replaces the first only when it closes better; a rewrite that loses more than it repairs is not accepted.
+            again = checked(second, item)
+            # Selection compares mechanical issues only; both actual replies remain in the thought/response log. It does not assess scientific completeness.
             if again['problems'] < found['problems']: record, found, kept = second, again, 'second'
             handed['second_problems'] = again['problems']
-    return {**base, 'record': record, 'first_record': first if handed else None, 'handed_back': handed, 'kept': kept, 'entry_kind': record.get('entry_kind'), 'check': summary(found),
-            'resolved': qm.resolve(record, item['texts'], item['marks']), 'action_places': located(record, item['texts']) if FORM == 'actions' else None}
+    resolved, general_unknown = qm.resolve(record, item['texts'], item['marks']), []
+    places, review = order_checked(record, item['texts'], located(record, item['texts'])) if FORM == 'actions' else (None, [])
+    if GENERAL_MARKS: resolved, general_unknown = gm.applied(resolved, general_items)      # a mark that does not exist is dropped and listed
+    resolved, quantity_risks = hr.quantity_safety(resolved, item['texts'], item['marks'])
+    return {**base, 'quantity_risks': quantity_risks, 'record': record, 'first_record': first if handed else None, 'handed_back': handed, 'kept': kept, 'entry_kind': record.get('entry_kind'), 'check': summary(found),
+            'resolved': resolved, **({'general_unknown': general_unknown} if GENERAL_MARKS else {}), 'action_places': places, 'order_review': review}
 
 
 began = time.monotonic()
@@ -204,9 +282,20 @@ if '--resume' in sys.argv and (out / 'results.json').exists():
     earlier = json.loads((out / 'results.json').read_text(encoding='utf-8')); calls[:0] = earlier.get('calls') or []
     previous = {r['n']: r for r in earlier['results'] if r.get('record')}
 same_marks = lambda a, b: [(m['block_id'], m['raw'], m['unit']) for m in a] == [(m['block_id'], m['raw'], m['unit']) for m in b]
+# RECORD_ONLY=E03,E07 (with --resume): only these entries are asked again; every other entry is kept from the last recording, and the run
+# stops before any call if one of them has no record to keep -- a replay of named entries asks nothing else.
+ONLY = {e.strip() for e in os.environ.get('RECORD_ONLY', '').split(',') if e.strip()}
+# RECORD_KEEP_ANY=1 (2026-10-25, diagnosis only): with RECORD_ONLY, the entries outside the list are kept as they are even when another model
+# or prompt made them (a trace of a few entries by another model on the inputs of a finished run); never set in a recording run
+KEEP_ANY = os.environ.get('RECORD_KEEP_ANY') == '1'
+if ONLY:
+    previous = {n: r for n, r in previous.items() if f'E{n:02d}' not in ONLY}
+    missing = [item['entry'] for item in entries if item['entry'] not in ONLY and not (item['n'] in previous and (KEEP_ANY or previous[item['n']].get('input_fingerprint') == item['input_fingerprint']) and same_marks(previous[item['n']]['marks'], item['marks']))]
+    if missing: raise SystemExit(f'RECORD_ONLY: entries outside the list have no record to keep: {missing}')
 def run_or_keep(item):
     kept = previous.get(item['n'])
-    return {**kept, 'resumed': True} if kept and same_marks(kept['marks'], item['marks']) else run(item)
+    keep_any = KEEP_ANY and ONLY and item['entry'] not in ONLY
+    return {**kept, 'resumed': True} if kept and (keep_any or kept.get('input_fingerprint') == item['input_fingerprint']) and same_marks(kept['marks'], item['marks']) else run(item)
 with ThreadPoolExecutor(max_workers=max(1, min(len(entries), int(os.environ.get('RECORD_PARALLEL', '12'))))) as pool: results = list(pool.map(run_or_keep, entries))
 wall = round(time.monotonic() - began, 1); done = [r for r in results if r['record']]
 (out / 'results.json').write_text(json.dumps({'form': FORM, 'wall_seconds': wall, 'longest_call': max((c['seconds'] for c in calls), default=0), 'cost': dict(cost), 'resumed': sum(bool(r.get('resumed')) for r in results), 'calls': calls, 'results': results}, ensure_ascii=False, indent=1), encoding='utf-8')

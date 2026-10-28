@@ -15,10 +15,16 @@ What a corpus of this size needs:
 
 Papers run --papers-at-once at a time (batch/<name>/at_once.txt, which can be changed while the run goes on); several runs of one batch
 may go at once over different papers, each writing only its own papers into the ledger; inside a paper the stages run one after another, and the model calls inside a stage already run
-concurrently. Credentials (D:\\tsdaf-lpz.env, or the file TSDAF_CREDENTIALS names) and the detector settings (D:\\tsdaf\\det\\detector.env) go into the children only.
+concurrently. Credentials (the process environment, or the file TSDAF_CREDENTIALS names) and the detector settings (TSDAF_DETECTOR_ENV, optional) go into the children only.
+
+A stage whose calls the gateway refused (more than a tenth of them, of the pre-stage's places a quarter; content-filter refusals aside) is not done: it is tried again
+after a pause of 15 minutes times the tries (2026-10-28, gateway_failures).
+--stages prepare,owners,prestage (2026-10-27): only these stages run (the others are left as they are), e.g. the pre-stage of a batch
+whose chain runs elsewhere (gm_corpus.py). --thought-shim <dir> (2026-10-27): every model call of a stage keeps its thinking, through the
+shim in <dir> (sitecustomize.py, TSDAF_THOUGHT_LOG), in thoughts/<name>-<paper>.<stage>.jsonl.
 
 usage: batch_run.py <name> <paper list file, one package id per line> [--papers-at-once 3] [--tries 3] [--suffix _b]
-                    [--workflow-model <model>] [--report] [--plan]"""
+                    [--workflow-model <model>] [--stages prepare,owners,prestage,chain] [--thought-shim <dir>] [--report] [--plan]"""
 import json, os, subprocess, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -32,6 +38,9 @@ root = HERE / 'batch' / name; logs = root / 'logs'; logs.mkdir(parents=True, exi
 ledger_file = root / 'status.json'; lock = threading.Lock()
 ledger = json.loads(ledger_file.read_text(encoding='utf-8')) if ledger_file.exists() else {}
 STAGES = ('prepare', 'owners', 'prestage', 'chain')
+RUN = tuple(s for s in option('--stages', ','.join(STAGES)).split(',') if s); SHIM = option('--thought-shim', None)
+if SHIM: (HERE / 'thoughts').mkdir(exist_ok=True)
+if set(RUN) - set(STAGES): raise SystemExit(f'--stages: unknown {sorted(set(RUN) - set(STAGES))}')
 
 
 RUN_ID = time.strftime('%Y%m%d-%H%M%S') + f'-{os.getpid()}'
@@ -76,6 +85,45 @@ def outputs_there(paper, stage):
     return (HERE / 'whole-paper' / label(paper) / 'result.json').exists()
 
 
+# what the content filter answers: gateway 43 says so ('blocked by Gemini's filters'); lpzproxy answers the same requests with no choice at
+# all and the input counted (2026-10-28), which the tools report as 'returned no answer'
+FILTERED = ('filter', 'blocked', 'safety', 'prohibited', 'recitation', 'returned no answer', 'no choices')
+
+
+def gateway_failures(paper, stage):
+    """A stage that exits 0 can still have had its model calls refused by the gateway (2026-10-28: lpzproxy's 'User location is not
+    supported' for every call, gateway 43's account-pool cooldown): its outputs are there but hold errors. Counted here per stage: the
+    figure readings (prepare), the page owners (owners), the reading calls (prestage). A refusal by the provider's content filter is not
+    counted -- the same image is refused again on a retry. Returns (failed, total, a sample) of the other errors."""
+    def tally(errors):
+        errors = [str(e) for e in errors]; bad = [e for e in errors if e and e != 'None' and not any(w in e.lower() for w in FILTERED)]
+        return len(bad), len(errors), (bad[0][:160] if bad else '')
+    try:
+        if stage == 'prepare':
+            rows = [t for t in json.loads((HERE / 'figure-transcript' / 'transcript-fill.json').read_text(encoding='utf-8')) if t['file'].startswith(paper + '.')]
+            return tally([t.get('error') for t in rows])
+        if stage == 'owners':
+            return tally([o.get('error') for o in json.loads((HERE / 'figure-labels' / f'{paper}.owners.json').read_text(encoding='utf-8'))])
+        if stage == 'prestage':
+            # a reading call that failed is tried again, so the calls overstate it: what counts is the places left unread (NOT_READ), and
+            # only when the gateway, not the content filter, refused most of the failed calls
+            report = json.loads((HERE / ('prestage' + SUFFIX) / paper / 'report.json').read_text(encoding='utf-8'))
+            places = report.get('places') or {}; calls = report.get('calls') if isinstance(report.get('calls'), list) else []
+            errors = [str(c.get('error')) for c in calls if c.get('error')]
+            filtered = sum(1 for e in errors if any(w in e.lower() for w in FILTERED)); gateway = [e for e in errors if not any(w in e.lower() for w in FILTERED)]
+            unread = sum(v for k, v in places.items() if 'NOT_READ' in k)
+            return (unread, sum(places.values()), gateway[0][:160]) if gateway and len(gateway) >= filtered else (0, sum(places.values()), '')
+    except (OSError, ValueError, KeyError, TypeError): pass
+    return 0, 0, ''
+
+
+def refused(paper, stage):
+    # the pre-stage keeps the rule's text where a place was not read, and a rerun reads the whole document again: it is redone only when
+    # more than a quarter of its places were left unread; the figure readings and page owners, which later steps rely on, above a tenth
+    failed, total, _ = gateway_failures(paper, stage) if stage != 'chain' else (0, 0, '')
+    return failed > max(2, (0.25 if stage == 'prestage' else 0.1) * total)
+
+
 def command(paper, stage):
     if stage == 'prepare': return [sys.executable, str(TOOLS / 'prestage_paper.py'), paper]
     if stage == 'owners': return [sys.executable, str(TOOLS / 'page_owners.py'), paper]
@@ -110,7 +158,15 @@ def env():
             if sep and (names is None or key.strip() in names): out[key.strip()] = value.strip().strip('"').strip("'")
         return out
     extra = {'TSDAF_WORKFLOW_MODEL': WORKFLOW} if WORKFLOW else {}
-    return {**os.environ, **read(os.environ.get('TSDAF_CREDENTIALS', r'D:\tsdaf-lpz.env'), ('OPENAI_BASE_URL', 'OPENAI_API_KEY')), **read(r'D:\tsdaf\det\detector.env'), **extra,
+    shim = {'PYTHONPATH': os.pathsep.join(filter(None, [SHIM, os.environ.get('PYTHONPATH')]))} if SHIM else {}
+    # credentials (2026-10-28, portable): a file TSDAF_CREDENTIALS names; else the process environment as it is (OPENAI_BASE_URL,
+    # OPENAI_API_KEY); else, on the node the corpus ran on, D:\tsdaf-lpz.env. The detector settings likewise: TSDAF_DETECTOR_ENV, else
+    # D:\tsdaf\det\detector.env where it exists; without them the figures are read unmarked (prestage_paper.py says so).
+    cred_file = os.environ.get('TSDAF_CREDENTIALS') or (None if os.environ.get('OPENAI_API_KEY') else r'D:\tsdaf-lpz.env')
+    det_file = os.environ.get('TSDAF_DETECTOR_ENV') or r'D:\tsdaf\det\detector.env'
+    creds = read(cred_file, ('OPENAI_BASE_URL', 'OPENAI_API_KEY')) if cred_file and Path(cred_file).exists() else {}
+    if not (creds.get('OPENAI_API_KEY') or os.environ.get('OPENAI_API_KEY')): raise SystemExit('no credentials: set OPENAI_BASE_URL and OPENAI_API_KEY, or TSDAF_CREDENTIALS')
+    return {**os.environ, **creds, **(read(det_file) if Path(det_file).exists() else {}), **extra, **shim,
             'PYTHONUTF8': '1', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONUNBUFFERED': '1'}
 
 
@@ -126,8 +182,9 @@ def run_paper(paper):
 def run_stages(paper):
     entry = ledger.setdefault(paper, {})
     for stage in STAGES:
+        if stage not in RUN: continue
         state = entry.setdefault(stage, {'state': 'waiting', 'tries': 0})
-        if state.get('state') == 'done' and outputs_there(paper, stage) and not (stage == 'chain' and gaps(paper)): continue
+        if state.get('state') == 'done' and outputs_there(paper, stage) and not (stage == 'chain' and gaps(paper)) and not refused(paper, stage): continue
         if state.get('state') in ('failed', 'running', 'gaps'):      # a new run of the batch tries a stage that failed (or was cut off) afresh
             state['earlier_tries'] = state.get('earlier_tries', 0) + state['tries']; state['tries'] = 0
         if stage == 'chain' and (HERE / 'whole-paper' / label(paper)).exists() and not outputs_there(paper, stage):
@@ -137,9 +194,16 @@ def run_stages(paper):
             state.update(state='running', tries=state['tries'] + 1, started=time.strftime('%Y-%m-%d %H:%M:%S')); save()
             log = logs / f'{paper}.{stage}.{state["tries"]}.log'; t = time.time()
             with open(log, 'w', encoding='utf-8') as out:
-                code = subprocess.run(command(paper, stage), env=ENV, stdout=out, stderr=subprocess.STDOUT, cwd=str(HERE), creationflags=FLAGS).returncode
+                thoughts = {'TSDAF_THOUGHT_LOG': str(HERE / 'thoughts' / f'{label(paper)}.{stage}.jsonl')} if SHIM else {}
+                code = subprocess.run(command(paper, stage), env={**ENV, **thoughts}, stdout=out, stderr=subprocess.STDOUT, cwd=str(HERE), creationflags=FLAGS).returncode
             tail = log.read_text(encoding='utf-8', errors='replace').strip().splitlines()[-3:]
             state.update(exit=code, seconds=round(time.time() - t), log=log.name, tail=tail)
+            failed, total, sample = gateway_failures(paper, stage) if stage != 'chain' else (0, 0, '')
+            state.update(gateway_failures=f'{failed}/{total}' if total else None)
+            if code == 0 and outputs_there(paper, stage) and refused(paper, stage):
+                # most of its calls refused by the gateway: not done; tried again after a long pause (a gateway cooldown lasts minutes to hours)
+                state.update(state='failed', why=f'gateway refused {failed} of {total} calls: {sample}'); save()
+                time.sleep(900 * state['tries']); continue
             if code == 0 and outputs_there(paper, stage):
                 missing = gaps(paper) if stage == 'chain' else 0
                 state['state'] = 'done' if not missing else 'gaps'; state['gaps'] = missing
@@ -174,7 +238,7 @@ ENV, FLAGS = None, getattr(subprocess, 'BELOW_NORMAL_PRIORITY_CLASS', 0) | getat
 if '--report' in sys.argv: report(); raise SystemExit
 if '--plan' in sys.argv:
     for paper in papers:
-        todo = [st for st in STAGES if not ((ledger.get(paper) or {}).get(st, {}).get('state') == 'done' and outputs_there(paper, st))]
+        todo = [st for st in STAGES if st in RUN and not ((ledger.get(paper) or {}).get(st, {}).get('state') == 'done' and outputs_there(paper, st) and not refused(paper, st))]
         print(paper, 'to run:', todo or 'nothing')
     raise SystemExit
 ENV = env()

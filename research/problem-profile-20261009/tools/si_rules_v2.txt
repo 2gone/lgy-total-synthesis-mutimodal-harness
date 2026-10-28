@@ -1,0 +1,13 @@
+Six cases the rules above leave open, decided here so that the division does not depend on a judgment call.
+
+A heading is the first row of the unit it heads. It is never a unit of its own while a row follows it under that heading: `IV. X-ray Crystallographic Data` followed by the first crystal structure is the first row of that CRYSTALLOGRAPHY unit, and `References` is the first row of the BIBLIOGRAPHY unit.
+
+A row that stands directly above a procedure and carries nothing but that compound's label or name -- it is what the page printed beside the reaction drawing -- is the first row of that PROCEDURE, not a unit of its own. The same holds for a row that is a figure standing directly above a procedure -- the drawing of that reaction: it is the first row of that PROCEDURE.
+
+When a procedure's own row already contains the beginning of its data, the rows that carry the rest of that data (a page break cut it) stay in the same PROCEDURE unit. Data is a separate CHARACTERIZATION unit only when it begins on a row of its own.
+
+Discussion is divided by paragraph, not by topic: every discussion paragraph is one NARRATIVE unit of its own. Two rows are joined only when one sentence runs from the first into the second (a page or column break cut it). Do not join paragraphs because they argue the same point.
+
+Rows of kind OTHER that follow one another are one unit: it runs until the next row of another kind. Do not divide a run of OTHER rows by what they are about, and do not join it to the unit before or after it.
+
+An experimental protocol that prepares no compound the author labels -- an enzyme activity assay, the expression or mutation of a protein, a computational method -- is a PROCEDURE with a null label, one unit per protocol from its title to its last sentence. GENERAL_METHODS is only the preface about instruments, solvents, purification and how spectra were recorded; OTHER is not used for a protocol that says how something was done.

@@ -17,12 +17,14 @@ paper, so that segmentation, not the import, decides where the experimental part
 Writes batch/ready200-import.json (beside the fixtures instead when --fixtures is given: per paper the documents taken, their pages
 in the joined document, and what to look at) and batch/ready200.txt (the paper list for batch_run.py, the largest experimental documents first).
 --plan prints the choices and writes nothing.
-usage: import_ready200.py [--ready D:\\SI_consolidation\\ready_200_20261015_revised10] [--fixtures <dir>] [--only rid,rid] [--id-suffix -m] [--plan]"""
+--name <batch> (2026-10-28): names the report and the paper list (batch/<name>-import.json, batch/<name>.txt); INDEX.csv may give each
+paper its id in a column paper_id.
+usage: import_ready200.py --ready <package set: INDEX.csv + packages/> [--name ready200] [--fixtures <dir>] [--only rid,rid] [--id-suffix -m] [--plan]"""
 import collections, csv, difflib, hashlib, json, re, shutil, sys
 from pathlib import Path
 TOOLS = Path(__file__).resolve().parent; HERE = TOOLS.parent; REPO = HERE.parents[1]
 option = lambda name, default: sys.argv[sys.argv.index(name) + 1] if name in sys.argv else default
-READY = Path(option('--ready', r'D:\SI_consolidation\ready_200_20261015_revised10')); FIX = Path(option('--fixtures', str(REPO / 'tests/fixtures')))
+READY = Path(option('--ready', r'D:\SI_consolidation\ready_200_20261015_revised10')); NAME = option('--name', 'ready200'); FIX = Path(option('--fixtures', str(REPO / 'tests/fixtures')))
 OLD_MAIN = Path(r'D:\tsdaf\packages'); PLAN = '--plan' in sys.argv; ONLY = set(filter(None, option('--only', '').split(','))); SUFFIX = option('--id-suffix', '')
 QUANTITY = re.compile(r'\d\s?(?:mmol|mg|mL|µL|μL)\b')
 
@@ -107,9 +109,11 @@ def join(parts, out, paper_id, doi):
 index = list(csv.DictReader(open(READY / 'INDEX.csv', encoding='utf-8-sig')))
 report, order = {}, []
 for row in index:
-    rid = 'r%03d_%s' % (int(row['legacy_rank']), row['main_sha256'][:8]) + SUFFIX; order.append(rid)
+    # a package set may name its papers itself (INDEX.csv column paper_id, 2026-10-28: the 5+3 reference papers keep their names)
+    rid = (row.get('paper_id') or 'r%03d_%s' % (int(row['legacy_rank']), row['main_sha256'][:8])) + SUFFIX; order.append(rid)
     if ONLY and rid not in ONLY and rid.removesuffix(SUFFIX) not in ONLY: continue
-    paper = Path(row['package_path']); article = json.loads((paper / 'article.json').read_text(encoding='utf-8'))
+    paper = Path(row['package_path']); paper = paper if paper.is_absolute() else READY / paper      # a portable set gives paths relative to itself
+    article = json.loads((paper / 'article.json').read_text(encoding='utf-8'))
     entry = {'position': int(row['position']), 'doi': row['doi'], 'year': row['year'], 'notes': []}
     old = OLD_MAIN / rid.removesuffix(SUFFIX)
     main_source = old if (old / 'normalized/blocks.jsonl').exists() and sha(old / 'normalized/blocks.jsonl') == article['main_input_blocks_sha256'] else paper / 'main'
@@ -153,10 +157,10 @@ for e in report.values():
 print(json.dumps(dict(sorted(counts.items())), indent=1))
 if PLAN: raise SystemExit
 out = FIX if '--fixtures' in sys.argv else HERE / 'batch'; out.mkdir(parents=True, exist_ok=True)
-previous = json.loads((out / 'ready200-import.json').read_text(encoding='utf-8')) if (out / 'ready200-import.json').exists() else {}
-(out / 'ready200-import.json').write_text(json.dumps({**previous, **report}, ensure_ascii=False, indent=1), encoding='utf-8')
+previous = json.loads((out / f'{NAME}-import.json').read_text(encoding='utf-8')) if (out / f'{NAME}-import.json').exists() else {}
+(out / f'{NAME}-import.json').write_text(json.dumps({**previous, **report}, ensure_ascii=False, indent=1), encoding='utf-8')
 if not ONLY:
     # the largest experimental documents first: segmentation reads a document window after window, so a paper of several hundred pages
     # takes an hour or more and should not be the last one running
     order.sort(key=lambda rid: -report[rid]['pages_joined'])
-    (out / 'ready200.txt').write_text(f'# {READY}, the largest experimental documents first (import_ready200.py); notes per paper in ready200-import.json\n' + '\n'.join(order) + '\n', encoding='utf-8')
+    (out / f'{NAME}.txt').write_text(f'# {READY}, the largest experimental documents first (import_ready200.py); notes per paper in {NAME}-import.json\n' + '\n'.join(order) + '\n', encoding='utf-8')

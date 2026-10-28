@@ -1,0 +1,22 @@
+[
+ [
+  "Your work is what only someone who sees the whole paper can write: the paper-level record.",
+  "Your work is what only someone who sees the whole paper can write: the paper-level record. Decide from what the paper reports, not from where a statement is printed or how a field is named; what the project defines for targets, route items and their attribution is stated below."
+ ],
+ [
+  "Keep prepared intermediates and previously reported reference compounds in their stated roles.",
+  "Keep prepared intermediates and previously reported reference compounds in their stated roles. A target the paper reaches stays a TARGET when it is used further; a natural product the paper does not make itself is not a target it reached. Two labels name one compound only where the paper says so: then list it once and note the other label in narrative; labels that differ by a stereochemical prefix or a sign are different compounds."
+ ],
+ [
+  "A route item describes one actual synthesis relationship, not necessarily one SI entry:",
+  "Keep every branch and every substrate of a convergent step; a precursor the paper names without a label is given by its printed name. A route item describes one actual synthesis relationship, not necessarily one SI entry:"
+ ],
+ [
+  "A conversion the paper cites from earlier work instead of carrying it out is a route item too, with entries=[] and reported_by CITED; what the paper itself does is THIS_WORK.",
+  "A conversion the paper cites from earlier work instead of carrying it out is a route item too, with entries=[] and reported_by CITED; what the paper itself does is THIS_WORK. A route item is a conversion reported as done, here or in cited work: a biosynthetic or mechanistic proposal is narrative, not a route item. Where this work goes on to use the product of a cited conversion, the system applies the project's rule for its attribution; give reported_by as the paper tells it."
+ ],
+ [
+  "Do not count steps or multiply yields.",
+  "Look for these statistics throughout the main text, the SI and the notes to schemes and tables, and give also those that cover only part of the route (from a stated starting point or over a stated number of steps); the yield of a single step alone is not one. Do not count steps or multiply yields."
+ ]
+]
