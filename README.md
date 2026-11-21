@@ -48,6 +48,9 @@ python -m tsdaf docs check
 
 常用 CLI、离线/live 边界和恢复行为见 [CLI guide](docs/guides/CLI.md)。`docs/STATUS.md` 是生成文件，只能由生成器更新。
 
+可选的本地网页操作层见 [Web 工作台指南](docs/guides/WEB_WORKBENCH_ZH.md)。它调用现有 CLI，
+不重新实现解析逻辑，也不把原始 PDF/MinerU ZIP 当作生产输入。
+
 ## 阅读地图
 
 1. 协作者和其 agent 先读 [AGENTS.md](AGENTS.md)。

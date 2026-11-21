@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="TS-DAF 总合成文献解析与路由工作台">
+  <title>TS-DAF 工作台</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/styles.css?v=20261111-1">
+</head>
+<body class="landing-mode">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="TS-DAF 首页">
+        <span class="brand-mark" aria-hidden="true">⌬</span>
+        <span><strong>TS-DAF</strong><small>文献解析工作台</small></span>
+      </a>
+      <nav aria-label="主导航">
+        <button class="nav-item active" data-view="workspace"><span>◫</span>解析任务</button>
+        <button class="nav-item" data-view="history"><span>◷</span>运行记录</button>
+        <button class="nav-item" data-view="about"><span>◎</span>流程说明</button>
+      </nav>
+      <div class="sidebar-note">
+        <span class="status-dot"></span>
+        <div><strong>本地模式</strong><small>数据留在当前电脑</small></div>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <a class="topbar-brand" id="home-link" href="#/upload" aria-label="返回上传首页">
+          <span class="brand-mark" aria-hidden="true">⌬</span>
+          <span><strong>TS-DAF</strong><small>文献解析工作台</small></span>
+        </a>
+        <div class="topbar-copy">
+          <p class="eyebrow">TOTAL SYNTHESIS · DOCUMENT ROUTING</p>
+          <h1 id="page-title">解析任务</h1>
+        </div>
+        <div class="topbar-actions">
+          <span class="health" id="health"><i></i>正在连接</span>
+          <button class="ghost-button hidden" id="new-task-button">上传其他文件</button>
+          <button class="ghost-button" id="refresh-button">刷新</button>
+        </div>
+      </header>
+
+      <section class="view active" id="view-workspace">
+        <section class="upload-landing" id="upload-landing">
+          <div class="upload-landing-inner">
+            <p class="eyebrow">TOTAL SYNTHESIS · DOCUMENT ROUTING</p>
+            <h1>上传文献，开始解析</h1>
+            <p class="upload-lead">支持原始论文 PDF 与 TS-DAF 标准解析包 ZIP，系统会自动识别文件类型并进入对应流程。</p>
+            <label class="unified-drop-zone" id="unified-drop-zone" for="document-input">
+              <input id="document-input" type="file" accept=".pdf,.zip,application/pdf,application/zip" hidden>
+              <span class="upload-glyph" aria-hidden="true">↑</span>
+              <strong>点击选择文件，或拖放到这里</strong>
+              <span>PDF 自动进入 MinerU · ZIP 直接校验标准解析包</span>
+              <em>选择文件</em>
+            </label>
+            <div class="upload-meta">
+              <span>PDF / ZIP</span><i></i><span>最大 256 MB</span><i></i><span>数据保留在本机</span>
+            </div>
+            <div class="upstream-state" id="upstream-state"><i></i><span>正在检查解析服务…</span></div>
+            <div class="sample-row landing-samples">
+              <span>快速体验</span>
+              <div id="fixture-chips" class="chips"><span class="muted">正在读取…</span></div>
+            </div>
+          </div>
+        </section>
+
+        <div class="task-workspace hidden" id="task-workspace">
+          <div class="task-heading">
+            <div><p class="eyebrow" id="task-file-kind">DOCUMENT INTAKE</p><h2 id="task-file-name">正在准备文件</h2></div>
+            <span id="task-state-text">识别文件类型</span>
+          </div>
+          <input id="package-path" type="hidden">
+          <button id="validate-button" class="hidden" aria-hidden="true" tabindex="-1">校验解析包</button>
+          <div class="parse-progress hidden" id="parse-progress">
+            <div><strong id="parse-filename">—</strong><span id="parse-message">等待解析</span></div>
+            <em id="parse-percent">0%</em>
+            <div class="progress-bar"><span id="parse-bar"></span></div>
+          </div>
+
+        <section class="package-panel hidden" id="package-panel" aria-live="polite">
+          <div class="panel-heading">
+            <div><span class="success-badge">校验通过</span><h2 id="paper-id">—</h2></div>
+            <div class="panel-actions">
+              <span class="hash" id="package-hash">—</span>
+              <button class="ghost-button" id="download-package-button">下载标准解析包 ZIP</button>
+            </div>
+          </div>
+          <div class="metric-grid">
+            <div><span>文本块</span><strong id="block-count">—</strong></div>
+            <div><span>视觉资产</span><strong id="visual-count">—</strong></div>
+            <div><span>源资产大小</span><strong id="asset-bytes">—</strong></div>
+            <div><span>Schema</span><strong id="schema-version">—</strong></div>
+          </div>
+          <div class="run-strip">
+            <div><strong id="route-action-title">准备验证文章路由接口</strong><span id="route-action-note">接口模拟模式；不读取密钥，不调用真实模型。</span></div>
+            <label class="toggle hidden" id="live-control"><input id="live-toggle" type="checkbox"><span></span><em>显式 Live</em></label>
+            <button id="run-button" class="primary-button">验证接口对接</button>
+          </div>
+          <div class="run-strip chemistry-strip">
+            <div><strong>化学解析</strong><span id="chemistry-action-note">优先读取录制结果；新论文进入 research 四阶段流水线。</span></div>
+            <label class="toggle" id="chemistry-live-control"><input id="chemistry-live-toggle" type="checkbox"><span></span><em>显式 Live</em></label>
+            <button id="chemistry-button" class="primary-button">检查/启动化学解析</button>
+          </div>
+        </section>
+
+        <section class="run-panel hidden" id="chemistry-job-panel" aria-live="polite">
+          <div class="panel-heading">
+            <div><span class="status-badge waiting" id="chemistry-job-status">预检</span><h2 id="chemistry-job-title">Research 化学解析任务</h2></div>
+            <span class="hash" id="chemistry-job-progress">0%</span>
+          </div>
+          <div class="stage-track chemistry-stage-track">
+            <div class="stage" data-chemistry-stage="import"><i>1</i><span>导入<small>Import</small></span></div>
+            <div class="stage" data-chemistry-stage="front"><i>2</i><span>前处理<small>Front</small></span></div>
+            <div class="stage" data-chemistry-stage="chain"><i>3</i><span>实验与论文记录<small>Chain</small></span></div>
+            <div class="stage" data-chemistry-stage="stats"><i>4</i><span>统计与封存<small>Stats</small></span></div>
+          </div>
+          <div class="result-summary chemistry-job-message" id="chemistry-job-message"></div>
+        </section>
+
+        <section class="run-panel hidden" id="run-panel" aria-live="polite">
+          <div class="panel-heading">
+            <div><span class="status-badge" id="run-status">处理中</span><h2 id="run-title">执行详情</h2></div>
+            <button class="ghost-button" id="resume-button">恢复执行</button>
+          </div>
+          <div class="stage-track" id="stage-track">
+            <div class="stage active"><i>1</i><span>包校验<small>Validate</small></span></div>
+            <div class="stage"><i>2</i><span>规范化<small>Canonicalize</small></span></div>
+            <div class="stage"><i>3</i><span>文章路由<small>Main Router</small></span></div>
+            <div class="stage"><i>4</i><span>视觉分诊<small>Visual Triage</small></span></div>
+            <div class="stage"><i>5</i><span>产物封存<small>Seal</small></span></div>
+          </div>
+          <div class="result-grid">
+            <div class="result-summary" id="result-summary"></div>
+            <details class="json-card"><summary>查看原始审计 JSON</summary><pre id="result-json"></pre></details>
+          </div>
+        </section>
+
+        <section class="chemistry-panel hidden" id="chemistry-panel" aria-live="polite">
+          <div class="panel-heading">
+            <div><span class="success-badge" id="chemistry-result-badge">化学解析结果</span><h2 id="chemistry-title">化学解析结果</h2></div>
+            <div class="panel-actions">
+              <span class="hash" id="chemistry-schema">—</span>
+              <a class="ghost-button download-link" id="chemistry-json-download" href="#">下载 JSON</a>
+              <a class="primary-button download-link" id="chemistry-zip-download" href="#">下载结果 ZIP</a>
+            </div>
+          </div>
+          <p class="audit-note" id="chemistry-audit-note">录制结果只用于接口和页面测试，不代表本次重新调用了模型。</p>
+          <div class="metric-grid chemistry-metrics">
+            <div><span>化合物</span><strong id="chemistry-compounds">—</strong></div>
+            <div><span>反应块</span><strong id="chemistry-reactions">—</strong></div>
+            <div><span>合成路线</span><strong id="chemistry-routes">—</strong></div>
+            <div><span>表征记录</span><strong id="chemistry-characterization">—</strong></div>
+            <div><span>字段冲突</span><strong id="chemistry-conflicts">—</strong></div>
+            <div><span>待解决项</span><strong id="chemistry-unresolved">—</strong></div>
+          </div>
+          <div class="chemistry-overview" id="chemistry-overview"></div>
+          <div class="chemistry-content-grid">
+            <section>
+              <div class="subheading"><div><span>REACTION BLOCKS</span><h3>路线反应块</h3></div><em id="reaction-list-count">—</em></div>
+              <div class="reaction-list" id="chemistry-reaction-list"></div>
+            </section>
+            <section>
+              <div class="subheading"><div><span>COMPOUNDS</span><h3>化合物索引</h3></div><em id="compound-list-count">—</em></div>
+              <div class="compound-list" id="chemistry-compound-list"></div>
+            </section>
+          </div>
+          <details class="json-card chemistry-json"><summary>查看完整化学解析 JSON</summary><pre id="chemistry-json"></pre></details>
+        </section>
+        </div>
+      </section>
+
+      <section class="view" id="view-history">
+        <div class="section-intro"><div><h2>运行记录</h2><p>记录来自本机不可变 execution 证据，不是浏览器临时历史。</p></div><button class="ghost-button" id="history-refresh">重新读取</button></div>
+        <div class="history-list" id="history-list"><div class="empty-state">还没有运行记录</div></div>
+      </section>
+
+      <section class="view" id="view-about">
+        <div class="about-grid">
+          <article><span>01</span><h3>标准解析包</h3><p>输入包含 manifest、规范化文本块、视觉资产和哈希清单。原始 PDF 保持为不可变证据。</p></article>
+          <article><span>02</span><h3>文本优先路由</h3><p>Main Router 只读文本；只有明确标记的视觉资产才进入隔离的 visual triage。</p></article>
+          <article><span>03</span><h3>可恢复执行</h3><p>每个 execution 都留下 event、artifact、seal 与 manifest，可验证、可检查、可恢复。</p></article>
+          <article><span>04</span><h3>化学结果合同</h3><p>前端原生读取 machine-paper-result 合同；当前使用仓库真实录制结果，之后替换成服务端接口无需重写页面。</p></article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="structure-preview-dialog" id="structure-preview-dialog">
+    <button class="dialog-close" type="button" aria-label="关闭结构图预览">×</button>
+    <div class="structure-preview-canvas"><img id="structure-preview-image" alt=""></div>
+    <div class="structure-preview-copy">
+      <p>STRUCTURE RECOGNITION CROP</p>
+      <h3 id="structure-preview-title">结构识别图</h3>
+      <code id="structure-preview-smiles">—</code>
+      <span id="structure-preview-meta">—</span>
+    </div>
+  </dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <div class="busy hidden" id="busy"><span></span><strong id="busy-text">正在处理…</strong></div>
+  <script src="/app.js?v=20261111-1" defer></script>
+</body>
+</html>

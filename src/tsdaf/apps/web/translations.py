@@ -1,0 +1,111 @@
+# Curated display translations for the five immutable recorded results. They are presentation
+# metadata only and never replace the English machine fact stored in machine-paper-result.json.
+_RECORDED_REACTION_SUMMARY_ZH: dict[str, tuple[str, ...]] = {
+    "alchivemycin_A": (
+        "化合物 13 经 PMB 保护生成 14",
+        "区域选择性脱除 14 的末端缩酮保护基，生成二醇 15",
+        "选择性乙酰化 15 的伯醇，生成 16",
+        "对 16 的仲醇进行 TBS 保护，生成 17",
+        "DIBAL-H 脱乙酰化 17，生成伯醇 18",
+        "18 经氧化、与 19 衍生的烯基锂加成并脱硅，生成二醇 20 和 epi-20",
+        "20 经 MOM 保护和 PMB 脱保护，生成片段 12",
+        "20 经丙酮叉保护生成 21，用于立体化学确认",
+        "12 和 11 经汇聚式硼氢化与 Suzuki–Miyaura 偶联生成 10",
+        "10 经三氟甲磺酰化和构型反转叠氮化，生成叠氮化物 22",
+        "22 经 TIPS 脱保护和 DMP 氧化，生成醛 23",
+        "23 与 MeOAc 发生羟醛加成并经 DMP 氧化，生成 β-酮酯 24",
+        "PMe3 还原叠氮化物 24，生成胺 25",
+        "25 与溴乙酸甲酯发生 N-烷基化，生成 9",
+        "9 经分子内氨解构建大环内酰胺 26",
+        "26 经脱保护和 Lacey–Dieckmann 缩合，生成四氢吡咯酸 8",
+        "AvmO3 催化 8 单环氧化，生成十氢萘环氧化物 28",
+        "AvmO2 催化 28 环氧化，生成双环氧化物 30",
+        "AvmO1-Y282R 催化 30 扩环，生成 alchivemycin A（1）",
+    ),
+    "hyperfirin": (
+        "二甲基铜酸盐与 9a/9b 共轭加成，并用 TSE 氰基甲酸酯捕获烯醇盐，生成 11a",
+        "β-酮酯 11a 经硒化和氧化消除去饱和化，生成双活化 Michael 受体 13",
+        "高异戊烯基格氏试剂与 13 共轭加成，生成非对映异构体 14a 和 14b",
+        "使用 DBU 使非对映异构体发生热力学平衡",
+        "14a 经酸催化直接形成烯醇醚 15",
+        "TBAF 脱除 15 的 TSE 酯保护基，生成羧酸 16",
+        "16 经跨环酰化构建双环[3.3.1]壬烷核心醇 19",
+        "PCC 氧化双环醇 19，生成烯二酮 21",
+        "21 经区域异构化并形成烯醇醚 22",
+        "22 使用 Cy2NLi 和溴代异戊烯在 C-5 桥头位异戊烯基化，生成 23",
+        "23 使用 LTMP 和 TsCl 在 C-3 桥头位氯化，生成 24",
+        "24 使用 LTMP 和异丁酰氯在 C-1 桥头位直接酰化，生成 25",
+        "24 使用异丁酰氰在 C-1 位酰化，生成 25 和氰醇 26",
+        "氰醇 26 经碱促进消除，生成酮 25",
+        "氯化物 25 在 C-3 桥头位异戊烯基化，生成 O-甲基 hyperfirin 27",
+        "27 在 DMSO 中经 LiCl 脱甲基，完成 hyperfirin 1 的合成",
+    ),
+    "ineleganolide": (
+        "醛 7 同系化生成环氧化物 8",
+        "脱除 TES/TBS 醚保护基并选择性保护仲醇，生成 9",
+        "9 经 MgI2 开环，生成碘代醇 10",
+        "碘代醇 10 经 TES 保护和分子内烷基化，生成氧杂三环化合物 11",
+        "PPTS 促进 11 选择性脱除 TES 保护基，生成醇 12",
+        "12 经 Swern 氧化和 HF 促进的 TBS 脱保护，生成烯酮 5",
+        "酸 6 与烯酮 5 经鏻盐促进的酯化偶联，生成酯 4",
+        "酯 4 在高温和 DBU 促进下发生级联环化，生成五环化合物 15",
+        "15 经 TES 保护和 SmI2 促进的还原消除，生成烯酮 16",
+        "16 经 DBU/O2 促进的有氧氧化与环氧化，生成环氧半缩醛 17",
+        "环氧半缩醛 17 经乙酰化，生成乙酸酯 18",
+        "18 经 SmI2 促进的还原开环和半频哪醇重排，生成（+）-ineleganolide",
+    ),
+    "kalmanol": (
+        "烯酮 6 经 1,4-加成和 Comins 三氟甲磺酰化转化为环戊烯基三氟甲磺酸酯 7",
+        "7 与环丙基溴化镁经铁催化交叉偶联，生成 ene-VCP 5",
+        "5 与 CO 经铑催化 [5+2+1] 环加成，生成三环酮 4",
+        "酮 4 经烯丙基化，以单一异构体形式生成酮 8",
+        "烯丙基化酮 8 经 Tsuji–Wacker 氧化，生成甲基酮 9",
+        "二酮 9 经分子内羟醛缩合，生成四环环戊烯酮 10 和 C5-epi-9",
+        "回收 C5-epi-9 并重新生成四环化合物 10",
+        "四环化合物 10 经偕二甲基化，生成四环化合物 3",
+        "烯酮 3 在 C5 位发生 γ-羟基化，生成 11",
+        "H2SO4 促进 11 脱除 TBS 保护基，生成二醇 12",
+        "二醇 12 经羟基导向的 Mukaiyama 水合，生成三醇 13",
+        "一锅构建 C8,C16-亚苄基缩醛并消除 C5-OH，生成二烯 14",
+        "二烯 14 经双羟基化和 MOM 保护，生成双 MOM 醚 15",
+        "15 经一锅 C10 γ-羟基化和 TES 保护，生成烯酮 16",
+        "酮 16 经 DIBAL-H 还原和 MOM 保护，生成烯烃 17",
+        "17 经 TES 脱保护、DMP 氧化和 DBU 促进的 C9 差向异构化，生成烯酮 18",
+        "甲基氯化铈与烯酮 18 加成，生成叔醇 19",
+        "Pd(OH)2/C 催化氢化并裂解亚苄基缩醛，生成三醇 20",
+        "RuO4 氧化并经 KOH 处理实现全局 MOM 脱保护，生成（+）-kalmanol",
+    ),
+    "principinol_B": (
+        "9 与 10 和 CNCOOEt 共轭加成并捕获，随后与 2,3-二溴丙烯烷基化，两步以 64% 收率生成 8",
+        "8 经 HBF4·Et2O/H2O2 Tamao–Fleming 氧化并自发内酯化，两步以 73% 收率生成 11",
+        "11 经 CuCl2 氧化硅烷消除和 Luche 还原，两步以 53% 收率生成烯丙醇 7",
+        "7 经 n-Bu3SnH/AIBN 自由基环化并一锅 TfOH 处理，生成 12（20%）和 13（31%）",
+        "12 在 −40 ℃、DCM 中经 TfOH 异构化，以 60% 收率生成 13（brsm 71%）",
+        "13 经 TBS 保护并一锅 DIBAL-H 还原，以 87% 收率生成半缩醛 14",
+        (
+            "14 与 vinylMgBr 加成、Ac2O 淬灭、钯催化烯丙基乙酸酯还原并经 MeONa "
+            "脱乙酰，两步以 76% 收率生成醇 15"
+        ),
+        "15 经 Parikh–Doering 氧化，以 93% 收率生成醛 6",
+        "5 与 6 在 LiHMDS 作用下发生分子间羟醛反应，生成 deTMS-4",
+        "deTMS-4 经 TMSOTf 进行 TMS 保护，两步以 88% 收率生成酮 4",
+        "4 在 100 ℃ 下经 Cp2TiMe2 促进羰基-烯烃复分解并一锅脱除 TMS，以 51% 收率生成四环化合物 3",
+        "3 经 Dess–Martin 氧化、甲基铈加成和 SOCl2 脱水，三步以 81% 收率生成三烯 16",
+        "16 的 C15=C16 双键在 −60 ℃ 下经 m-CPBA 选择性环氧化，以 77% 收率生成环氧化物 17",
+        "17 经 OsO4 双羟基化并用 MsCl 选择性甲磺酰化仲醇，两步以 65% 收率生成 18",
+        "18 经 Mukaiyama 水合并自发分子内 Williamson 醚化，以 71% 收率生成五环化合物 19",
+        "19 经 TiCl4/Zn/Py 环氧脱氧并一锅 6 M HCl 脱除 TBS，以 66% 收率生成 principinol B（1）",
+        "对照底物 20 在 100 ℃ 下与 Petasis 试剂烯化，以 24% 收率生成 21",
+        "三烯 16 在 −15 ℃ 下用过量 m-CPBA 双环氧化，以 60% 收率生成双环氧化物 26",
+        "26 经 Mukaiyama 水合，以 74% 收率生成叔醇 27（dr=5:4）",
+    ),
+}
+
+
+def reaction_summary_zh(paper_id: str, source_order: object) -> str | None:
+    if not isinstance(source_order, int) or source_order < 1:
+        return None
+    translations = _RECORDED_REACTION_SUMMARY_ZH.get(paper_id)
+    if translations is None or source_order > len(translations):
+        return None
+    return translations[source_order - 1]

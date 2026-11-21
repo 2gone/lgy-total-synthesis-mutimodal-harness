@@ -2,8 +2,10 @@
 .env.*
 !.env.example
 .tsdaf-workspace/
+.tsdaf-web/
 
 .venv/
+.mineru/
 venv/
 __pycache__/
 *.py[cod]
@@ -26,3 +28,4 @@ Thumbs.db
 
 .work/
 *.tmp
+/tmp/

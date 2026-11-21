@@ -18,8 +18,21 @@ router = [
 image = [
   "Pillow>=12,<13",
 ]
+web = [
+  "fastapi>=0.115,<1",
+  "uvicorn>=0.34,<1",
+]
+research = [
+  "openai>=2.29,<3",
+  "PyMuPDF>=1.27",
+  "pdfplumber>=0.11",
+  "pypdfium2>=5.11",
+  "Pillow>=12,<13",
+  "jsonschema>=4.25",
+]
 fusion = []
 dev = [
+  "httpx>=0.28,<1",
   "mypy>=1.14,<2",
   "pytest>=8.3,<9",
   "pytest-cov>=6,<8",
@@ -28,10 +41,11 @@ dev = [
 
 [project.scripts]
 tsdaf = "tsdaf.apps.cli:main"
+tsdaf-web = "tsdaf.apps.web.server:main"
 
 [tool.setuptools]
 package-dir = { "" = "src" }
-include-package-data = true
+include-package-data = false
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -40,7 +54,7 @@ exclude = ["tests*"]
 namespaces = false
 
 [tool.setuptools.package-data]
-tsdaf = ["py.typed"]
+tsdaf = ["py.typed", "apps/web/static/*"]
 
 [tool.pytest.ini_options]
 addopts = "-ra --strict-config --strict-markers"

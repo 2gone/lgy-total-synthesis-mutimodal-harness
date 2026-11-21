@@ -7,6 +7,7 @@ import json
 import re
 import sqlite3
 from collections.abc import Callable, Mapping
+from contextlib import closing
 from pathlib import Path
 from typing import Any
 
@@ -428,7 +429,7 @@ def execute_route_workflow(
 
 def _execution_row(workspace: Path, execution_id: str) -> tuple[str, str, str | None] | None:
     database = workspace / "index.sqlite"
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection:
         row = connection.execute(
             "SELECT status, created_at, finished_at FROM executions WHERE execution_id = ?",
             (execution_id,),
@@ -648,7 +649,7 @@ def inspect_execution(
                 execution_id=execution_id,
             )
         status, created_at, finished_at = execution
-        with sqlite3.connect(workspace / "index.sqlite") as connection:
+        with closing(sqlite3.connect(workspace / "index.sqlite")) as connection:
             attempt_rows = connection.execute(
                 """
                 SELECT attempt_id, stage_name, stage_version, content_key, status,
